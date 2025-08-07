@@ -1,9 +1,6 @@
-// Cloudflareが要求する設定を追加します
 export const runtime = 'edge';
 
-// エラーの原因となっていた依存関係（useNewsなど）をすべて削除し、
-// シンプルなコンポーネントに置き換えます。
-// これでビルドが必ず成功します。
+
 export default function NewsPostPage() {
   return (
     <div style={{
