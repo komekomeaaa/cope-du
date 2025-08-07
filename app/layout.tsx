@@ -1,23 +1,15 @@
 import type { Metadata } from "next";
-import localFont from "next/font/local";
 import "./globals.css";
-import { NewsProvider } from "./contexts/NewsContext";
+import { GeistSans } from "geist/font/sans";
+import { GeistMono } from "geist/font/mono";
 
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff2",
-  variable: "--font-geist-sans",
-  weight: "100 900",
-});
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff2",
-  variable: "--font-geist-mono",
-  weight: "100 900",
-});
+const fontSans = GeistSans;
+const fontMono = GeistMono;
 
 export const metadata: Metadata = {
   title: "TechCorp - 未来を創るテクノロジー",
   description: "革新的なソリューションで、お客様のビジネスを次のステージへ",
-    generator: 'v0.dev'
+  generator: 'v0.dev'
 };
 
 export default function RootLayout({
@@ -26,13 +18,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ja">
+    <html lang="ja" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${fontSans.variable} ${fontMono.variable} antialiased`}
       >
-        <NewsProvider>
-          {children}
-        </NewsProvider>
+        {/* NewsProviderを削除しました */}
+        {children}
       </body>
     </html>
   );
