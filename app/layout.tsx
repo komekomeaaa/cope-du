@@ -3,9 +3,8 @@ import "./globals.css";
 import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
 
-// ★★★ ここのパスを修正しました ★★★
-// '@/...' という近道ではなく、直接的な道順（相対パス）で指定します
-import { NewsProvider } from "../components/news-provider";
+// ★★★ ファイルを同じフォルダに移動したので、パスがこうなります ★★★
+import { NewsProvider } from "./news-provider";
 
 const fontSans = GeistSans;
 const fontMono = GeistMono;
