@@ -3,6 +3,9 @@ import "./globals.css";
 import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
 
+// NewsProviderをインポートします (ファイルは存在するので今回はこのまま使います)
+import { NewsProvider } from "@/components/news-provider";
+
 const fontSans = GeistSans;
 const fontMono = GeistMono;
 
@@ -22,8 +25,10 @@ export default function RootLayout({
       <body
         className={`${fontSans.variable} ${fontMono.variable} antialiased`}
       >
-        {/* NewsProviderを削除しました */}
-        {children}
+        {/* ★★★ ここでNewsProviderを復活させます ★★★ */}
+        <NewsProvider>
+          {children}
+        </NewsProvider>
       </body>
     </html>
   );
