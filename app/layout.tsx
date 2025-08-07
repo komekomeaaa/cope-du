@@ -3,8 +3,7 @@ import "./globals.css";
 import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
 
-// ★★★ ファイルを同じフォルダに移動したので、パスがこうなります ★★★
-import { NewsProvider } from "./news-provider";
+// NewsProviderは存在しないため、インポート文も完全に削除します
 
 const fontSans = GeistSans;
 const fontMono = GeistMono;
@@ -25,9 +24,8 @@ export default function RootLayout({
       <body
         className={`${fontSans.variable} ${fontMono.variable} antialiased`}
       >
-        <NewsProvider>
-          {children}
-        </NewsProvider>
+        {/* NewsProviderのタグも完全に削除します */}
+        {children}
       </body>
     </html>
   );
