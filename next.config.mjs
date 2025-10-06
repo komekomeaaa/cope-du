@@ -9,8 +9,9 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
-  // Cloudflare Pages対応（サーバーサイド機能を使用）
-  // output: 'export', // 完全静的の場合のみコメント解除
+  // Cloudflare Pages対応（静的エクスポート）
+  output: 'export',
+  trailingSlash: true,
 }
 
 export default nextConfig
