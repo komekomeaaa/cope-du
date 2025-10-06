@@ -1,9 +1,6 @@
-'use client'
-
-import { useParams } from 'next/navigation'
 import { Header } from "@/app/components/header"
 import { Footer } from "@/app/components/footer"
-import { useNews, initialNews } from "@/app/contexts/NewsContext"
+import { initialNews } from "@/app/contexts/NewsContext"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
@@ -16,10 +13,8 @@ export function generateStaticParams() {
   }))
 }
 
-export default function NewsPostPage() {
-  const params = useParams()
-  const { news } = useNews()
-  const article = news.find(item => item.id === Number(params.id))
+export default function NewsPostPage({ params }: { params: { id: string } }) {
+  const article = initialNews.find(item => item.id === Number(params.id))
 
   if (!article) {
     return (
