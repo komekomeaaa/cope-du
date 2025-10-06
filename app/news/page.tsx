@@ -4,14 +4,14 @@ import { Header } from "../components/header"
 import { Footer } from "../components/footer"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { useNews } from "../contexts/NewsContext"
+import { initialNews } from "../contexts/NewsContext"
 import Link from "next/link"
 import { Calendar, User } from 'lucide-react'
 import { useScrollAnimation } from "../hooks/useScrollAnimation"
 
 export default function NewsPage() {
-  const { getPublishedNews } = useNews()
-  const news = getPublishedNews()
+  // 静的エクスポート用：初期ニュースのみ表示
+  const news = initialNews.filter(item => item.status === 'published')
   const heroAnimation = useScrollAnimation()
   const newsAnimation = useScrollAnimation()
 

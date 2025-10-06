@@ -2,8 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
-import { NewsProvider } from "./contexts/NewsContext";
-import { BackgroundAnimation } from "./components/BackgroundAnimation";
+import { ClientLayout } from "./components/ClientLayout";
 
 const fontSans = GeistSans;
 const fontMono = GeistMono;
@@ -24,12 +23,9 @@ export default function RootLayout({
       <body
         className={`${fontSans.variable} ${fontMono.variable} antialiased relative`}
       >
-        <BackgroundAnimation />
-        <div className="relative z-10">
-          <NewsProvider>
-            {children}
-          </NewsProvider>
-        </div>
+        <ClientLayout>
+          {children}
+        </ClientLayout>
       </body>
     </html>
   );
