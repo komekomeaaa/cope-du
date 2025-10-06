@@ -3,11 +3,18 @@
 import { useParams } from 'next/navigation'
 import { Header } from "@/app/components/header"
 import { Footer } from "@/app/components/footer"
-import { useNews } from "@/app/contexts/NewsContext"
+import { useNews, initialNews } from "@/app/contexts/NewsContext"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import { Calendar, User, ArrowLeft } from 'lucide-react'
+
+// 静的エクスポート用：事前にすべてのニュースページを生成
+export function generateStaticParams() {
+  return initialNews.map((news) => ({
+    id: news.id.toString(),
+  }))
+}
 
 export default function NewsPostPage() {
   const params = useParams()

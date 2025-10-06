@@ -38,7 +38,8 @@ interface NewsContextType {
 
 const NewsContext = createContext<NewsContextType | undefined>(undefined)
 
-const initialNews: NewsItem[] = [
+// 初期ニュースデータをエクスポート（静的生成用）
+export const initialNews: NewsItem[] = [
   {
     id: 1,
     title: "新サービス「AI Solutions Pro」をリリースしました",
