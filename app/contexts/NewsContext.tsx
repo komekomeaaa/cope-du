@@ -119,18 +119,27 @@ export function NewsProvider({ children }: { children: ReactNode }) {
   const [categories, setCategories] = useState<string[]>(initialCategories)
 
   useEffect(() => {
-    // ローカルストレージから読み込み
-    const savedNews = localStorage.getItem('techcorp-news')
-    if (savedNews) {
-      setNews(JSON.parse(savedNews))
+    // ローカルストレージから読み込み（クライアントサイドのみ）
+    if (typeof window !== 'undefined') {
+      const savedNews = localStorage.getItem('techcorp-news')
+      if (savedNews) {
+        try {
+          setNews(JSON.parse(savedNews))
+        } catch (e) {
+          setNews(initialNews)
+        }
+      } else {
+        setNews(initialNews)
+      }
     } else {
+      // サーバーサイド（ビルド時）
       setNews(initialNews)
     }
   }, [])
 
   useEffect(() => {
-    // ローカルストレージに保存
-    if (news.length > 0) {
+    // ローカルストレージに保存（クライアントサイドのみ）
+    if (typeof window !== 'undefined' && news.length > 0) {
       localStorage.setItem('techcorp-news', JSON.stringify(news))
     }
   }, [news])
