@@ -31,17 +31,21 @@ export default function AdminNewsPage() {
   })
 
   useEffect(() => {
-    // 認証チェック
-    const authenticated = localStorage.getItem('adminAuthenticated')
-    if (authenticated !== 'true') {
-      router.push('/admin')
-    } else {
-      setIsAuthenticated(true)
+    // 認証チェック（クライアントサイドのみ）
+    if (typeof window !== 'undefined') {
+      const authenticated = localStorage.getItem('adminAuthenticated')
+      if (authenticated !== 'true') {
+        router.push('/admin')
+      } else {
+        setIsAuthenticated(true)
+      }
     }
   }, [router])
 
   const handleLogout = () => {
-    localStorage.removeItem('adminAuthenticated')
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem('adminAuthenticated')
+    }
     router.push('/admin')
   }
 

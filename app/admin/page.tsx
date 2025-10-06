@@ -15,10 +15,12 @@ export default function AdminLoginPage() {
   const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
-    // 既にログイン済みの場合は管理画面へ
-    const isAuthenticated = localStorage.getItem('adminAuthenticated')
-    if (isAuthenticated === 'true') {
-      router.push('/admin/news')
+    // 既にログイン済みの場合は管理画面へ（クライアントサイドのみ）
+    if (typeof window !== 'undefined') {
+      const isAuthenticated = localStorage.getItem('adminAuthenticated')
+      if (isAuthenticated === 'true') {
+        router.push('/admin/news')
+      }
     }
   }, [router])
 
@@ -31,7 +33,9 @@ export default function AdminLoginPage() {
     const ADMIN_PASSWORD = 'admin123' // 本番環境では環境変数に設定
 
     if (password === ADMIN_PASSWORD) {
-      localStorage.setItem('adminAuthenticated', 'true')
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('adminAuthenticated', 'true')
+      }
       router.push('/admin/news')
     } else {
       setError('パスワードが正しくありません')
