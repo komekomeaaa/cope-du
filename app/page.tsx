@@ -1,169 +1,195 @@
-"use client"
+'use client'
 
 import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card"
-import { Label } from "@/components/ui/label"
-import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
-import { useNews } from "@/app/news-provider" // この行はもはや機能しませんが、念のため残しておきます
+import Image from "next/image"
+import { Header } from "./components/header"
+import { Footer } from "./components/footer"
+import { Card, CardContent } from "@/components/ui/card"
+import { ArrowRight } from "lucide-react"
+import { useScrollAnimation } from "./hooks/useScrollAnimation"
+import { saasProducts, siteConfig } from "@/config/site"
 
-export default function Component() {
-  // const { news } = useNews() // この行をコメントアウトして無効化します
+const highlights = saasProducts.slice(0, 3).map(product => ({
+  title: product.name,
+  description: product.description,
+  icon: product.icon,
+  link: "/services"
+}))
+
+export default function HomePage() {
+  const heroAnimation = useScrollAnimation()
+  const featuresAnimation = useScrollAnimation()
+  const statsAnimation = useScrollAnimation()
+  const ctaAnimation = useScrollAnimation()
+
   return (
-    <div className="flex flex-col min-h-[100dvh]">
-      <header className="px-4 lg:px-6 h-14 flex items-center">
-        <Link href="#" className="flex items-center justify-center" prefetch={false}>
-          <MountainIcon className="h-6 w-6" />
-          <span className="sr-only">TechCorp</span>
-        </Link>
-        <nav className="ml-auto flex gap-4 sm:gap-6">
-          <Link href="#" className="text-sm font-medium hover:underline underline-offset-4" prefetch={false}>
-            サービス
-          </Link>
-          <Link href="#" className="text-sm font-medium hover:underline underline-offset-4" prefetch={false}>
-            実績
-          </Link>
-          <Link href="#" className="text-sm font-medium hover:underline underline-offset-4" prefetch={false}>
-            会社概要
-          </Link>
-          <Link href="#" className="text-sm font-medium hover:underline underline-offset-4" prefetch={false}>
-            お問い合わせ
-          </Link>
-        </nav>
-      </header>
-      <main className="flex-1">
-        <section className="w-full py-12 md:py-24 lg:py-32 xl:py-48">
-          <div className="container px-4 md:px-6">
-            <div className="grid gap-6 lg:grid-cols-[1fr_400px] lg:gap-12 xl:grid-cols-[1fr_600px]">
-              <div className="flex flex-col justify-center space-y-4">
-                <div className="space-y-2">
-                  <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none">
-                    未来を創るテクノロジー
-                  </h1>
-                  <p className="max-w-[600px] text-muted-foreground md:text-xl">
-                    革新的なソリューションで、お客様のビジネスを次のステージへ。
-                  </p>
-                </div>
-                <div className="flex flex-col gap-2 min-[400px]:flex-row">
-                  <Link
-                    href="#"
-                    className="inline-flex h-10 items-center justify-center rounded-md bg-primary px-8 text-sm font-medium text-primary-foreground shadow transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
-                    prefetch={false}
-                  >
-                    お問い合わせ
-                  </Link>
-                  <Link
-                    href="#"
-                    className="inline-flex h-10 items-center justify-center rounded-md border border-input bg-background px-8 text-sm font-medium shadow-sm transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"
-                    prefetch={false}
-                  >
-                    サービス詳細
-                  </Link>
-                </div>
+    <div className="min-h-screen bg-white">
+      <Header />
+      
+      {/* Hero Section - Google Style */}
+      <section className="relative pt-32 pb-20 px-4 overflow-hidden">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid lg:grid-cols-2 gap-12 items-center">
+            <div 
+              ref={heroAnimation.ref}
+              className={`space-y-8 transition-all duration-1000 ${
+                heroAnimation.isVisible 
+                  ? 'opacity-100 translate-y-0' 
+                  : 'opacity-0 translate-y-10'
+              }`}
+            >
+              <div className="inline-block">
+                <span className="text-sm font-medium text-blue-600 bg-blue-50 px-4 py-2 rounded-full">
+                  最新のテクノロジーニュース
+                </span>
               </div>
-              <img
-                src="/placeholder.svg"
-                width="550"
-                height="550"
-                alt="Hero"
-                className="mx-auto aspect-video overflow-hidden rounded-xl object-cover sm:w-full lg:order-last lg:aspect-square"
+              <h1 className="text-5xl md:text-6xl lg:text-7xl font-light text-gray-900 leading-tight">
+                {siteConfig.company.tagline}
+              </h1>
+              <p className="text-xl md:text-2xl text-gray-600 font-light leading-relaxed">
+                {siteConfig.company.description}
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4">
+                <Link 
+                  href="/contact"
+                  className="inline-flex items-center justify-center px-8 py-4 text-base font-medium text-white bg-blue-600 rounded-full hover:bg-blue-700 transition-colors"
+                >
+                  お問い合わせ
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Link>
+                <Link 
+                  href="/services"
+                  className="inline-flex items-center justify-center px-8 py-4 text-base font-medium text-gray-700 bg-gray-100 rounded-full hover:bg-gray-200 transition-colors"
+                >
+                  サービス詳細
+                </Link>
+              </div>
+            </div>
+            <div 
+              className={`relative aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl transition-all duration-1000 delay-300 ${
+                heroAnimation.isVisible 
+                  ? 'opacity-100 translate-x-0' 
+                  : 'opacity-0 translate-x-10'
+              }`}
+            >
+              <Image
+                src="/modern-office-building.png"
+                alt="TechCorp Office"
+                fill
+                className="object-cover"
+                priority
               />
             </div>
           </div>
-        </section>
-        
-        {/*
-        <section className="w-full py-12 md:py-24 lg:py-32 bg-muted">
-          <div className="container px-4 md:px-6">
-            <div className="flex flex-col items-center justify-center space-y-4 text-center">
-              <div className="space-y-2">
-                <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">最新ニュース</h2>
-                <p className="max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                  当社の最新の取り組みやイベント情報をご覧ください。
-                </p>
-              </div>
-            </div>
-            <div className="mx-auto grid max-w-5xl items-start gap-8 sm:grid-cols-2 md:gap-12 lg:grid-cols-3 lg:max-w-none">
-              {news.slice(0, 3).map((item) => (
-                <Card key={item.id}>
-                  <CardHeader>
-                    <CardTitle>{item.title}</CardTitle>
-                    <CardDescription>{new Date(item.date).toLocaleDateString()}</CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <p>{item.excerpt}</p>
+        </div>
+      </section>
+
+      {/* Feature Cards - Google Style */}
+      <section className="py-24 px-4 bg-gray-50">
+        <div className="max-w-7xl mx-auto">
+          <div 
+            ref={featuresAnimation.ref}
+            className={`text-center mb-16 transition-all duration-1000 ${
+              featuresAnimation.isVisible 
+                ? 'opacity-100 translate-y-0' 
+                : 'opacity-0 translate-y-10'
+            }`}
+          >
+            <h2 className="text-4xl md:text-5xl font-light text-gray-900 mb-6">
+              私たちのソリューション
+            </h2>
+            <p className="text-xl text-gray-600 font-light max-w-3xl mx-auto">
+              テクノロジーの力で、ビジネスの可能性を広げます
+            </p>
+          </div>
+          
+          <div className="grid md:grid-cols-3 gap-8">
+            {highlights.map((item, index) => (
+              <Link key={index} href={item.link}>
+                <Card 
+                  className={`group border-0 shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden bg-white h-full ${
+                    featuresAnimation.isVisible 
+                      ? 'opacity-100 translate-y-0' 
+                      : 'opacity-0 translate-y-10'
+                  }`}
+                  style={{ 
+                    transitionDelay: featuresAnimation.isVisible ? `${index * 150}ms` : '0ms' 
+                  }}
+                >
+                  <CardContent className="p-12 text-center">
+                    <div className="text-6xl mb-6">{item.icon}</div>
+                    <h3 className="text-2xl font-medium text-gray-900 mb-4">
+                      {item.title}
+                    </h3>
+                    <p className="text-gray-600 font-light leading-relaxed mb-6">
+                      {item.description}
+                    </p>
+                    <div className="inline-flex items-center text-blue-600 font-medium group-hover:gap-2 transition-all">
+                      詳細を見る
+                      <ArrowRight className="ml-1 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                    </div>
                   </CardContent>
-                  <CardFooter>
-                    <Link href={`/news/${item.id}`} className="text-primary hover:underline" prefetch={false}>
-                      続きを読む
-                    </Link>
-                  </CardFooter>
                 </Card>
-              ))}
-            </div>
+              </Link>
+            ))}
           </div>
-        </section>
-        */}
+        </div>
+      </section>
 
-        <section className="w-full py-12 md:py-24 lg:py-32">
-          <div className="container grid items-center justify-center gap-4 px-4 text-center md:px-6">
-            <div className="space-y-3">
-              <h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight">お問い合わせ</h2>
-              <p className="mx-auto max-w-[600px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                ご質問やご相談がございましたら、お気軽にお問い合わせください。
-              </p>
-            </div>
-            <div className="mx-auto w-full max-w-sm space-y-2">
-              <form className="flex flex-col gap-4">
-                <div className="grid gap-2">
-                  <Label htmlFor="name">お名前</Label>
-                  <Input id="name" placeholder="山田 太郎" required />
-                </div>
-                <div className="grid gap-2">
-                  <Label htmlFor="email">メールアドレス</Label>
-                  <Input id="email" type="email" placeholder="m@example.com" required />
-                </div>
-                <div className="grid gap-2">
-                  <Label htmlFor="message">お問い合わせ内容</Label>
-                  <Textarea id="message" placeholder="お問い合わせ内容をご入力ください" required />
-                </div>
-                <Button type="submit">送信</Button>
-              </form>
-            </div>
+      {/* Stats Section - Simple & Clean */}
+      <section className="py-24 px-4">
+        <div className="max-w-7xl mx-auto">
+          <div 
+            ref={statsAnimation.ref}
+            className="grid md:grid-cols-4 gap-12 text-center"
+          >
+            {siteConfig.stats.map((stat, index) => (
+              <div 
+                key={index}
+                className={`transition-all duration-700 ${
+                  statsAnimation.isVisible 
+                    ? 'opacity-100 translate-y-0' 
+                    : 'opacity-0 translate-y-10'
+                }`}
+                style={{ 
+                  transitionDelay: statsAnimation.isVisible ? `${index * 150}ms` : '0ms' 
+                }}
+              >
+                <div className="text-5xl font-light text-gray-900 mb-2">{stat.number}</div>
+                <div className="text-gray-600 font-light">{stat.label}</div>
+              </div>
+            ))}
           </div>
-        </section>
-      </main>
-      <footer className="flex flex-col gap-2 sm:flex-row py-6 w-full shrink-0 items-center px-4 md:px-6 border-t">
-        <p className="text-xs text-muted-foreground">© 2024 TechCorp. All rights reserved.</p>
-        <nav className="sm:ml-auto flex gap-4 sm:gap-6">
-          <Link href="#" className="text-xs hover:underline underline-offset-4" prefetch={false}>
-            利用規約
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-24 px-4 bg-blue-600">
+        <div 
+          ref={ctaAnimation.ref}
+          className={`max-w-4xl mx-auto text-center transition-all duration-1000 ${
+            ctaAnimation.isVisible 
+              ? 'opacity-100 translate-y-0' 
+              : 'opacity-0 translate-y-10'
+          }`}
+        >
+          <h2 className="text-4xl md:text-5xl font-light text-white mb-6">
+            始めましょう
+          </h2>
+          <p className="text-xl text-blue-100 font-light mb-8">
+            プロジェクトのご相談から技術的なお悩みまで、お気軽にご連絡ください
+          </p>
+          <Link
+            href="/contact"
+            className="inline-flex items-center justify-center px-8 py-4 text-base font-medium text-blue-600 bg-white rounded-full hover:bg-gray-100 transition-colors"
+          >
+            お問い合わせ
+            <ArrowRight className="ml-2 h-5 w-5" />
           </Link>
-          <Link href="#" className="text-xs hover:underline underline-offset-4" prefetch={false}>
-            プライバシーポリシー
-          </Link>
-        </nav>
-      </footer>
+        </div>
+      </section>
+
+      <Footer />
     </div>
-  )
-}
-
-function MountainIcon(props) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="m8 3 4 8 5-5 5 15H2L8 3z" />
-    </svg>
   )
 }

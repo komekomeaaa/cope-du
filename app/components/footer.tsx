@@ -1,76 +1,103 @@
 import Link from "next/link"
-import { Facebook, Twitter, Linkedin, Mail, Phone, MapPin } from 'lucide-react'
+import { Lock } from "lucide-react"
+import { siteConfig } from "@/config/site"
 
 export function Footer() {
+  const footerSections = [
+    {
+      title: 'プロダクト',
+      links: [
+        { name: 'システム開発', href: '/services' },
+        { name: 'AI ソリューション', href: '/services' },
+        { name: 'クラウド基盤', href: '/services' },
+        { name: 'データ分析', href: '/services' },
+      ]
+    },
+    {
+      title: '会社情報',
+      links: [
+        { name: '会社概要', href: '/about' },
+        { name: 'ニュース', href: '/news' },
+        { name: '採用情報', href: '#' },
+        { name: 'お問い合わせ', href: '/contact' },
+      ]
+    },
+    {
+      title: 'リソース',
+      links: [
+        { name: 'ブログ', href: '#' },
+        { name: 'ヘルプセンター', href: '#' },
+        { name: 'セキュリティ', href: '#' },
+        { name: 'プライバシー', href: '#' },
+      ]
+    }
+  ]
+
   return (
-    <footer className="bg-gray-900 text-white">
-      <div className="max-w-6xl mx-auto px-4 py-16">
-        <div className="grid md:grid-cols-4 gap-8">
-          <div>
-            <div className="text-2xl font-medium text-white mb-4">TechCorp</div>
-            <p className="text-gray-400 mb-6 font-light leading-relaxed">
-              革新的なテクノロジーソリューションで、
-              お客様のビジネスを次のレベルへ。
-            </p>
-            <div className="flex space-x-4">
-              <Link href="#" className="text-gray-400 hover:text-white transition-colors duration-300">
-                <Facebook className="h-5 w-5" />
-              </Link>
-              <Link href="#" className="text-gray-400 hover:text-white transition-colors duration-300">
-                <Twitter className="h-5 w-5" />
-              </Link>
-              <Link href="#" className="text-gray-400 hover:text-white transition-colors duration-300">
-                <Linkedin className="h-5 w-5" />
-              </Link>
-            </div>
-          </div>
-          
-          <div>
-            <h3 className="text-lg font-medium mb-6 text-white">サービス</h3>
-            <ul className="space-y-3">
-              <li><Link href="/services" className="text-gray-400 hover:text-white transition-colors duration-300 font-light">システム開発</Link></li>
-              <li><Link href="/services" className="text-gray-400 hover:text-white transition-colors duration-300 font-light">コンサルティング</Link></li>
-              <li><Link href="/services" className="text-gray-400 hover:text-white transition-colors duration-300 font-light">マーケティング支援</Link></li>
-              <li><Link href="/services" className="text-gray-400 hover:text-white transition-colors duration-300 font-light">データ分析</Link></li>
-            </ul>
-          </div>
-          
-          <div>
-            <h3 className="text-lg font-medium mb-6 text-white">会社情報</h3>
-            <ul className="space-y-3">
-              <li><Link href="/about" className="text-gray-400 hover:text-white transition-colors duration-300 font-light">会社概要</Link></li>
-              <li><Link href="#" className="text-gray-400 hover:text-white transition-colors duration-300 font-light">採用情報</Link></li>
-              <li><Link href="/news" className="text-gray-400 hover:text-white transition-colors duration-300 font-light">ニュース</Link></li>
-              <li><Link href="/contact" className="text-gray-400 hover:text-white transition-colors duration-300 font-light">お問い合わせ</Link></li>
-            </ul>
-          </div>
-          
-          <div>
-            <h3 className="text-lg font-medium mb-6 text-white">お問い合わせ</h3>
-            <div className="space-y-4">
-              <div className="flex items-center">
-                <Phone className="h-4 w-4 mr-3 text-gray-400" />
-                <span className="text-gray-400 font-light">03-1234-5678</span>
-              </div>
-              <div className="flex items-center">
-                <Mail className="h-4 w-4 mr-3 text-gray-400" />
-                <span className="text-gray-400 font-light">info@techcorp.com</span>
-              </div>
-              <div className="flex items-start">
-                <MapPin className="h-4 w-4 mr-3 text-gray-400 mt-1" />
-                <span className="text-gray-400 font-light">
-                  東京都新宿区西新宿1-1-1<br />
-                  新宿ビル10F
+    <footer className="bg-white border-t border-gray-100">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Main Footer Content */}
+        <div className="py-16">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+            {/* Brand */}
+            <div className="col-span-2 md:col-span-1">
+              <Link href="/" className="inline-block mb-4">
+                <span className="text-xl font-normal text-gray-900">
+                  {siteConfig.company.name}
                 </span>
-              </div>
+              </Link>
+              <p className="text-sm text-gray-600 font-light leading-relaxed">
+                {siteConfig.company.description.split('、')[0]}で、<br />
+                ビジネスの未来を創造
+              </p>
             </div>
+
+            {/* Footer Links */}
+            {footerSections.map((section) => (
+              <div key={section.title}>
+                <h3 className="text-sm font-medium text-gray-900 mb-4">
+                  {section.title}
+                </h3>
+                <ul className="space-y-3">
+                  {section.links.map((link) => (
+                    <li key={link.name}>
+                      <Link
+                        href={link.href}
+                        className="text-sm text-gray-600 hover:text-gray-900 transition-colors font-light"
+                      >
+                        {link.name}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
           </div>
         </div>
-        
-        <div className="border-t border-gray-800 mt-12 pt-8 text-center">
-          <p className="text-gray-400 font-light">
-            &copy; {new Date().getFullYear()} TechCorp. All rights reserved.
-          </p>
+
+        {/* Bottom Bar */}
+        <div className="border-t border-gray-100 py-6">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+            <p className="text-sm text-gray-600 font-light">
+              &copy; {new Date().getFullYear()} {siteConfig.company.name}. All rights reserved.
+            </p>
+            <div className="flex items-center gap-6">
+              <Link href="#" className="text-sm text-gray-600 hover:text-gray-900 transition-colors font-light">
+                プライバシーポリシー
+              </Link>
+              <Link href="#" className="text-sm text-gray-600 hover:text-gray-900 transition-colors font-light">
+                利用規約
+              </Link>
+              <Link 
+                href="/admin" 
+                className="flex items-center gap-1.5 text-xs text-gray-400 hover:text-gray-600 transition-colors font-light group"
+                title="管理者ログイン"
+              >
+                <Lock className="h-3 w-3 group-hover:text-blue-600 transition-colors" />
+                <span className="group-hover:text-blue-600 transition-colors">Admin</span>
+              </Link>
+            </div>
+          </div>
         </div>
       </div>
     </footer>

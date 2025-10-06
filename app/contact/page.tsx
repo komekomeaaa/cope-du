@@ -1,37 +1,16 @@
 'use client'
 
-import { useState } from 'react'
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Label } from "@/components/ui/label"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Mail, Phone, MapPin, Clock, Send, CheckCircle } from 'lucide-react'
+import { Mail, Phone, MapPin, Clock } from 'lucide-react'
 import { Header } from "../components/header"
 import { Footer } from "../components/footer"
 
+import { siteConfig } from "@/config/site"
+
 export default function ContactPage() {
-  const [isSubmitted, setIsSubmitted] = useState(false)
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    company: '',
-    phone: '',
-    service: '',
-    budget: '',
-    message: ''
-  })
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    setIsSubmitted(true)
-    setTimeout(() => setIsSubmitted(false), 5000)
-  }
-
-  const handleInputChange = (field: string, value: string) => {
-    setFormData(prev => ({ ...prev, [field]: value }))
-  }
+  // 設定ファイルから読み込み
+  const embedUrl = siteConfig.contactForm.embedUrl
+  const useEmbedForm = siteConfig.contactForm.useEmbedForm
 
   return (
     <div className="min-h-screen bg-white">
@@ -54,132 +33,65 @@ export default function ContactPage() {
           <div className="grid lg:grid-cols-3 gap-12">
             {/* Contact Form */}
             <div className="lg:col-span-2">
-              <Card className="border border-gray-200">
-                <CardHeader className="p-8">
-                  <CardTitle className="text-2xl font-light text-gray-900">お問い合わせフォーム</CardTitle>
-                  <CardDescription className="text-gray-600 font-light">
+              <Card className="border-0 shadow-lg overflow-hidden">
+                <CardHeader className="p-8 bg-gray-50">
+                  <CardTitle className="text-3xl font-light text-gray-900">お問い合わせフォーム</CardTitle>
+                  <CardDescription className="text-gray-600 font-light text-base mt-2">
                     以下のフォームにご記入いただき、送信してください。24時間以内にご返信いたします。
                   </CardDescription>
                 </CardHeader>
-                <CardContent className="p-8 pt-0">
-                  {isSubmitted ? (
-                    <div className="text-center py-12">
-                      <CheckCircle className="h-16 w-16 text-green-500 mx-auto mb-4" />
-                      <h3 className="text-2xl font-medium text-gray-900 mb-2">送信完了</h3>
-                      <p className="text-gray-600 font-light">
-                        お問い合わせありがとうございます。<br />
-                        24時間以内にご返信いたします。
-                      </p>
+                <CardContent className="p-0">
+                  {useEmbedForm && embedUrl ? (
+                    // 埋め込みフォーム表示
+                    <div className="w-full">
+                      <iframe
+                        src={embedUrl}
+                        width="100%"
+                        height="800"
+                        frameBorder="0"
+                        marginHeight={0}
+                        marginWidth={0}
+                        className="w-full"
+                      >
+                        読み込んでいます...
+                      </iframe>
                     </div>
                   ) : (
-                    <form onSubmit={handleSubmit} className="space-y-6">
-                      <div className="grid md:grid-cols-2 gap-6">
-                        <div>
-                          <Label htmlFor="name" className="text-gray-700 font-medium">お名前 *</Label>
-                          <Input
-                            id="name"
-                            value={formData.name}
-                            onChange={(e) => handleInputChange('name', e.target.value)}
-                            className="border-gray-300 focus:border-blue-600 rounded-lg"
-                            placeholder="山田 太郎"
-                            required
-                          />
+                    // デフォルトのメッセージ（URLを設定してください）
+                    <div className="p-12 text-center">
+                      <div className="max-w-md mx-auto space-y-6">
+                        <div className="w-20 h-20 bg-blue-50 rounded-full flex items-center justify-center mx-auto">
+                          <Mail className="h-10 w-10 text-blue-600" />
                         </div>
-                        <div>
-                          <Label htmlFor="email" className="text-gray-700 font-medium">メールアドレス *</Label>
-                          <Input
-                            id="email"
-                            type="email"
-                            value={formData.email}
-                            onChange={(e) => handleInputChange('email', e.target.value)}
-                            className="border-gray-300 focus:border-blue-600 rounded-lg"
-                            placeholder="example@company.com"
-                            required
-                          />
+                        <h3 className="text-2xl font-normal text-gray-900">
+                          フォームを設定してください
+                        </h3>
+                        <p className="text-gray-600 font-light leading-relaxed">
+                          お問い合わせフォームの埋め込みURLを<br />
+                          <code className="bg-gray-100 px-2 py-1 rounded text-sm">app/contact/page.tsx</code><br />
+                          の<code className="bg-gray-100 px-2 py-1 rounded text-sm">embedUrl</code>に設定してください。
+                        </p>
+                        <div className="pt-4">
+                          <p className="text-sm text-gray-500 font-light">
+                            対応サービス：Google Forms, Typeform, HubSpot, Formspree など
+                          </p>
                         </div>
                       </div>
-
-                      <div className="grid md:grid-cols-2 gap-6">
-                        <div>
-                          <Label htmlFor="company" className="text-gray-700 font-medium">会社名</Label>
-                          <Input
-                            id="company"
-                            value={formData.company}
-                            onChange={(e) => handleInputChange('company', e.target.value)}
-                            className="border-gray-300 focus:border-blue-600 rounded-lg"
-                            placeholder="株式会社サンプル"
-                          />
-                        </div>
-                        <div>
-                          <Label htmlFor="phone" className="text-gray-700 font-medium">電話番号</Label>
-                          <Input
-                            id="phone"
-                            value={formData.phone}
-                            onChange={(e) => handleInputChange('phone', e.target.value)}
-                            className="border-gray-300 focus:border-blue-600 rounded-lg"
-                            placeholder="03-1234-5678"
-                          />
-                        </div>
-                      </div>
-
-                      <div className="grid md:grid-cols-2 gap-6">
-                        <div>
-                          <Label htmlFor="service" className="text-gray-700 font-medium">ご興味のあるサービス</Label>
-                          <Select value={formData.service} onValueChange={(value) => handleInputChange('service', value)}>
-                            <SelectTrigger className="border-gray-300 focus:border-blue-600 rounded-lg">
-                              <SelectValue placeholder="サービスを選択" />
-                            </SelectTrigger>
-                            <SelectContent>
-                              <SelectItem value="ai">AI・機械学習ソリューション</SelectItem>
-                              <SelectItem value="cloud">クラウドインフラ構築</SelectItem>
-                              <SelectItem value="mobile">モバイルアプリ開発</SelectItem>
-                              <SelectItem value="data">データ分析・BI</SelectItem>
-                              <SelectItem value="security">サイバーセキュリティ</SelectItem>
-                              <SelectItem value="marketing">デジタルマーケティング</SelectItem>
-                              <SelectItem value="other">その他</SelectItem>
-                            </SelectContent>
-                          </Select>
-                        </div>
-                        <div>
-                          <Label htmlFor="budget" className="text-gray-700 font-medium">予算規模</Label>
-                          <Select value={formData.budget} onValueChange={(value) => handleInputChange('budget', value)}>
-                            <SelectTrigger className="border-gray-300 focus:border-blue-600 rounded-lg">
-                              <SelectValue placeholder="予算を選択" />
-                            </SelectTrigger>
-                            <SelectContent>
-                              <SelectItem value="under-1m">100万円未満</SelectItem>
-                              <SelectItem value="1m-5m">100万円〜500万円</SelectItem>
-                              <SelectItem value="5m-10m">500万円〜1000万円</SelectItem>
-                              <SelectItem value="over-10m">1000万円以上</SelectItem>
-                              <SelectItem value="undecided">未定</SelectItem>
-                            </SelectContent>
-                          </Select>
-                        </div>
-                      </div>
-
-                      <div>
-                        <Label htmlFor="message" className="text-gray-700 font-medium">お問い合わせ内容 *</Label>
-                        <Textarea
-                          id="message"
-                          value={formData.message}
-                          onChange={(e) => handleInputChange('message', e.target.value)}
-                          className="border-gray-300 focus:border-blue-600 rounded-lg min-h-32"
-                          placeholder="プロジェクトの詳細、ご要望、ご質問などをお聞かせください"
-                          required
-                        />
-                      </div>
-
-                      <Button 
-                        type="submit" 
-                        className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 text-lg font-medium rounded-full"
-                      >
-                        <Send className="h-5 w-5 mr-2" />
-                        送信する
-                      </Button>
-                    </form>
+                    </div>
                   )}
                 </CardContent>
               </Card>
+              
+              {/* 設定例 */}
+              <div className="mt-6 p-6 bg-blue-50 rounded-2xl">
+                <h4 className="text-lg font-medium text-gray-900 mb-3">📝 設定方法</h4>
+                <div className="space-y-2 text-sm text-gray-700 font-light">
+                  <p>1. Google FormsやTypeformなどでフォームを作成</p>
+                  <p>2. 埋め込み用のURLを取得</p>
+                  <p>3. <code className="bg-white px-2 py-1 rounded">embedUrl</code> に設定</p>
+                  <p>4. <code className="bg-white px-2 py-1 rounded">useEmbedForm</code> を <code className="bg-white px-2 py-1 rounded">true</code> に変更</p>
+                </div>
+              </div>
             </div>
 
             {/* Contact Info */}
@@ -196,8 +108,8 @@ export default function ContactPage() {
                     </div>
                     <div>
                       <h3 className="font-medium text-gray-900 mb-1">電話</h3>
-                      <p className="text-gray-700">03-1234-5678</p>
-                      <p className="text-sm text-gray-500">平日 9:00-18:00</p>
+                      <p className="text-gray-700">{siteConfig.contact.phone}</p>
+                      <p className="text-sm text-gray-500">{siteConfig.contact.businessHours.weekday.split(': ')[1]}</p>
                     </div>
                   </div>
 
@@ -207,7 +119,7 @@ export default function ContactPage() {
                     </div>
                     <div>
                       <h3 className="font-medium text-gray-900 mb-1">メール</h3>
-                      <p className="text-gray-700">info@techcorp.com</p>
+                      <p className="text-gray-700">{siteConfig.contact.email}</p>
                       <p className="text-sm text-gray-500">24時間受付</p>
                     </div>
                   </div>
@@ -219,9 +131,9 @@ export default function ContactPage() {
                     <div>
                       <h3 className="font-medium text-gray-900 mb-1">住所</h3>
                       <p className="text-gray-700">
-                        〒160-0023<br />
-                        東京都新宿区西新宿1-1-1<br />
-                        新宿ビル10F
+                        {siteConfig.contact.address.postalCode}<br />
+                        {siteConfig.contact.address.prefecture}{siteConfig.contact.address.city}<br />
+                        {siteConfig.contact.address.building}
                       </p>
                     </div>
                   </div>
@@ -233,8 +145,8 @@ export default function ContactPage() {
                     <div>
                       <h3 className="font-medium text-gray-900 mb-1">営業時間</h3>
                       <p className="text-gray-700">
-                        平日: 9:00 - 18:00<br />
-                        土日祝: 休業
+                        {siteConfig.contact.businessHours.weekday}<br />
+                        {siteConfig.contact.businessHours.weekend}
                       </p>
                     </div>
                   </div>
