@@ -7,6 +7,8 @@ import { Button } from "@/components/ui/button"
 import { useNews } from "@/app/contexts/NewsContext"
 import Link from "next/link"
 import { Calendar, User, ArrowLeft } from 'lucide-react'
+import ReactMarkdown from 'react-markdown'
+import remarkGfm from 'remark-gfm'
 
 export default function NewsArticle({ id }: { id: string }) {
   const { news } = useNews()
@@ -86,10 +88,11 @@ export default function NewsArticle({ id }: { id: string }) {
           )}
 
           {/* Article Content */}
-          <div 
-            className="prose prose-lg max-w-none prose-headings:font-light prose-p:text-gray-700 prose-p:leading-relaxed"
-            dangerouslySetInnerHTML={{ __html: article.content }}
-          />
+          <div className="prose prose-lg max-w-none prose-headings:font-light prose-p:text-gray-700 prose-p:leading-relaxed">
+            <ReactMarkdown remarkPlugins={[remarkGfm]}>
+              {article.content}
+            </ReactMarkdown>
+          </div>
         </div>
       </article>
 

@@ -6,11 +6,12 @@ import { useNews } from "@/app/contexts/NewsContext"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Badge } from "@/components/ui/badge"
 import { Plus, Edit, Trash2, LogOut, Save, X, Download, Upload } from 'lucide-react'
+import { MarkdownEditor } from "@/app/components/MarkdownEditor"
+import { ImageUpload } from "@/app/components/ImageUpload"
 
 export default function AdminNewsPage() {
   const router = useRouter()
@@ -231,27 +232,22 @@ export default function AdminNewsPage() {
 
                   <div>
                     <Label htmlFor="excerpt">概要 *</Label>
-                    <Textarea
+                    <textarea
                       id="excerpt"
                       value={formData.excerpt}
                       onChange={(e) => setFormData({...formData, excerpt: e.target.value})}
                       placeholder="ニュースの概要（一覧ページに表示されます）"
                       rows={3}
                       required
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
                   </div>
 
-                  <div>
-                    <Label htmlFor="content">本文 *</Label>
-                    <Textarea
-                      id="content"
-                      value={formData.content}
-                      onChange={(e) => setFormData({...formData, content: e.target.value})}
-                      placeholder="ニュースの本文（HTMLタグも使用できます）"
-                      rows={8}
-                      required
-                    />
-                  </div>
+                  <MarkdownEditor
+                    value={formData.content}
+                    onChange={(value) => setFormData({...formData, content: value})}
+                    label="本文 *"
+                  />
 
                   <div className="grid md:grid-cols-2 gap-4">
                     <div>
@@ -281,15 +277,11 @@ export default function AdminNewsPage() {
                     </div>
                   </div>
 
-                  <div>
-                    <Label htmlFor="image">画像URL（任意）</Label>
-                    <Input
-                      id="image"
-                      value={formData.image}
-                      onChange={(e) => setFormData({...formData, image: e.target.value})}
-                      placeholder="/image-name.png"
-                    />
-                  </div>
+                  <ImageUpload
+                    value={formData.image}
+                    onChange={(value) => setFormData({...formData, image: value})}
+                    label="アイキャッチ画像（任意）"
+                  />
 
                   <div className="flex items-center space-x-4">
                     <label className="flex items-center space-x-2 cursor-pointer">
