@@ -63,39 +63,49 @@ export function ImageUpload({ value, onChange, label = "画像" }: ImageUploadPr
       <label className="text-sm font-medium text-gray-700">{label}</label>
       
       {value ? (
-        <div className="relative">
+        <div className="relative group">
           <img 
             src={value} 
-            alt="Preview" 
-            className="w-full h-48 object-cover rounded-lg border border-gray-300"
+            alt="選んだ写真" 
+            className="w-full h-64 object-cover rounded-2xl border-4 border-green-300 shadow-lg"
           />
-          <Button
-            type="button"
-            variant="destructive"
-            size="sm"
-            className="absolute top-2 right-2"
-            onClick={handleRemove}
-          >
-            <X className="h-4 w-4" />
-          </Button>
+          <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-2xl flex items-center justify-center">
+            <Button
+              type="button"
+              variant="destructive"
+              size="lg"
+              className="rounded-full px-6 py-6 text-lg font-bold shadow-xl"
+              onClick={handleRemove}
+            >
+              <X className="h-5 w-5 mr-2" />
+              写真を削除
+            </Button>
+          </div>
+          <div className="absolute top-3 left-3 bg-green-500 text-white px-4 py-2 rounded-full text-sm font-bold shadow-lg">
+            ✓ 写真が選ばれています
+          </div>
         </div>
       ) : (
         <div
-          className={`border-2 border-dashed rounded-lg p-8 text-center transition-colors ${
+          className={`border-4 border-dashed rounded-2xl p-12 text-center transition-all ${
             isDragging 
-              ? 'border-blue-500 bg-blue-50' 
-              : 'border-gray-300 hover:border-gray-400'
+              ? 'border-blue-500 bg-blue-100 scale-105' 
+              : 'border-gray-300 hover:border-blue-400 hover:bg-blue-50'
           }`}
           onDragOver={handleDragOver}
           onDragLeave={handleDragLeave}
           onDrop={handleDrop}
         >
-          <Upload className="h-12 w-12 mx-auto text-gray-400 mb-4" />
-          <p className="text-sm text-gray-600 mb-2">
-            ドラッグ&ドロップで画像をアップロード
+          <div className="mb-6">
+            <Upload className={`h-20 w-20 mx-auto mb-4 transition-colors ${
+              isDragging ? 'text-blue-500' : 'text-gray-400'
+            }`} />
+          </div>
+          <p className="text-lg font-bold text-gray-700 mb-2">
+            📸 写真をここに<span className="text-blue-600">ドラッグ</span>してね
           </p>
-          <p className="text-xs text-gray-500 mb-4">
-            対応形式: PNG, JPG, JPEG, SVG
+          <p className="text-base text-gray-600 mb-2">
+            または
           </p>
           <label>
             <input
@@ -104,12 +114,21 @@ export function ImageUpload({ value, onChange, label = "画像" }: ImageUploadPr
               className="hidden"
               onChange={handleFileSelect}
             />
-            <Button type="button" variant="outline" asChild>
-              <span className="cursor-pointer">
-                ファイルを選択
+            <Button 
+              type="button" 
+              variant="outline" 
+              size="lg"
+              className="cursor-pointer rounded-full px-8 py-6 text-base font-bold border-2 border-blue-500 text-blue-600 hover:bg-blue-50"
+              asChild
+            >
+              <span>
+                📁 パソコンから写真を選ぶ
               </span>
             </Button>
           </label>
+          <p className="text-xs text-gray-500 mt-4">
+            使える写真: PNG, JPG, JPEG, SVG
+          </p>
         </div>
       )}
     </div>

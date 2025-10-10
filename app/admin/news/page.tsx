@@ -84,10 +84,10 @@ export default function AdminNewsPage() {
     
     if (editingId) {
       updateNews(editingId, formData)
-      showToast('ニュースを更新しました', 'success')
+      showToast('✅ ニュースを更新しました！', 'success')
     } else {
       addNews(formData)
-      showToast('ニュースを作成しました', 'success')
+      showToast('🎉 ニュースを作成しました！', 'success')
     }
     
     // フォームをリセット
@@ -128,9 +128,9 @@ export default function AdminNewsPage() {
 
   const handleDelete = (id: number) => {
     const newsItem = news.find(n => n.id === id)
-    if (confirm(`「${newsItem?.title}」を削除してもよろしいですか？\nこの操作は取り消せません。`)) {
+    if (confirm(`🗑️ 本当に削除しますか？\n\n「${newsItem?.title}」\n\n⚠️ この操作は取り消せません。\n削除してもいい場合は「OK」を押してください。`)) {
       deleteNews(id)
-      showToast('ニュースを削除しました', 'success')
+      showToast('✅ ニュースを削除しました', 'success')
     }
   }
 
@@ -167,13 +167,13 @@ export default function AdminNewsPage() {
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-blue-50">
       {/* Toast Notification */}
       {toast && (
-        <div className="fixed top-4 right-4 z-50 animate-in slide-in-from-top-2">
-          <div className={`px-6 py-4 rounded-lg shadow-lg ${
+        <div className="fixed top-6 right-6 z-50 animate-in slide-in-from-top-4">
+          <div className={`px-8 py-6 rounded-2xl shadow-2xl border-4 ${
             toast.type === 'success' 
-              ? 'bg-green-500 text-white' 
-              : 'bg-red-500 text-white'
+              ? 'bg-gradient-to-r from-green-500 to-emerald-600 text-white border-green-300' 
+              : 'bg-gradient-to-r from-red-500 to-pink-600 text-white border-red-300'
           }`}>
-            <p className="font-medium">{toast.message}</p>
+            <p className="font-bold text-lg">{toast.message}</p>
           </div>
         </div>
       )}
@@ -242,108 +242,158 @@ export default function AdminNewsPage() {
               </CardHeader>
               <CardContent className="p-8">
                 <form onSubmit={handleSubmit} className="space-y-8">
+                  {/* 手順説明 */}
+                  {!isEditing && (
+                    <div className="bg-blue-50 border-2 border-blue-200 rounded-xl p-6">
+                      <h3 className="font-bold text-blue-900 mb-3 text-lg flex items-center gap-2">
+                        📝 記事の作り方（3ステップ）
+                      </h3>
+                      <ol className="space-y-2 text-sm text-blue-800">
+                        <li className="flex items-start gap-2">
+                          <span className="font-bold bg-blue-600 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs flex-shrink-0">1</span>
+                          <span><strong>タイトル</strong>と<strong>概要</strong>を書く</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <span className="font-bold bg-blue-600 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs flex-shrink-0">2</span>
+                          <span><strong>本文</strong>を書く（ボタンを押すと太字や見出しにできます）</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <span className="font-bold bg-blue-600 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs flex-shrink-0">3</span>
+                          <span>一番下の<strong>「ニュースを作成」</strong>ボタンを押す</span>
+                        </li>
+                      </ol>
+                    </div>
+                  )}
+
                   {/* タイトル */}
-                  <div className="space-y-2">
-                    <Label htmlFor="title" className="text-base font-semibold text-gray-700 flex items-center gap-2">
-                      <FileText className="h-4 w-4" />
-                      タイトル
-                      <span className="text-red-500">*</span>
+                  <div className="space-y-3">
+                    <Label htmlFor="title" className="text-lg font-bold text-gray-800 flex items-center gap-2">
+                      📰 タイトル
+                      <span className="text-red-500 text-base">（必ず書いてね！）</span>
                     </Label>
                     <Input
                       id="title"
                       value={formData.title}
                       onChange={(e) => setFormData({...formData, title: e.target.value})}
-                      placeholder="例: 新製品のリリースについて"
+                      placeholder="例: 新しい商品が発売されます！"
                       required
-                      className="text-lg border-2 focus:border-blue-500"
+                      className="text-lg border-2 focus:border-blue-500 py-6 px-4 rounded-xl"
                     />
+                    <p className="text-sm text-gray-500">💡 このタイトルがニュース一覧に表示されます</p>
                   </div>
 
                   {/* 概要 */}
-                  <div className="space-y-2">
-                    <Label htmlFor="excerpt" className="text-base font-semibold text-gray-700">
-                      概要
-                      <span className="text-red-500">*</span>
+                  <div className="space-y-3">
+                    <Label htmlFor="excerpt" className="text-lg font-bold text-gray-800 flex items-center gap-2">
+                      📋 かんたんな説明
+                      <span className="text-red-500 text-base">（必ず書いてね！）</span>
                     </Label>
                     <textarea
                       id="excerpt"
                       value={formData.excerpt}
                       onChange={(e) => setFormData({...formData, excerpt: e.target.value})}
-                      placeholder="ニュースの概要を入力してください（一覧ページに表示されます）"
+                      placeholder="例: この記事では、新しい商品について紹介します。"
                       rows={3}
                       required
-                      className="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                      className="w-full px-4 py-3 text-base border-2 border-gray-300 rounded-xl focus:outline-none focus:ring-4 focus:ring-blue-200 focus:border-blue-500 transition-all"
                     />
+                    <p className="text-sm text-gray-500">💡 この説明がニュース一覧に表示されます（2〜3行くらいがちょうどいいよ）</p>
                   </div>
 
                   {/* マークダウンエディタ */}
-                  <div>
+                  <div className="space-y-3">
+                    <Label className="text-lg font-bold text-gray-800 flex items-center gap-2">
+                      ✍️ くわしい内容を書こう
+                      <span className="text-red-500 text-base">（必ず書いてね！）</span>
+                    </Label>
+                    <div className="bg-yellow-50 border-2 border-yellow-200 rounded-lg p-4 mb-4">
+                      <p className="text-sm text-yellow-900 font-medium mb-2">✨ ボタンの使い方</p>
+                      <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 text-xs text-yellow-800">
+                        <div>🔤 <strong>B</strong>: 太字</div>
+                        <div>🔤 <strong>I</strong>: 斜体</div>
+                        <div>📏 <strong>H1/H2/H3</strong>: 見出し</div>
+                        <div>🔗 <strong>リンク</strong>: URLを入れる</div>
+                        <div>🖼️ <strong>画像</strong>: 写真を入れる</div>
+                        <div>👁️ <strong>プレビュー</strong>: 見た目を確認</div>
+                      </div>
+                    </div>
                     <MarkdownEditor
                       value={formData.content}
                       onChange={(value) => setFormData({...formData, content: value})}
-                      label="本文 *"
+                      label=""
                     />
                   </div>
 
                   {/* カテゴリーと著者 */}
                   <div className="grid md:grid-cols-2 gap-6">
-                    <div className="space-y-2">
-                      <Label htmlFor="category" className="text-base font-semibold text-gray-700">
-                        カテゴリー
+                    <div className="space-y-3">
+                      <Label htmlFor="category" className="text-lg font-bold text-gray-800 flex items-center gap-2">
+                        🏷️ カテゴリー
                       </Label>
                       <Select
                         value={formData.category}
                         onValueChange={(value) => setFormData({...formData, category: value})}
                       >
-                        <SelectTrigger className="border-2">
+                        <SelectTrigger className="border-2 py-6 text-base rounded-xl">
                           <SelectValue />
                         </SelectTrigger>
                         <SelectContent>
                           {categories.map((cat) => (
-                            <SelectItem key={cat} value={cat}>{cat}</SelectItem>
+                            <SelectItem key={cat} value={cat} className="text-base">{cat}</SelectItem>
                           ))}
                         </SelectContent>
                       </Select>
+                      <p className="text-sm text-gray-500">💡 記事の種類を選んでね</p>
                     </div>
 
-                    <div className="space-y-2">
-                      <Label htmlFor="author" className="text-base font-semibold text-gray-700 flex items-center gap-2">
-                        <User className="h-4 w-4" />
-                        著者
+                    <div className="space-y-3">
+                      <Label htmlFor="author" className="text-lg font-bold text-gray-800 flex items-center gap-2">
+                        ✏️ 書いた人の名前
                       </Label>
                       <Input
                         id="author"
                         value={formData.author}
                         onChange={(e) => setFormData({...formData, author: e.target.value})}
-                        className="border-2"
+                        className="border-2 py-6 text-base rounded-xl"
+                        placeholder="例: 広報部"
                       />
                     </div>
                   </div>
 
                   {/* 画像アップロード */}
-                  <div>
+                  <div className="space-y-3">
+                    <Label className="text-lg font-bold text-gray-800 flex items-center gap-2">
+                      🖼️ 記事の写真
+                      <span className="text-gray-500 text-sm font-normal">（なくてもOK）</span>
+                    </Label>
                     <ImageUpload
                       value={formData.image}
                       onChange={(value) => setFormData({...formData, image: value})}
-                      label="アイキャッチ画像（任意）"
+                      label=""
                     />
+                    <p className="text-sm text-gray-500">💡 写真をつけると、より目立つ記事になるよ！</p>
                   </div>
 
                   {/* オプション */}
-                  <div className="bg-gray-50 rounded-lg p-6 space-y-4">
-                    <h3 className="font-semibold text-gray-700 mb-4">公開設定</h3>
-                    <div className="grid sm:grid-cols-2 gap-4">
-                      <label className="flex items-center space-x-3 cursor-pointer p-4 bg-white rounded-lg border-2 border-gray-200 hover:border-blue-300 transition-colors">
+                  <div className="bg-gradient-to-br from-purple-50 to-pink-50 rounded-xl p-6 space-y-4 border-2 border-purple-200">
+                    <h3 className="font-bold text-purple-900 mb-4 text-lg flex items-center gap-2">
+                      ⚙️ その他の設定
+                    </h3>
+                    <div className="space-y-4">
+                      <label className="flex items-start space-x-4 cursor-pointer p-5 bg-white rounded-xl border-2 border-purple-200 hover:border-purple-400 hover:shadow-md transition-all">
                         <input
                           type="checkbox"
                           checked={formData.featured}
                           onChange={(e) => setFormData({...formData, featured: e.target.checked})}
-                          className="w-5 h-5 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                          className="w-6 h-6 rounded border-gray-300 text-purple-600 focus:ring-purple-500 mt-0.5 flex-shrink-0"
                         />
-                        <span className="text-sm font-medium text-gray-700">注目記事として表示</span>
+                        <div>
+                          <span className="text-base font-bold text-gray-800 block">⭐ 注目記事にする</span>
+                          <span className="text-sm text-gray-600">一覧ページで目立つように表示されます</span>
+                        </div>
                       </label>
 
-                      <label className="flex items-center space-x-3 cursor-pointer p-4 bg-white rounded-lg border-2 border-gray-200 hover:border-blue-300 transition-colors">
+                      <label className="flex items-start space-x-4 cursor-pointer p-5 bg-white rounded-xl border-2 border-purple-200 hover:border-purple-400 hover:shadow-md transition-all">
                         <input
                           type="checkbox"
                           checked={formData.status === 'published'}
@@ -351,33 +401,43 @@ export default function AdminNewsPage() {
                             ...formData, 
                             status: e.target.checked ? 'published' : 'draft'
                           })}
-                          className="w-5 h-5 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                          className="w-6 h-6 rounded border-gray-300 text-green-600 focus:ring-green-500 mt-0.5 flex-shrink-0"
                         />
-                        <span className="text-sm font-medium text-gray-700">すぐに公開する</span>
+                        <div>
+                          <span className="text-base font-bold text-gray-800 block">🌐 すぐにウェブサイトに公開する</span>
+                          <span className="text-sm text-gray-600">チェックを外すと「下書き」として保存されます</span>
+                        </div>
                       </label>
                     </div>
                   </div>
 
                   {/* アクションボタン */}
-                  <div className="flex gap-4 pt-4">
-                    <Button
-                      type="submit"
-                      className="flex-1 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white rounded-full py-6 text-lg font-semibold shadow-lg hover:shadow-xl transition-all"
-                    >
-                      <Save className="h-5 w-5 mr-2" />
-                      {editingId ? 'ニュースを更新' : 'ニュースを作成'}
-                    </Button>
-                    {isEditing && (
+                  <div className="bg-white rounded-xl p-6 border-2 border-dashed border-gray-300">
+                    <div className="flex flex-col gap-4">
                       <Button
-                        type="button"
-                        onClick={handleCancel}
-                        variant="outline"
-                        className="px-8 rounded-full py-6 border-2 hover:bg-gray-100"
+                        type="submit"
+                        className="w-full bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white rounded-2xl py-8 text-xl font-bold shadow-lg hover:shadow-2xl transition-all transform hover:scale-105"
                       >
-                        <X className="h-5 w-5 mr-2" />
-                        キャンセル
+                        <Save className="h-6 w-6 mr-3" />
+                        {editingId ? '✅ 変更を保存する' : '🎉 ニュースを作成する'}
                       </Button>
-                    )}
+                      {isEditing && (
+                        <Button
+                          type="button"
+                          onClick={handleCancel}
+                          variant="outline"
+                          className="w-full rounded-2xl py-6 border-2 text-base hover:bg-gray-100"
+                        >
+                          <X className="h-5 w-5 mr-2" />
+                          やめる（キャンセル）
+                        </Button>
+                      )}
+                      <p className="text-sm text-center text-gray-500 mt-2">
+                        {isEditing 
+                          ? '💾 ボタンを押すと変更が保存されます' 
+                          : '💾 ボタンを押すとニュースが作成されます'}
+                      </p>
+                    </div>
                   </div>
                 </form>
               </CardContent>
@@ -398,12 +458,18 @@ export default function AdminNewsPage() {
               <CardContent className="p-4">
                 <div className="space-y-3 max-h-[calc(100vh-200px)] overflow-y-auto pr-2">
                   {news.length === 0 ? (
-                    <div className="text-center py-16">
-                      <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                        <FileText className="h-8 w-8 text-gray-400" />
+                    <div className="text-center py-16 px-4">
+                      <div className="w-24 h-24 bg-gradient-to-br from-blue-100 to-purple-100 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg">
+                        <FileText className="h-12 w-12 text-blue-500" />
                       </div>
-                      <p className="text-gray-500 font-medium mb-2">ニュースがまだありません</p>
-                      <p className="text-sm text-gray-400">左のフォームから新しいニュースを作成してください</p>
+                      <p className="text-xl font-bold text-gray-700 mb-3">📝 まだニュースがないよ</p>
+                      <p className="text-base text-gray-500 mb-6">左側のフォームから<br />最初のニュースを作ってみよう！</p>
+                      <div className="bg-yellow-50 border-2 border-yellow-200 rounded-xl p-4 inline-block">
+                        <p className="text-sm text-yellow-800">
+                          👈 左のフォームに入力して<br />
+                          「ニュースを作成する」ボタンを押してね
+                        </p>
+                      </div>
                     </div>
                   ) : (
                     news.map((item) => (
@@ -468,24 +534,20 @@ export default function AdminNewsPage() {
                         </div>
 
                         {/* アクションボタン */}
-                        <div className="flex gap-2 mt-4">
+                        <div className="flex gap-3 mt-4">
                           <Button
                             onClick={() => handleEdit(item.id)}
-                            variant="outline"
-                            size="sm"
-                            className="flex-1 rounded-lg hover:bg-blue-50 hover:border-blue-400 hover:text-blue-600"
+                            className="flex-1 bg-blue-500 hover:bg-blue-600 text-white rounded-xl py-3 font-bold shadow-md hover:shadow-lg transition-all"
                           >
-                            <Edit className="h-3 w-3 mr-1" />
-                            編集
+                            <Edit className="h-4 w-4 mr-2" />
+                            ✏️ 編集する
                           </Button>
                           <Button
                             onClick={() => handleDelete(item.id)}
-                            variant="outline"
-                            size="sm"
-                            className="flex-1 rounded-lg text-red-600 hover:bg-red-50 hover:border-red-400"
+                            className="flex-1 bg-red-500 hover:bg-red-600 text-white rounded-xl py-3 font-bold shadow-md hover:shadow-lg transition-all"
                           >
-                            <Trash2 className="h-3 w-3 mr-1" />
-                            削除
+                            <Trash2 className="h-4 w-4 mr-2" />
+                            🗑️ 削除
                           </Button>
                         </div>
                       </div>

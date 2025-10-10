@@ -27,14 +27,59 @@ export function MarkdownEditor({ value, onChange, label = "本文（マークダ
   // オプションをメモ化（再レンダリングを防ぐ）
   const editorOptions = useMemo(() => ({
     spellChecker: false,
-    placeholder: 'マークダウン形式で記事を書いてください...\n\nショートカット:\n# 見出し1, ## 見出し2\n**太字** *斜体*\nCmd/Ctrl-B: 太字, Cmd/Ctrl-I: 斜体',
+    placeholder: 'ここに記事を書いてください...\n\n✏️ 書き方のヒント:\n# 大きな見出し\n## 中くらいの見出し\n**太字にしたい文字**\n*斜めの文字*',
     toolbar: [
-      'bold',
-      'italic',
-      'heading',
-      'heading-1',
-      'heading-2',
-      'heading-3',
+      {
+        name: 'bold',
+        action: (editor: any) => {
+          const cm = editor.codemirror
+          const selection = cm.getSelection()
+          cm.replaceSelection(`**${selection}**`)
+        },
+        className: 'fa fa-bold',
+        title: '太字 (Cmd/Ctrl-B)',
+      },
+      {
+        name: 'italic',
+        action: (editor: any) => {
+          const cm = editor.codemirror
+          const selection = cm.getSelection()
+          cm.replaceSelection(`*${selection}*`)
+        },
+        className: 'fa fa-italic',
+        title: '斜体 (Cmd/Ctrl-I)',
+      },
+      '|',
+      {
+        name: 'heading-1',
+        action: (editor: any) => {
+          const cm = editor.codemirror
+          const cursor = cm.getCursor()
+          cm.replaceRange('# ', { line: cursor.line, ch: 0 })
+        },
+        className: 'fa fa-header fa-header-x fa-header-1',
+        title: '大見出し',
+      },
+      {
+        name: 'heading-2',
+        action: (editor: any) => {
+          const cm = editor.codemirror
+          const cursor = cm.getCursor()
+          cm.replaceRange('## ', { line: cursor.line, ch: 0 })
+        },
+        className: 'fa fa-header fa-header-x fa-header-2',
+        title: '中見出し',
+      },
+      {
+        name: 'heading-3',
+        action: (editor: any) => {
+          const cm = editor.codemirror
+          const cursor = cm.getCursor()
+          cm.replaceRange('### ', { line: cursor.line, ch: 0 })
+        },
+        className: 'fa fa-header fa-header-x fa-header-3',
+        title: '小見出し',
+      },
       '|',
       'quote',
       'unordered-list',
@@ -60,7 +105,46 @@ export function MarkdownEditor({ value, onChange, label = "本文（マークダ
       toggleSideBySide: 'F9',
       toggleFullScreen: 'F11',
     },
-    status: ['lines', 'words', 'cursor'],
+    status: [
+      {
+        className: 'lines',
+        defaultValue: (el: any) => {
+          el.innerHTML = '0 行'
+        },
+        onUpdate: (el: any) => {
+          const cm = editorRef.current?.codemirror
+          if (cm) {
+            el.innerHTML = `${cm.lineCount()} 行`
+          }
+        },
+      },
+      {
+        className: 'words',
+        defaultValue: (el: any) => {
+          el.innerHTML = '0 文字'
+        },
+        onUpdate: (el: any) => {
+          const cm = editorRef.current?.codemirror
+          if (cm) {
+            const text = cm.getValue()
+            el.innerHTML = `${text.length} 文字`
+          }
+        },
+      },
+      {
+        className: 'cursor',
+        defaultValue: (el: any) => {
+          el.innerHTML = '1:1'
+        },
+        onUpdate: (el: any) => {
+          const cm = editorRef.current?.codemirror
+          if (cm) {
+            const cursor = cm.getCursor()
+            el.innerHTML = `${cursor.line + 1}:${cursor.ch + 1}`
+          }
+        },
+      },
+    ],
     minHeight: '400px',
     autofocus: false,
     lineWrapping: true,
@@ -85,7 +169,7 @@ export function MarkdownEditor({ value, onChange, label = "本文（マークダ
         key="markdown-editor"
         value={value}
         onChange={onChange}
-        options={editorOptions}
+        options={editorOptions as any}
         getMdeInstance={(instance) => {
           editorRef.current = instance
         }}
