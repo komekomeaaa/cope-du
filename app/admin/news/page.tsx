@@ -9,13 +9,13 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Badge } from "@/components/ui/badge"
-import { Plus, Edit, Trash2, LogOut, Save, X, Download, Upload } from 'lucide-react'
+import { Plus, Edit, Trash2, LogOut, Save, X } from 'lucide-react'
 import { MarkdownEditor } from "@/app/components/MarkdownEditor"
 import { ImageUpload } from "@/app/components/ImageUpload"
 
 export default function AdminNewsPage() {
   const router = useRouter()
-  const { news, addNews, updateNews, deleteNews, categories, exportNews, importNews } = useNews()
+  const { news, addNews, updateNews, deleteNews, categories } = useNews()
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [adminUsername, setAdminUsername] = useState('')
   const [isEditing, setIsEditing] = useState(false)
@@ -129,25 +129,6 @@ export default function AdminNewsPage() {
     setEditingId(null)
   }
 
-  const handleExport = () => {
-    exportNews()
-  }
-
-  const handleImport = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0]
-    if (file) {
-      const reader = new FileReader()
-      reader.onload = (e) => {
-        const content = e.target?.result as string
-        if (importNews(content)) {
-          alert('ニュースデータをインポートしました。')
-        } else {
-          alert('インポートに失敗しました。ファイル形式を確認してください。')
-        }
-      }
-      reader.readAsText(file)
-    }
-  }
 
   if (!isAuthenticated) {
     return <div className="min-h-screen bg-gray-50 flex items-center justify-center">
@@ -168,32 +149,6 @@ export default function AdminNewsPage() {
               )}
             </div>
             <div className="flex gap-3">
-              <Button
-                onClick={handleExport}
-                variant="outline"
-                className="rounded-full"
-              >
-                <Download className="h-4 w-4 mr-2" />
-                エクスポート
-              </Button>
-              <label className="cursor-pointer">
-                <Button
-                  variant="outline"
-                  className="rounded-full"
-                  asChild
-                >
-                  <span>
-                    <Upload className="h-4 w-4 mr-2" />
-                    インポート
-                  </span>
-                </Button>
-                <input
-                  type="file"
-                  accept=".json"
-                  onChange={handleImport}
-                  className="hidden"
-                />
-              </label>
               <Button
                 onClick={handleLogout}
                 variant="outline"
