@@ -27,7 +27,7 @@ export function MarkdownEditor({ value, onChange, label = "本文（マークダ
   // オプションをメモ化（再レンダリングを防ぐ）
   const editorOptions = useMemo(() => ({
     spellChecker: false,
-    placeholder: 'ここに記事を書いてください...\n\n✏️ 書き方のヒント:\n# 大きな見出し\n## 中くらいの見出し\n**太字にしたい文字**\n*斜めの文字*',
+    placeholder: 'ここに記事本文を入力してください...\n\nマークダウン記法:\n# 見出し1\n## 見出し2\n**太字** *斜体* [リンク](URL)',
     toolbar: [
       {
         name: 'bold',
@@ -37,7 +37,7 @@ export function MarkdownEditor({ value, onChange, label = "本文（マークダ
           cm.replaceSelection(`**${selection}**`)
         },
         className: 'fa fa-bold',
-        title: '太字 (Cmd/Ctrl-B)',
+        title: '太字',
       },
       {
         name: 'italic',
@@ -47,7 +47,7 @@ export function MarkdownEditor({ value, onChange, label = "本文（マークダ
           cm.replaceSelection(`*${selection}*`)
         },
         className: 'fa fa-italic',
-        title: '斜体 (Cmd/Ctrl-I)',
+        title: '斜体',
       },
       '|',
       {
@@ -58,7 +58,7 @@ export function MarkdownEditor({ value, onChange, label = "本文（マークダ
           cm.replaceRange('# ', { line: cursor.line, ch: 0 })
         },
         className: 'fa fa-header fa-header-x fa-header-1',
-        title: '大見出し',
+        title: '見出し1',
       },
       {
         name: 'heading-2',
@@ -68,7 +68,7 @@ export function MarkdownEditor({ value, onChange, label = "本文（マークダ
           cm.replaceRange('## ', { line: cursor.line, ch: 0 })
         },
         className: 'fa fa-header fa-header-x fa-header-2',
-        title: '中見出し',
+        title: '見出し2',
       },
       {
         name: 'heading-3',
@@ -78,7 +78,7 @@ export function MarkdownEditor({ value, onChange, label = "本文（マークダ
           cm.replaceRange('### ', { line: cursor.line, ch: 0 })
         },
         className: 'fa fa-header fa-header-x fa-header-3',
-        title: '小見出し',
+        title: '見出し3',
       },
       '|',
       'quote',

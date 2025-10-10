@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useCallback } from 'react'
-import { Upload, X } from 'lucide-react'
+import { Upload, X, Image } from 'lucide-react'
 import { Button } from "@/components/ui/button"
 
 interface ImageUploadProps {
@@ -60,51 +60,46 @@ export function ImageUpload({ value, onChange, label = "画像" }: ImageUploadPr
 
   return (
     <div className="space-y-2">
-      <label className="text-sm font-medium text-gray-700">{label}</label>
+      {label && <label className="text-sm font-medium text-gray-700">{label}</label>}
       
       {value ? (
         <div className="relative group">
           <img 
             src={value} 
-            alt="選んだ写真" 
-            className="w-full h-64 object-cover rounded-2xl border-4 border-green-300 shadow-lg"
+            alt="プレビュー" 
+            className="w-full h-48 object-cover rounded-lg border border-gray-200"
           />
-          <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-2xl flex items-center justify-center">
+          <div className="absolute inset-0 bg-black/0 group-hover:bg-black/60 transition-all rounded-lg flex items-center justify-center">
             <Button
               type="button"
               variant="destructive"
-              size="lg"
-              className="rounded-full px-6 py-6 text-lg font-bold shadow-xl"
+              size="sm"
+              className="opacity-0 group-hover:opacity-100 transition-opacity"
               onClick={handleRemove}
             >
-              <X className="h-5 w-5 mr-2" />
-              写真を削除
+              <X className="h-4 w-4 mr-1" />
+              削除
             </Button>
-          </div>
-          <div className="absolute top-3 left-3 bg-green-500 text-white px-4 py-2 rounded-full text-sm font-bold shadow-lg">
-            ✓ 写真が選ばれています
           </div>
         </div>
       ) : (
         <div
-          className={`border-4 border-dashed rounded-2xl p-12 text-center transition-all ${
+          className={`border-2 border-dashed rounded-lg p-8 text-center transition-all ${
             isDragging 
-              ? 'border-blue-500 bg-blue-100 scale-105' 
-              : 'border-gray-300 hover:border-blue-400 hover:bg-blue-50'
+              ? 'border-gray-400 bg-gray-50' 
+              : 'border-gray-300 hover:border-gray-400 bg-white'
           }`}
           onDragOver={handleDragOver}
           onDragLeave={handleDragLeave}
           onDrop={handleDrop}
         >
-          <div className="mb-6">
-            <Upload className={`h-20 w-20 mx-auto mb-4 transition-colors ${
-              isDragging ? 'text-blue-500' : 'text-gray-400'
-            }`} />
-          </div>
-          <p className="text-lg font-bold text-gray-700 mb-2">
-            📸 写真をここに<span className="text-blue-600">ドラッグ</span>してね
+          <Image className={`h-10 w-10 mx-auto mb-3 transition-colors ${
+            isDragging ? 'text-gray-900' : 'text-gray-400'
+          }`} />
+          <p className="text-sm text-gray-600 mb-1 font-medium">
+            ドラッグ&ドロップで画像をアップロード
           </p>
-          <p className="text-base text-gray-600 mb-2">
+          <p className="text-xs text-gray-500 mb-4">
             または
           </p>
           <label>
@@ -117,21 +112,20 @@ export function ImageUpload({ value, onChange, label = "画像" }: ImageUploadPr
             <Button 
               type="button" 
               variant="outline" 
-              size="lg"
-              className="cursor-pointer rounded-full px-8 py-6 text-base font-bold border-2 border-blue-500 text-blue-600 hover:bg-blue-50"
+              size="sm"
+              className="cursor-pointer"
               asChild
             >
               <span>
-                📁 パソコンから写真を選ぶ
+                ファイルを選択
               </span>
             </Button>
           </label>
-          <p className="text-xs text-gray-500 mt-4">
-            使える写真: PNG, JPG, JPEG, SVG
+          <p className="text-xs text-gray-400 mt-3">
+            PNG, JPG, JPEG, SVG
           </p>
         </div>
       )}
     </div>
   )
 }
-
