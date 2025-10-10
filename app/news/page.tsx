@@ -4,24 +4,24 @@ import { Header } from "../components/header"
 import { Footer } from "../components/footer"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { initialNews } from "../contexts/NewsContext"
+import { useNews } from "../contexts/NewsContext"
 import Link from "next/link"
 import { Calendar, User } from 'lucide-react'
 import { useScrollAnimation } from "../hooks/useScrollAnimation"
 
 export default function NewsPage() {
-  // 静的エクスポート用：初期ニュースのみ表示
-  const news = initialNews.filter(item => item.status === 'published')
+  const { getPublishedNews } = useNews()
+  const news = getPublishedNews()
   const heroAnimation = useScrollAnimation()
   const newsAnimation = useScrollAnimation()
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen">
       <Header />
       
       <div className="pt-32">
         {/* Hero Section */}
-        <section className="pb-20 px-4">
+        <section className="pb-20 px-4 bg-white/30 backdrop-blur-sm">
           <div 
             ref={heroAnimation.ref}
             className={`max-w-4xl mx-auto text-center transition-all duration-1000 ${
@@ -40,7 +40,7 @@ export default function NewsPage() {
         </section>
 
         {/* News Grid */}
-        <section className="pb-24 px-4">
+        <section className="pb-24 px-4 bg-white/30 backdrop-blur-sm">
           <div ref={newsAnimation.ref} className="max-w-6xl mx-auto">
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               {news.map((item, index) => (

@@ -10,9 +10,22 @@ import { Lock } from 'lucide-react'
 
 export default function AdminLoginPage() {
   const router = useRouter()
+  const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
   const [isLoading, setIsLoading] = useState(false)
+
+  // noindex メタタグを追加
+  useEffect(() => {
+    const metaRobots = document.createElement('meta')
+    metaRobots.name = 'robots'
+    metaRobots.content = 'noindex, nofollow'
+    document.head.appendChild(metaRobots)
+
+    return () => {
+      document.head.removeChild(metaRobots)
+    }
+  }, [])
 
   useEffect(() => {
     // 既にログイン済みの場合は管理画面へ（クライアントサイドのみ）
@@ -24,21 +37,35 @@ export default function AdminLoginPage() {
     }
   }, [router])
 
+  // URLパラメータでログアウト処理
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const urlParams = new URLSearchParams(window.location.search)
+      if (urlParams.get('logout') === 'true') {
+        localStorage.removeItem('adminAuthenticated')
+        localStorage.removeItem('adminUsername')
+        window.history.replaceState({}, document.title, window.location.pathname)
+      }
+    }
+  }, [])
+
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault()
     setIsLoading(true)
     setError('')
 
-    // 簡易的なパスワード認証（本番環境では適切な認証システムを使用してください）
-    const ADMIN_PASSWORD = 'admin123' // 本番環境では環境変数に設定
+    // 簡易的な認証（本番環境では適切な認証システムを使用してください）
+    const ADMIN_USERNAME = process.env.NEXT_PUBLIC_ADMIN_USERNAME || 'yachi'
+    const ADMIN_PASSWORD = process.env.NEXT_PUBLIC_ADMIN_PASSWORD || 'aiueo1234'
 
-    if (password === ADMIN_PASSWORD) {
+    if (username === ADMIN_USERNAME && password === ADMIN_PASSWORD) {
       if (typeof window !== 'undefined') {
         localStorage.setItem('adminAuthenticated', 'true')
+        localStorage.setItem('adminUsername', username)
       }
       router.push('/admin/news')
     } else {
-      setError('パスワードが正しくありません')
+      setError('認証に失敗しました')
       setIsLoading(false)
     }
   }
@@ -63,6 +90,21 @@ export default function AdminLoginPage() {
             )}
             
             <div className="space-y-2">
+              <Label htmlFor="username" className="text-gray-700 font-medium">
+                ユーザー名
+              </Label>
+              <Input
+                id="username"
+                type="text"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                placeholder="管理者ユーザー名を入力"
+                className="border-gray-300 focus:border-blue-600"
+                required
+              />
+            </div>
+
+            <div className="space-y-2">
               <Label htmlFor="password" className="text-gray-700 font-medium">
                 パスワード
               </Label>
@@ -86,8 +128,7 @@ export default function AdminLoginPage() {
             </Button>
 
             <p className="text-xs text-gray-500 text-center font-light">
-              デフォルトパスワード: admin123<br />
-              ※本番環境では必ず変更してください
+              ※本番環境では必ずパスワードを変更してください
             </p>
           </form>
         </CardContent>

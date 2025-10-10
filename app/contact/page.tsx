@@ -13,10 +13,10 @@ export default function ContactPage() {
   const useEmbedForm = siteConfig.contactForm.useEmbedForm
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen">
       <Header />
       
-      <div className="pt-32">
+      <div className="pt-32 bg-white/30 backdrop-blur-sm">
         {/* Hero Section */}
         <section className="pb-20 px-4">
           <div className="max-w-4xl mx-auto text-center">
@@ -148,24 +148,6 @@ export default function ContactPage() {
                         {siteConfig.contact.businessHours.weekday}<br />
                         {siteConfig.contact.businessHours.weekend}
                       </p>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-
-              {/* Quick Response */}
-              <Card className="bg-blue-50 border border-blue-200">
-                <CardContent className="p-6">
-                  <div className="text-center">
-                    <h3 className="text-lg font-medium text-gray-900 mb-2">迅速な対応をお約束</h3>
-                    <p className="text-gray-600 text-sm mb-4 font-light">
-                      お問い合わせいただいた内容には、
-                      24時間以内にご返信いたします。
-                    </p>
-                    <div className="flex justify-center space-x-4 text-sm text-gray-600">
-                      <span>✓ 無料相談</span>
-                      <span>✓ 秘密保持</span>
-                      <span>✓ 迅速対応</span>
                     </div>
                   </div>
                 </CardContent>

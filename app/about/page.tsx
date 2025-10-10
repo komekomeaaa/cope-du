@@ -24,12 +24,12 @@ export default function AboutPage() {
   const missionAnimation = useScrollAnimation()
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen">
       <Header />
       
       <div className="pt-32">
         {/* Hero Section */}
-        <section className="pb-20 px-4">
+        <section className="pb-20 px-4 bg-white/30 backdrop-blur-sm">
           <div className="max-w-6xl mx-auto">
             <div 
               ref={heroAnimation.ref}
@@ -124,7 +124,7 @@ export default function AboutPage() {
         </section>
 
         {/* Values Section */}
-        <section className="py-24 px-4">
+        <section className="py-24 px-4 bg-white/30 backdrop-blur-sm">
           <div className="max-w-6xl mx-auto">
             <div 
               ref={valuesAnimation.ref}
@@ -216,7 +216,7 @@ export default function AboutPage() {
         </section>
 
         {/* Mission Section */}
-        <section className="py-24 px-4">
+        <section className="py-24 px-4 bg-white/30 backdrop-blur-sm">
           <div 
             ref={missionAnimation.ref}
             className={`max-w-5xl mx-auto text-center transition-all duration-1000 ${

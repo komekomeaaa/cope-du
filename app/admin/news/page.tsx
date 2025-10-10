@@ -10,12 +10,13 @@ import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Badge } from "@/components/ui/badge"
-import { Plus, Edit, Trash2, LogOut, Save, X } from 'lucide-react'
+import { Plus, Edit, Trash2, LogOut, Save, X, Download, Upload } from 'lucide-react'
 
 export default function AdminNewsPage() {
   const router = useRouter()
-  const { news, addNews, updateNews, deleteNews, categories } = useNews()
+  const { news, addNews, updateNews, deleteNews, categories, exportNews, importNews } = useNews()
   const [isAuthenticated, setIsAuthenticated] = useState(false)
+  const [adminUsername, setAdminUsername] = useState('')
   const [isEditing, setIsEditing] = useState(false)
   const [editingId, setEditingId] = useState<number | null>(null)
   
@@ -30,14 +31,28 @@ export default function AdminNewsPage() {
     image: ''
   })
 
+  // noindex メタタグを追加
+  useEffect(() => {
+    const metaRobots = document.createElement('meta')
+    metaRobots.name = 'robots'
+    metaRobots.content = 'noindex, nofollow'
+    document.head.appendChild(metaRobots)
+
+    return () => {
+      document.head.removeChild(metaRobots)
+    }
+  }, [])
+
   useEffect(() => {
     // 認証チェック（クライアントサイドのみ）
     if (typeof window !== 'undefined') {
       const authenticated = localStorage.getItem('adminAuthenticated')
+      const username = localStorage.getItem('adminUsername')
       if (authenticated !== 'true') {
         router.push('/admin')
       } else {
         setIsAuthenticated(true)
+        setAdminUsername(username || '')
       }
     }
   }, [router])
@@ -45,6 +60,7 @@ export default function AdminNewsPage() {
   const handleLogout = () => {
     if (typeof window !== 'undefined') {
       localStorage.removeItem('adminAuthenticated')
+      localStorage.removeItem('adminUsername')
     }
     router.push('/admin')
   }
@@ -112,6 +128,26 @@ export default function AdminNewsPage() {
     setEditingId(null)
   }
 
+  const handleExport = () => {
+    exportNews()
+  }
+
+  const handleImport = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0]
+    if (file) {
+      const reader = new FileReader()
+      reader.onload = (e) => {
+        const content = e.target?.result as string
+        if (importNews(content)) {
+          alert('ニュースデータをインポートしました。')
+        } else {
+          alert('インポートに失敗しました。ファイル形式を確認してください。')
+        }
+      }
+      reader.readAsText(file)
+    }
+  }
+
   if (!isAuthenticated) {
     return <div className="min-h-screen bg-gray-50 flex items-center justify-center">
       <p className="text-gray-600">読み込み中...</p>
@@ -124,15 +160,48 @@ export default function AdminNewsPage() {
       <header className="bg-white border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
-            <h1 className="text-xl font-medium text-gray-900">ニュース管理</h1>
-            <Button
-              onClick={handleLogout}
-              variant="outline"
-              className="rounded-full"
-            >
-              <LogOut className="h-4 w-4 mr-2" />
-              ログアウト
-            </Button>
+            <div>
+              <h1 className="text-xl font-medium text-gray-900">ニュース管理</h1>
+              {adminUsername && (
+                <p className="text-sm text-gray-500">ログイン: {adminUsername}</p>
+              )}
+            </div>
+            <div className="flex gap-3">
+              <Button
+                onClick={handleExport}
+                variant="outline"
+                className="rounded-full"
+              >
+                <Download className="h-4 w-4 mr-2" />
+                エクスポート
+              </Button>
+              <label className="cursor-pointer">
+                <Button
+                  variant="outline"
+                  className="rounded-full"
+                  asChild
+                >
+                  <span>
+                    <Upload className="h-4 w-4 mr-2" />
+                    インポート
+                  </span>
+                </Button>
+                <input
+                  type="file"
+                  accept=".json"
+                  onChange={handleImport}
+                  className="hidden"
+                />
+              </label>
+              <Button
+                onClick={handleLogout}
+                variant="outline"
+                className="rounded-full"
+              >
+                <LogOut className="h-4 w-4 mr-2" />
+                ログアウト
+              </Button>
+            </div>
           </div>
         </div>
       </header>

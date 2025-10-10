@@ -23,11 +23,11 @@ export default function HomePage() {
   const ctaAnimation = useScrollAnimation()
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen">
       <Header />
       
       {/* Hero Section - Google Style */}
-      <section className="relative pt-32 pb-20 px-4 overflow-hidden">
+      <section className="relative pt-32 pb-20 px-4 overflow-hidden bg-white/30">
         <div className="max-w-7xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div 
@@ -137,7 +137,7 @@ export default function HomePage() {
       </section>
 
       {/* Stats Section - Simple & Clean */}
-      <section className="py-24 px-4">
+      <section className="py-24 px-4 bg-white/30">
         <div className="max-w-7xl mx-auto">
           <div 
             ref={statsAnimation.ref}

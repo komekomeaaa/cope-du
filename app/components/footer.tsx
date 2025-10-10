@@ -1,5 +1,4 @@
 import Link from "next/link"
-import { Lock } from "lucide-react"
 import { siteConfig } from "@/config/site"
 
 export function Footer() {
@@ -18,7 +17,6 @@ export function Footer() {
       links: [
         { name: '会社概要', href: '/about' },
         { name: 'ニュース', href: '/news' },
-        { name: '採用情報', href: '#' },
         { name: 'お問い合わせ', href: '/contact' },
       ]
     },
@@ -26,15 +24,13 @@ export function Footer() {
       title: 'リソース',
       links: [
         { name: 'ブログ', href: '#' },
-        { name: 'ヘルプセンター', href: '#' },
-        { name: 'セキュリティ', href: '#' },
         { name: 'プライバシー', href: '#' },
       ]
     }
   ]
 
   return (
-    <footer className="bg-white border-t border-gray-100">
+    <footer className="bg-white/60 border-t border-gray-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Main Footer Content */}
         <div className="py-16">
@@ -87,14 +83,6 @@ export function Footer() {
               </Link>
               <Link href="#" className="text-sm text-gray-600 hover:text-gray-900 transition-colors font-light">
                 利用規約
-              </Link>
-              <Link 
-                href="/admin" 
-                className="flex items-center gap-1.5 text-xs text-gray-400 hover:text-gray-600 transition-colors font-light group"
-                title="管理者ログイン"
-              >
-                <Lock className="h-3 w-3 group-hover:text-blue-600 transition-colors" />
-                <span className="group-hover:text-blue-600 transition-colors">Admin</span>
               </Link>
             </div>
           </div>

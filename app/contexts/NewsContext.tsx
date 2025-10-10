@@ -25,6 +25,8 @@ interface NewsContextType {
   removeCategory: (category: string) => void
   getPublishedNews: () => NewsItem[]
   getFeaturedNews: () => NewsItem[]
+  exportNews: () => void
+  importNews: (data: string) => boolean
   getStats: () => {
     totalNews: number
     publishedNews: number
@@ -180,6 +182,34 @@ export function NewsProvider({ children }: { children: ReactNode }) {
     return news.filter(item => item.status === 'published' && item.featured)
   }
 
+  const exportNews = () => {
+    if (typeof window !== 'undefined') {
+      const dataStr = JSON.stringify(news, null, 2)
+      const dataBlob = new Blob([dataStr], { type: 'application/json' })
+      const url = URL.createObjectURL(dataBlob)
+      const link = document.createElement('a')
+      link.href = url
+      link.download = `techcorp-news-${new Date().toISOString().split('T')[0]}.json`
+      document.body.appendChild(link)
+      link.click()
+      document.body.removeChild(link)
+      URL.revokeObjectURL(url)
+    }
+  }
+
+  const importNews = (data: string): boolean => {
+    try {
+      const importedNews = JSON.parse(data)
+      if (Array.isArray(importedNews)) {
+        setNews(importedNews)
+        return true
+      }
+      return false
+    } catch (e) {
+      return false
+    }
+  }
+
   const getStats = () => {
     const publishedNews = news.filter(n => n.status === 'published')
     return {
@@ -204,6 +234,8 @@ export function NewsProvider({ children }: { children: ReactNode }) {
       removeCategory,
       getPublishedNews,
       getFeaturedNews,
+      exportNews,
+      importNews,
       getStats
     }}>
       {children}
