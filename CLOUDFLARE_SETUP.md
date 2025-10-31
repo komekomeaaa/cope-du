@@ -46,11 +46,14 @@ wrangler kv:namespace create "NEWS_KV" --preview
 3. **Settings** タブ → **Functions** を選択
 4. **KV namespace bindings** セクションで **Add binding** をクリック
 5. 以下を入力：
-   - **Variable name**: `NEWS_KV`
+   - **Variable name**: `KV` または `NEWS_KV` （どちらでもOK）
    - **KV namespace**: 作成したNamespace（cope-du-news）を選択
 6. **Save** をクリック
 
-**重要**: Production環境とPreview環境の両方で設定してください。
+**重要**: 
+- Production環境とPreview環境の両方で設定してください
+- Variable nameは `KV` と `NEWS_KV` のどちらでも動作します
+- すでに `KV` という名前で設定済みの場合、そのまま使用できます
 
 ### 3. 再デプロイ
 

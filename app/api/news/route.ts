@@ -46,12 +46,13 @@ export const runtime = 'edge'
 // GET: ニュースデータを取得
 export async function GET(request: NextRequest) {
   try {
-    // Cloudflare KVから取得
+    // Cloudflare KVから取得（env.KVまたはenv.NEWS_KVをチェック）
     const env = process.env as any
+    const kvNamespace = env.KV || env.NEWS_KV
     
-    if (env.NEWS_KV) {
-      console.log('✅ NEWS_KV is available - reading from KV')
-      const newsData = await env.NEWS_KV.get('news', { type: 'json' })
+    if (kvNamespace) {
+      console.log('✅ KV is available - reading from KV')
+      const newsData = await kvNamespace.get('news', { type: 'json' })
       const news = newsData || initialNews
       
       console.log(`📰 Loaded ${Array.isArray(news) ? news.length : 0} news items from KV`)
@@ -65,7 +66,7 @@ export async function GET(request: NextRequest) {
         }
       })
     } else {
-      console.warn('⚠️ NEWS_KV is NOT available - using fallback')
+      console.warn('⚠️ KV is NOT available - using fallback')
       
       // public/data/news.jsonから読み込み（フォールバック）
       try {
@@ -112,12 +113,13 @@ export async function GET(request: NextRequest) {
 // HEAD: データソースの確認用
 export async function HEAD(request: NextRequest) {
   const env = process.env as any
-  const dataSource = env.NEWS_KV ? 'cloudflare-kv' : 'initial-data'
+  const kvNamespace = env.KV || env.NEWS_KV
+  const dataSource = kvNamespace ? 'cloudflare-kv' : 'initial-data'
   
   return new NextResponse(null, {
     headers: {
       'X-Data-Source': dataSource,
-      'X-KV-Available': env.NEWS_KV ? 'true' : 'false',
+      'X-KV-Available': kvNamespace ? 'true' : 'false',
     }
   })
 }
@@ -127,12 +129,13 @@ export async function POST(request: NextRequest) {
   try {
     const news = await request.json()
     const env = process.env as any
+    const kvNamespace = env.KV || env.NEWS_KV
     
     console.log(`💾 Attempting to save ${Array.isArray(news) ? news.length : 0} news items`)
     
-    if (env.NEWS_KV) {
+    if (kvNamespace) {
       // Cloudflare KVに保存
-      await env.NEWS_KV.put('news', JSON.stringify(news))
+      await kvNamespace.put('news', JSON.stringify(news))
       console.log('✅ Successfully saved to Cloudflare KV')
       
       return NextResponse.json({ 
@@ -146,7 +149,7 @@ export async function POST(request: NextRequest) {
       })
     } else {
       // KVが利用できない場合の警告
-      console.error('❌ NEWS_KV is not available - data will NOT be persisted!')
+      console.error('❌ KV is not available - data will NOT be persisted!')
       console.error('⚠️ Please configure Cloudflare KV binding in your Cloudflare Pages settings')
       
       return NextResponse.json({ 
