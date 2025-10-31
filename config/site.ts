@@ -39,9 +39,9 @@ export const siteConfig = {
   // お問い合わせフォーム設定
   contactForm: {
     // trueにすると埋め込みフォームを使用
-    useEmbedForm: false,
+    useEmbedForm: true,
     // Google FormsやTypeformのURLを設定
-    embedUrl: "",
+    embedUrl: "https://weak-earthquake-528.notion.site/ebd/29dd359167038091bd9dc11fffa0053f?appearance=light",
   },
 
   // 統計情報

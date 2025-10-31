@@ -33,28 +33,34 @@ export default function ContactPage() {
           <div className="grid lg:grid-cols-3 gap-12">
             {/* Contact Form */}
             <div className="lg:col-span-2">
-              <Card className="border-0 shadow-lg overflow-hidden">
-                <CardHeader className="p-8 bg-gray-50">
-                  <CardTitle className="text-3xl font-light text-gray-900">お問い合わせフォーム</CardTitle>
-                  <CardDescription className="text-gray-600 font-light text-base mt-2">
+              <Card className="border-0 shadow-lg overflow-hidden bg-white">
+                <CardHeader className="p-6 sm:p-8 bg-gradient-to-br from-blue-50 to-white">
+                  <CardTitle className="text-2xl sm:text-3xl font-light text-gray-900">お問い合わせフォーム</CardTitle>
+                  <CardDescription className="text-gray-600 font-light text-sm sm:text-base mt-2">
                     以下のフォームにご記入いただき、送信してください。24時間以内にご返信いたします。
                   </CardDescription>
                 </CardHeader>
-                <CardContent className="p-0">
+                <CardContent className="p-0 bg-white">
                   {useEmbedForm && embedUrl ? (
                     // 埋め込みフォーム表示
-                    <div className="w-full">
+                    <div className="w-full relative overflow-hidden bg-white">
                       <iframe
                         src={embedUrl}
                         width="100%"
-                        height="800"
+                        height="700"
                         frameBorder="0"
-                        marginHeight={0}
-                        marginWidth={0}
-                        className="w-full"
+                        allowFullScreen
+                        className="w-full min-h-[700px] bg-white"
+                        style={{
+                          marginTop: '-60px',
+                          marginBottom: '-60px',
+                          colorScheme: 'light'
+                        }}
                       >
                         読み込んでいます...
                       </iframe>
+                      {/* Notionコントロールバーを隠すオーバーレイ */}
+                      <div className="absolute top-0 left-0 right-0 h-16 bg-white pointer-events-none z-10"></div>
                     </div>
                   ) : (
                     // デフォルトのメッセージ（URLを設定してください）
@@ -81,17 +87,6 @@ export default function ContactPage() {
                   )}
                 </CardContent>
               </Card>
-              
-              {/* 設定例 */}
-              <div className="mt-6 p-6 bg-blue-50 rounded-2xl">
-                <h4 className="text-lg font-medium text-gray-900 mb-3">📝 設定方法</h4>
-                <div className="space-y-2 text-sm text-gray-700 font-light">
-                  <p>1. Google FormsやTypeformなどでフォームを作成</p>
-                  <p>2. 埋め込み用のURLを取得</p>
-                  <p>3. <code className="bg-white px-2 py-1 rounded">embedUrl</code> に設定</p>
-                  <p>4. <code className="bg-white px-2 py-1 rounded">useEmbedForm</code> を <code className="bg-white px-2 py-1 rounded">true</code> に変更</p>
-                </div>
-              </div>
             </div>
 
             {/* Contact Info */}
