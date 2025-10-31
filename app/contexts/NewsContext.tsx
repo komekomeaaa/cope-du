@@ -119,32 +119,66 @@ const initialCategories = ["プレスリリース", "お知らせ", "イベン�
 export function NewsProvider({ children }: { children: ReactNode }) {
   const [news, setNews] = useState<NewsItem[]>([])
   const [categories, setCategories] = useState<string[]>(initialCategories)
+  const [isLoaded, setIsLoaded] = useState(false)
 
+  // APIからニュースデータを取得
   useEffect(() => {
-    // ローカルストレージから読み込み（クライアントサイドのみ）
+    // 古いlocalStorageデータをクリア
     if (typeof window !== 'undefined') {
-      const savedNews = localStorage.getItem('techcorp-news')
-      if (savedNews) {
-        try {
-          setNews(JSON.parse(savedNews))
-        } catch (e) {
+      localStorage.removeItem('techcorp-news')
+    }
+
+    const loadNews = async () => {
+      try {
+        const response = await fetch('/api/news', {
+          cache: 'no-store',
+          headers: {
+            'Cache-Control': 'no-cache',
+          }
+        })
+        if (response.ok) {
+          const data = await response.json()
+          if (Array.isArray(data)) {
+            setNews(data.length > 0 ? data : initialNews)
+          } else {
+            setNews(initialNews)
+          }
+        } else {
           setNews(initialNews)
         }
-      } else {
+      } catch (error) {
+        console.error('Failed to load news from API:', error)
         setNews(initialNews)
+      } finally {
+        setIsLoaded(true)
       }
-    } else {
-      // サーバーサイド（ビルド時）
-      setNews(initialNews)
     }
+
+    loadNews()
   }, [])
 
+  // ニュースが変更されたらAPIに保存（初回ロード後のみ）
   useEffect(() => {
-    // ローカルストレージに保存（クライアントサイドのみ）
-    if (typeof window !== 'undefined' && news.length > 0) {
-      localStorage.setItem('techcorp-news', JSON.stringify(news))
+    const saveNews = async () => {
+      if (!isLoaded) return
+
+      try {
+        await fetch('/api/news', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(news),
+          cache: 'no-store',
+        })
+        console.log('News saved successfully')
+      } catch (error) {
+        console.error('Failed to save news to API:', error)
+      }
     }
-  }, [news])
+
+    saveNews()
+  }, [news, isLoaded])
 
   const addNews = (newNews: Omit<NewsItem, 'id' | 'date'>) => {
     const id = Math.max(...news.map(n => n.id), 0) + 1
