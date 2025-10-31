@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { usePathname } from 'next/navigation'
 import { Menu, X } from 'lucide-react'
 import Link from "next/link"
 import { siteConfig } from "@/config/site"
@@ -8,6 +9,7 @@ import { siteConfig } from "@/config/site"
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
+  const pathname = usePathname()
 
   useEffect(() => {
     const handleScroll = () => {
@@ -18,10 +20,18 @@ export function Header() {
   }, [])
 
   const navigation = [
-    { name: 'プロダクト', href: '/services' },
-    { name: '会社情報', href: '/about' },
+    { name: '企業情報', href: '/about' },
+    { name: '事業案内', href: '/services' },
     { name: 'ニュース', href: '/news' },
+    { name: 'お問い合わせ', href: '/contact' },
   ]
+
+  const isActive = (href: string) => {
+    if (href === '/') {
+      return pathname === '/'
+    }
+    return pathname?.startsWith(href)
+  }
 
   return (
     <header className={`fixed top-0 w-full z-50 transition-all duration-300 ${
@@ -42,17 +52,18 @@ export function Header() {
               <Link
                 key={item.name}
                 href={item.href}
-                className="px-4 py-2 text-sm text-gray-700 hover:text-gray-900 hover:bg-gray-50 rounded-lg transition-all"
+                className={`relative px-4 py-2 text-sm rounded-lg transition-all ${
+                  isActive(item.href)
+                    ? 'text-gray-900 font-medium'
+                    : 'text-gray-700 hover:text-gray-900 hover:bg-gray-50'
+                }`}
               >
                 {item.name}
+                {isActive(item.href) && (
+                  <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-6 h-0.5 bg-blue-600 rounded-full"></span>
+                )}
               </Link>
             ))}
-            <Link
-              href="/contact"
-              className="ml-4 px-6 py-2 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-full transition-colors"
-            >
-              お問い合わせ
-            </Link>
           </nav>
 
           {/* Mobile menu button */}
@@ -72,21 +83,21 @@ export function Header() {
                 <Link
                   key={item.name}
                   href={item.href}
-                  className="block px-4 py-3 text-base text-gray-700 hover:bg-gray-50 rounded-lg transition-colors"
+                  className={`relative block px-4 py-3 text-base rounded-lg transition-colors ${
+                    isActive(item.href)
+                      ? 'text-gray-900 bg-gray-50 font-medium'
+                      : 'text-gray-700 hover:bg-gray-50'
+                  }`}
                   onClick={() => setIsMenuOpen(false)}
                 >
-                  {item.name}
+                  {isActive(item.href) && (
+                    <span className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-8 bg-blue-600 rounded-r-full"></span>
+                  )}
+                  <span className={isActive(item.href) ? 'ml-2' : ''}>
+                    {item.name}
+                  </span>
                 </Link>
               ))}
-              <div className="pt-2">
-                <Link
-                  href="/contact"
-                  className="block w-full text-center px-4 py-3 text-base font-medium text-white bg-blue-600 hover:bg-blue-700 rounded-full transition-colors"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  お問い合わせ
-                </Link>
-              </div>
             </div>
           </div>
         )}

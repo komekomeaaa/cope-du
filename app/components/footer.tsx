@@ -4,7 +4,7 @@ import { siteConfig } from "@/config/site"
 export function Footer() {
   const footerSections = [
     {
-      title: 'プロダクト',
+      title: '事業案内',
       links: [
         { name: 'システム開発', href: '/services' },
         { name: 'AI ソリューション', href: '/services' },
@@ -13,7 +13,7 @@ export function Footer() {
       ]
     },
     {
-      title: '会社情報',
+      title: '企業情報',
       links: [
         { name: '会社概要', href: '/about' },
         { name: 'ニュース', href: '/news' },
