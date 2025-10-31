@@ -46,9 +46,9 @@ export const runtime = 'edge'
 // GET: ニュースデータを取得
 export async function GET(request: NextRequest) {
   try {
-    // Cloudflare KVから取得（env.KVまたはenv.NEWS_KVをチェック）
+    // Cloudflare KVから取得（env.corporate、env.KV、env.NEWS_KVをチェック）
     const env = process.env as any
-    const kvNamespace = env.KV || env.NEWS_KV
+    const kvNamespace = env.corporate || env.KV || env.NEWS_KV
     
     if (kvNamespace) {
       console.log('✅ KV is available - reading from KV')
@@ -113,7 +113,7 @@ export async function GET(request: NextRequest) {
 // HEAD: データソースの確認用
 export async function HEAD(request: NextRequest) {
   const env = process.env as any
-  const kvNamespace = env.KV || env.NEWS_KV
+  const kvNamespace = env.corporate || env.KV || env.NEWS_KV
   const dataSource = kvNamespace ? 'cloudflare-kv' : 'initial-data'
   
   return new NextResponse(null, {
@@ -129,7 +129,7 @@ export async function POST(request: NextRequest) {
   try {
     const news = await request.json()
     const env = process.env as any
-    const kvNamespace = env.KV || env.NEWS_KV
+    const kvNamespace = env.corporate || env.KV || env.NEWS_KV
     
     console.log(`💾 Attempting to save ${Array.isArray(news) ? news.length : 0} news items`)
     

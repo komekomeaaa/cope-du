@@ -9,10 +9,11 @@ export async function GET(request: NextRequest) {
   const debugInfo = {
     timestamp: new Date().toISOString(),
     kvAvailable: {
+      corporate: !!env.corporate,
       KV: !!env.KV,
       NEWS_KV: !!env.NEWS_KV,
     },
-    kvNamespace: env.KV || env.NEWS_KV ? 'available' : 'not-available',
+    kvNamespace: env.corporate || env.KV || env.NEWS_KV ? 'available' : 'not-available',
     environment: {
       NODE_ENV: process.env.NODE_ENV,
       // 利用可能な環境変数のキー（値は表示しない）
@@ -24,9 +25,9 @@ export async function GET(request: NextRequest) {
   }
   
   // KVが利用可能な場合、テスト読み込みを実行
-  if (env.KV || env.NEWS_KV) {
+  if (env.corporate || env.KV || env.NEWS_KV) {
     try {
-      const kvNamespace = env.KV || env.NEWS_KV
+      const kvNamespace = env.corporate || env.KV || env.NEWS_KV
       const testData = await kvNamespace.get('news', { type: 'json' })
       debugInfo['kvTest'] = {
         success: true,
