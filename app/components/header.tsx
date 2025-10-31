@@ -35,24 +35,24 @@ export function Header() {
 
   return (
     <header className={`fixed top-0 w-full z-50 transition-all duration-300 ${
-      isScrolled ? 'bg-white/90 shadow-sm' : 'bg-white/60'
+      isScrolled ? 'bg-white/90 shadow-sm backdrop-blur-sm' : 'bg-white/60 backdrop-blur-sm'
     }`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
+        <div className="flex justify-between items-center h-14 sm:h-16">
           {/* Logo */}
-          <Link href="/" className="flex items-center group">
-            <span className="text-xl font-normal text-gray-900 tracking-tight">
+          <Link href="/" className="flex items-center group min-w-0">
+            <span className="text-lg sm:text-xl font-normal text-gray-900 tracking-tight truncate">
               {siteConfig.company.name}
             </span>
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-1">
+          <nav className="hidden md:flex items-center space-x-1 lg:space-x-2">
             {navigation.map((item) => (
               <Link
                 key={item.name}
                 href={item.href}
-                className={`relative px-4 py-2 text-sm rounded-lg transition-all ${
+                className={`relative px-3 lg:px-4 py-2 text-sm lg:text-base rounded-lg transition-all ${
                   isActive(item.href)
                     ? 'text-gray-900 font-medium'
                     : 'text-gray-700 hover:text-gray-900 hover:bg-gray-50'
@@ -66,28 +66,42 @@ export function Header() {
             ))}
           </nav>
 
-          {/* Mobile menu button */}
+          {/* Mobile menu button - increased touch target */}
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="md:hidden p-2 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors"
+            className="md:hidden p-3 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors -mr-2"
+            aria-label={isMenuOpen ? 'メニューを閉じる' : 'メニューを開く'}
+            aria-expanded={isMenuOpen}
           >
-            {isMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+            {isMenuOpen ? <X className="h-5 w-5 sm:h-6 sm:w-6" /> : <Menu className="h-5 w-5 sm:h-6 sm:w-6" />}
           </button>
         </div>
 
-        {/* Mobile Navigation */}
-        {isMenuOpen && (
-          <div className="md:hidden py-4 border-t border-gray-100">
-            <div className="space-y-1">
-              {navigation.map((item) => (
+        {/* Mobile Navigation - optimized for all mobile sizes */}
+        <div
+          className={`md:hidden overflow-hidden transition-all duration-300 ease-in-out ${
+            isMenuOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+          }`}
+        >
+          <div className="py-3 sm:py-4 border-t border-gray-100">
+            <nav className="space-y-1" role="navigation" aria-label="モバイルナビゲーション">
+              {navigation.map((item, index) => (
                 <Link
                   key={item.name}
                   href={item.href}
-                  className={`relative block px-4 py-3 text-base rounded-lg transition-colors ${
+                  className={`relative block px-4 py-3.5 text-base sm:text-lg rounded-lg transition-all duration-300 touch-manipulation ${
                     isActive(item.href)
                       ? 'text-gray-900 bg-gray-50 font-medium'
-                      : 'text-gray-700 hover:bg-gray-50'
+                      : 'text-gray-700 hover:bg-gray-50 active:bg-gray-100'
+                  } ${
+                    isMenuOpen 
+                      ? 'translate-y-0 opacity-100' 
+                      : '-translate-y-2 opacity-0'
                   }`}
+                  style={{
+                    transitionDelay: isMenuOpen ? `${index * 50}ms` : '0ms',
+                    minHeight: '44px' // Accessibility: minimum touch target size
+                  }}
                   onClick={() => setIsMenuOpen(false)}
                 >
                   {isActive(item.href) && (
@@ -98,9 +112,9 @@ export function Header() {
                   </span>
                 </Link>
               ))}
-            </div>
+            </nav>
           </div>
-        )}
+        </div>
       </div>
     </header>
   )
