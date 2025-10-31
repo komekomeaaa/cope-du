@@ -65,7 +65,7 @@ export default function AdminLoginPage() {
       }
       router.push('/admin/news')
     } else {
-      setError('認証に失敗しました')
+      setError('ログインできませんでした')
       setIsLoading(false)
     }
   }
