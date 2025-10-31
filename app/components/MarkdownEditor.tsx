@@ -2,6 +2,8 @@
 
 import { useEffect, useState, useMemo, useRef } from 'react'
 import dynamic from 'next/dynamic'
+import ReactMarkdown from 'react-markdown'
+import remarkGfm from 'remark-gfm'
 import 'easymde/dist/easymde.min.css'
 import type SimpleMDEReact from 'react-simplemde-editor'
 
@@ -18,6 +20,7 @@ interface MarkdownEditorProps {
 
 export function MarkdownEditor({ value, onChange, label = "本文（マークダウン）" }: MarkdownEditorProps) {
   const [isMounted, setIsMounted] = useState(false)
+  const [activeTab, setActiveTab] = useState<'edit' | 'preview'>('edit')
   const editorRef = useRef<any>(null)
 
   useEffect(() => {
@@ -88,8 +91,6 @@ export function MarkdownEditor({ value, onChange, label = "本文（マークダ
       'link',
       'image',
       '|',
-      'preview',
-      'side-by-side',
       'fullscreen',
       '|',
       'guide',
@@ -101,8 +102,6 @@ export function MarkdownEditor({ value, onChange, label = "本文（マークダ
       toggleHeadingBigger: 'Shift-Cmd-H',
       drawLink: 'Cmd-K',
       drawImage: 'Cmd-Alt-I',
-      togglePreview: 'Cmd-P',
-      toggleSideBySide: 'F9',
       toggleFullScreen: 'F11',
     },
     status: [
@@ -164,16 +163,59 @@ export function MarkdownEditor({ value, onChange, label = "本文（マークダ
 
   return (
     <div className="space-y-2">
-      <label className="text-sm font-medium text-gray-700">{label}</label>
-      <SimpleMDE
-        key="markdown-editor"
-        value={value}
-        onChange={onChange}
-        options={editorOptions as any}
-        getMdeInstance={(instance) => {
-          editorRef.current = instance
-        }}
-      />
+      <div className="flex items-center justify-between">
+        <label className="text-sm font-medium text-gray-700">{label}</label>
+        <div className="flex border border-gray-200 rounded-lg overflow-hidden">
+          <button
+            type="button"
+            onClick={() => setActiveTab('edit')}
+            className={`px-4 py-1.5 text-sm font-medium transition-colors ${
+              activeTab === 'edit'
+                ? 'bg-gray-900 text-white'
+                : 'bg-white text-gray-700 hover:bg-gray-50'
+            }`}
+          >
+            編集
+          </button>
+          <button
+            type="button"
+            onClick={() => setActiveTab('preview')}
+            className={`px-4 py-1.5 text-sm font-medium transition-colors ${
+              activeTab === 'preview'
+                ? 'bg-gray-900 text-white'
+                : 'bg-white text-gray-700 hover:bg-gray-50'
+            }`}
+          >
+            プレビュー
+          </button>
+        </div>
+      </div>
+      
+      {activeTab === 'edit' ? (
+        <SimpleMDE
+          key="markdown-editor"
+          value={value}
+          onChange={onChange}
+          options={editorOptions as any}
+          getMdeInstance={(instance) => {
+            editorRef.current = instance
+          }}
+        />
+      ) : (
+        <div className="border border-gray-300 rounded-lg p-6 bg-white min-h-[400px]">
+          {value ? (
+            <div className="prose prose-lg max-w-none prose-headings:font-light prose-headings:text-gray-900 prose-p:text-gray-700 prose-p:leading-relaxed prose-a:text-blue-600 prose-a:no-underline hover:prose-a:underline prose-strong:text-gray-900 prose-strong:font-semibold prose-code:text-gray-900 prose-code:bg-gray-100 prose-code:px-1 prose-code:py-0.5 prose-code:rounded prose-pre:bg-gray-900 prose-pre:text-gray-100 prose-ul:list-disc prose-ol:list-decimal prose-li:text-gray-700">
+              <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                {value}
+              </ReactMarkdown>
+            </div>
+          ) : (
+            <div className="flex items-center justify-center h-full text-gray-400">
+              <p>プレビューする内容がありません</p>
+            </div>
+          )}
+        </div>
+      )}
     </div>
   )
 }
