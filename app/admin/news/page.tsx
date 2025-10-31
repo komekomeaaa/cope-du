@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 import { useNews } from "@/app/contexts/NewsContext"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
@@ -9,7 +10,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Badge } from "@/components/ui/badge"
-import { Plus, Edit, Trash2, LogOut, Save, X, FileText, User, Calendar, Eye, EyeOff, Sparkles } from 'lucide-react'
+import { Plus, Edit, Trash2, LogOut, Save, X, FileText, User, Calendar, Eye, EyeOff, Sparkles, ExternalLink } from 'lucide-react'
 import { MarkdownEditor } from "@/app/components/MarkdownEditor"
 import { ImageUpload } from "@/app/components/ImageUpload"
 
@@ -213,6 +214,16 @@ export default function AdminNewsPage() {
                   下書き {draftNews.length}
                 </span>
               </div>
+              <Link href="/">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="text-gray-600 hover:text-gray-900"
+                >
+                  <ExternalLink className="h-4 w-4 mr-2" />
+                  サイトを表示
+                </Button>
+              </Link>
               <Button
                 onClick={handleLogout}
                 variant="ghost"
