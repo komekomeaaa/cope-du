@@ -1,0 +1,6 @@
+# ローカル開発用の環境変数サンプル
+# このファイルを .dev.vars にコピーして使用してください
+
+# Cloudflare KV ネームスペースID（ローカル開発では不要）
+# NEWS_KV=your-kv-namespace-id
+
