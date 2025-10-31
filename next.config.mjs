@@ -9,9 +9,6 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
-  // Cloudflare Pages対応（静的エクスポート）
-  output: 'export',
-  trailingSlash: true,
 }
 
 export default nextConfig

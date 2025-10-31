@@ -39,29 +39,20 @@ wrangler kv:namespace create "NEWS_KV" --preview
 
 作成後、表示される **ID** をコピーしてください。
 
-### 2. Cloudflare Pages の環境変数を設定
+### 2. Cloudflare Pages で KV Namespace バインディングを設定
 
 1. Cloudflare Dashboard → **Workers & Pages**
 2. あなたのプロジェクト（cope-du）を選択
-3. **Settings** タブ → **Environment variables** を選択
-4. **Add variables** をクリック
-5. 以下を追加：
-   - **Variable name**: `NEWS_KV`
-   - **Value**: （先ほどコピーしたKV Namespace ID）
-   - **Environment**: `Production` と `Preview` の両方にチェック
-6. **Save** をクリック
-
-### 3. KV Namespace バインディングの設定
-
-1. Cloudflare Dashboard → あなたのプロジェクト
-2. **Settings** タブ → **Functions** を選択
-3. **KV namespace bindings** セクションで **Add binding** をクリック
-4. 以下を入力：
+3. **Settings** タブ → **Functions** を選択
+4. **KV namespace bindings** セクションで **Add binding** をクリック
+5. 以下を入力：
    - **Variable name**: `NEWS_KV`
    - **KV namespace**: 作成したNamespace（cope-du-news）を選択
-5. **Save** をクリック
+6. **Save** をクリック
 
-### 4. 再デプロイ
+**重要**: Production環境とPreview環境の両方で設定してください。
+
+### 3. 再デプロイ
 
 設定を反映させるため、再デプロイが必要です：
 
