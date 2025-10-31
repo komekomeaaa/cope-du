@@ -46,56 +46,80 @@ export const runtime = 'edge'
 // GET: ニュースデータを取得
 export async function GET(request: NextRequest) {
   try {
-    // Cloudflare KVから取得（環境変数経由）
+    // Cloudflare KVから取得
     const env = process.env as any
     
     if (env.NEWS_KV) {
-      // Cloudflare KVが利用可能な場合
+      console.log('✅ NEWS_KV is available - reading from KV')
       const newsData = await env.NEWS_KV.get('news', { type: 'json' })
       const news = newsData || initialNews
+      
+      console.log(`📰 Loaded ${Array.isArray(news) ? news.length : 0} news items from KV`)
       
       return NextResponse.json(news, {
         headers: {
           'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
           'Pragma': 'no-cache',
           'Expires': '0',
+          'X-Data-Source': 'cloudflare-kv',
         }
       })
     } else {
-      // ローカル開発環境またはKVが設定されていない場合
-      // public/data/news.jsonから読み込み（開発環境用フォールバック）
+      console.warn('⚠️ NEWS_KV is NOT available - using fallback')
+      
+      // public/data/news.jsonから読み込み（フォールバック）
       try {
         const response = await fetch(new URL('/data/news.json', request.url))
         if (response.ok) {
           const news = await response.json()
+          console.log(`📰 Loaded ${news.length} news items from news.json (fallback)`)
+          
           return NextResponse.json(news, {
             headers: {
               'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
               'Pragma': 'no-cache',
               'Expires': '0',
+              'X-Data-Source': 'static-file',
             }
           })
         }
       } catch (e) {
-        console.log('Fallback to initial news data')
+        console.log('❌ Failed to load news.json, using initial data')
       }
+      
+      console.log(`📰 Using ${initialNews.length} initial news items`)
       
       return NextResponse.json(initialNews, {
         headers: {
           'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
           'Pragma': 'no-cache',
           'Expires': '0',
+          'X-Data-Source': 'initial-data',
         }
       })
     }
   } catch (error) {
-    console.error('Error reading news data:', error)
+    console.error('❌ Error reading news data:', error)
     return NextResponse.json(initialNews, {
       headers: {
         'Cache-Control': 'no-store',
+        'X-Data-Source': 'error-fallback',
       }
     })
   }
+}
+
+// HEAD: データソースの確認用
+export async function HEAD(request: NextRequest) {
+  const env = process.env as any
+  const dataSource = env.NEWS_KV ? 'cloudflare-kv' : 'initial-data'
+  
+  return new NextResponse(null, {
+    headers: {
+      'X-Data-Source': dataSource,
+      'X-KV-Available': env.NEWS_KV ? 'true' : 'false',
+    }
+  })
 }
 
 // POST: ニュースデータを保存
@@ -104,22 +128,32 @@ export async function POST(request: NextRequest) {
     const news = await request.json()
     const env = process.env as any
     
+    console.log(`💾 Attempting to save ${Array.isArray(news) ? news.length : 0} news items`)
+    
     if (env.NEWS_KV) {
       // Cloudflare KVに保存
       await env.NEWS_KV.put('news', JSON.stringify(news))
+      console.log('✅ Successfully saved to Cloudflare KV')
       
-      return NextResponse.json({ success: true }, {
+      return NextResponse.json({ 
+        success: true,
+        message: 'Data saved to Cloudflare KV',
+        storage: 'cloudflare-kv'
+      }, {
         headers: {
           'Cache-Control': 'no-store',
         }
       })
     } else {
-      // ローカル開発環境の場合は警告を出す
-      console.warn('NEWS_KV is not available. Data is not persisted.')
+      // KVが利用できない場合の警告
+      console.error('❌ NEWS_KV is not available - data will NOT be persisted!')
+      console.error('⚠️ Please configure Cloudflare KV binding in your Cloudflare Pages settings')
       
       return NextResponse.json({ 
-        success: true,
-        warning: 'Running in development mode. Data will not persist.'
+        success: false,
+        warning: 'Cloudflare KV is not configured. Data cannot be saved. Please set up KV namespace binding.',
+        storage: 'none',
+        requiresSetup: true
       }, {
         headers: {
           'Cache-Control': 'no-store',
@@ -127,8 +161,12 @@ export async function POST(request: NextRequest) {
       })
     }
   } catch (error) {
-    console.error('Error writing news data:', error)
-    return NextResponse.json({ success: false, error: 'Failed to save news' }, { status: 500 })
+    console.error('❌ Error saving news data:', error)
+    return NextResponse.json({ 
+      success: false, 
+      error: 'Failed to save news',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    }, { status: 500 })
   }
 }
 

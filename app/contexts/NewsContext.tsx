@@ -123,11 +123,6 @@ export function NewsProvider({ children }: { children: ReactNode }) {
 
   // APIからニュースデータを取得
   useEffect(() => {
-    // 古いlocalStorageデータをクリア
-    if (typeof window !== 'undefined') {
-      localStorage.removeItem('techcorp-news')
-    }
-
     const loadNews = async () => {
       try {
         const response = await fetch('/api/news', {
@@ -163,7 +158,7 @@ export function NewsProvider({ children }: { children: ReactNode }) {
       if (!isLoaded) return
 
       try {
-        await fetch('/api/news', {
+        const response = await fetch('/api/news', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -171,9 +166,16 @@ export function NewsProvider({ children }: { children: ReactNode }) {
           body: JSON.stringify(news),
           cache: 'no-store',
         })
-        console.log('News saved successfully')
+        
+        const result = await response.json()
+        
+        if (result.success) {
+          console.log('✅ News saved successfully to server')
+        } else if (result.warning) {
+          console.warn('⚠️ ' + result.warning)
+        }
       } catch (error) {
-        console.error('Failed to save news to API:', error)
+        console.error('❌ Failed to save news to API:', error)
       }
     }
 

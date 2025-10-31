@@ -80,7 +80,7 @@ export default function AdminNewsPage() {
     router.push('/admin')
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     
     if (editingId) {
@@ -90,6 +90,20 @@ export default function AdminNewsPage() {
       addNews(formData)
       showToast('ニュースを作成しました', 'success')
     }
+    
+    // 保存状態を確認（数秒後にチェック）
+    setTimeout(async () => {
+      try {
+        const response = await fetch('/api/news', { method: 'HEAD' })
+        const dataSource = response.headers.get('X-Data-Source')
+        
+        if (dataSource === 'initial-data' || dataSource === 'static-file') {
+          showToast('⚠️ Cloudflare KVが未設定です。データは保存されません', 'error')
+        }
+      } catch (e) {
+        // エラーは無視
+      }
+    }, 2000)
     
     // フォームをリセット
     setFormData({
