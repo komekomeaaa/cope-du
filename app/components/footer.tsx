@@ -42,9 +42,8 @@ export function Footer() {
                   {siteConfig.company.name}
                 </span>
               </Link>
-              <p className="text-sm sm:text-base text-gray-600 font-light leading-relaxed max-w-xs">
-                革新的なソリューションで、
-                ビジネスの未来を創造
+              <p className="text-sm sm:text-base text-gray-600 font-light leading-relaxed max-w-xs whitespace-pre-line">
+                {siteConfig.company.description}
               </p>
             </div>
 
@@ -78,14 +77,14 @@ export function Footer() {
               &copy; {new Date().getFullYear()} {siteConfig.company.name}. All rights reserved.
             </p>
             <div className="flex items-center gap-4 sm:gap-6 flex-wrap justify-center">
-              <Link 
-                href="#" 
+              <Link
+                href="#"
                 className="text-xs sm:text-sm text-gray-600 hover:text-gray-900 transition-colors font-light touch-manipulation py-1"
               >
                 プライバシーポリシー
               </Link>
-              <Link 
-                href="#" 
+              <Link
+                href="#"
                 className="text-xs sm:text-sm text-gray-600 hover:text-gray-900 transition-colors font-light touch-manipulation py-1"
               >
                 利用規約
