@@ -26,18 +26,17 @@ export default function AboutPage() {
   return (
     <div className="min-h-screen">
       <Header />
-      
+
       <div className="pt-32">
         {/* Hero Section */}
         <section className="pb-20 px-4 bg-white/30 backdrop-blur-sm">
           <div className="max-w-6xl mx-auto">
-            <div 
+            <div
               ref={heroAnimation.ref}
-              className={`text-center mb-20 transition-all duration-1000 ${
-                heroAnimation.isVisible 
-                  ? 'opacity-100 translate-y-0' 
+              className={`text-center mb-20 transition-all duration-1000 ${heroAnimation.isVisible
+                  ? 'opacity-100 translate-y-0'
                   : 'opacity-0 translate-y-10'
-              }`}
+                }`}
             >
               <h1 className="text-5xl md:text-6xl lg:text-7xl font-light text-gray-900 mb-6 leading-tight">
                 会社情報
@@ -48,12 +47,11 @@ export default function AboutPage() {
             </div>
 
             <div ref={contentAnimation.ref} className="grid md:grid-cols-2 gap-20 items-center mb-20">
-              <div 
-                className={`relative aspect-[4/3] rounded-3xl overflow-hidden shadow-xl transition-all duration-1000 ${
-                  contentAnimation.isVisible 
-                    ? 'opacity-100 translate-x-0' 
+              <div
+                className={`relative aspect-[4/3] rounded-3xl overflow-hidden shadow-xl transition-all duration-1000 ${contentAnimation.isVisible
+                    ? 'opacity-100 translate-x-0'
                     : 'opacity-0 -translate-x-10'
-                }`}
+                  }`}
               >
                 <Image
                   src="/futuristic-office-team-meeting.png"
@@ -62,12 +60,11 @@ export default function AboutPage() {
                   className="object-cover"
                 />
               </div>
-              <div 
-                className={`transition-all duration-1000 delay-300 ${
-                  contentAnimation.isVisible 
-                    ? 'opacity-100 translate-x-0' 
+              <div
+                className={`transition-all duration-1000 delay-300 ${contentAnimation.isVisible
+                    ? 'opacity-100 translate-x-0'
                     : 'opacity-0 translate-x-10'
-                }`}
+                  }`}
               >
                 <h2 className="text-4xl md:text-5xl font-light text-gray-900 mb-6">未来をつくる<br />テクノロジーカンパニー</h2>
                 <p className="text-lg text-gray-600 mb-8 leading-relaxed font-light">
@@ -99,15 +96,14 @@ export default function AboutPage() {
           <div ref={statsAnimation.ref} className="max-w-6xl mx-auto">
             <div className="grid md:grid-cols-4 gap-12 text-center">
               {stats.map((stat, index) => (
-                <div 
+                <div
                   key={index}
-                  className={`space-y-4 transition-all duration-700 ${
-                    statsAnimation.isVisible 
-                      ? 'opacity-100 translate-y-0' 
+                  className={`space-y-4 transition-all duration-700 ${statsAnimation.isVisible
+                      ? 'opacity-100 translate-y-0'
                       : 'opacity-0 translate-y-10'
-                  }`}
-                  style={{ 
-                    transitionDelay: statsAnimation.isVisible ? `${index * 150}ms` : '0ms' 
+                    }`}
+                  style={{
+                    transitionDelay: statsAnimation.isVisible ? `${index * 150}ms` : '0ms'
                   }}
                 >
                   <div className="mx-auto w-14 h-14 bg-blue-100 rounded-2xl flex items-center justify-center">
@@ -126,31 +122,29 @@ export default function AboutPage() {
         {/* Values Section */}
         <section className="py-24 px-4 bg-white/30 backdrop-blur-sm">
           <div className="max-w-6xl mx-auto">
-            <div 
+            <div
               ref={valuesAnimation.ref}
-              className={`text-center mb-20 transition-all duration-1000 ${
-                valuesAnimation.isVisible 
-                  ? 'opacity-100 translate-y-0' 
+              className={`text-center mb-20 transition-all duration-1000 ${valuesAnimation.isVisible
+                  ? 'opacity-100 translate-y-0'
                   : 'opacity-0 translate-y-10'
-              }`}
+                }`}
             >
               <h2 className="text-4xl md:text-5xl font-light text-gray-900 mb-4">私たちの価値観</h2>
               <p className="text-xl text-gray-600 font-light">
                 これらの価値観が、私たちの行動指針となっています
               </p>
             </div>
-            
+
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12">
               {siteConfig.values.map((value, index) => (
-                <div 
+                <div
                   key={index}
-                  className={`space-y-4 transition-all duration-700 ${
-                    valuesAnimation.isVisible 
-                      ? 'opacity-100 translate-y-0' 
+                  className={`space-y-4 transition-all duration-700 ${valuesAnimation.isVisible
+                      ? 'opacity-100 translate-y-0'
                       : 'opacity-0 translate-y-10'
-                  }`}
-                  style={{ 
-                    transitionDelay: valuesAnimation.isVisible ? `${index * 150}ms` : '0ms' 
+                    }`}
+                  style={{
+                    transitionDelay: valuesAnimation.isVisible ? `${index * 150}ms` : '0ms'
                   }}
                 >
                   <div className="text-5xl">{value.icon}</div>
@@ -169,31 +163,29 @@ export default function AboutPage() {
         {/* Team Section */}
         <section className="py-24 px-4 bg-gray-50">
           <div className="max-w-6xl mx-auto">
-            <div 
+            <div
               ref={teamAnimation.ref}
-              className={`text-center mb-20 transition-all duration-1000 ${
-                teamAnimation.isVisible 
-                  ? 'opacity-100 translate-y-0' 
+              className={`text-center mb-20 transition-all duration-1000 ${teamAnimation.isVisible
+                  ? 'opacity-100 translate-y-0'
                   : 'opacity-0 translate-y-10'
-              }`}
+                }`}
             >
               <h2 className="text-4xl md:text-5xl font-light text-gray-900 mb-4">経営陣</h2>
               <p className="text-xl text-gray-600 font-light">
                 豊富な経験と専門知識を持つリーダーたち
               </p>
             </div>
-            
+
             <div className="grid md:grid-cols-3 gap-12">
               {siteConfig.team.map((member, index) => (
-                <div 
+                <div
                   key={index}
-                  className={`bg-white rounded-3xl p-10 text-center shadow-md hover:shadow-xl transition-all duration-700 ${
-                    teamAnimation.isVisible 
-                      ? 'opacity-100 translate-y-0' 
+                  className={`bg-white rounded-3xl p-10 text-center shadow-md hover:shadow-xl transition-all duration-700 ${teamAnimation.isVisible
+                      ? 'opacity-100 translate-y-0'
                       : 'opacity-0 translate-y-10'
-                  }`}
-                  style={{ 
-                    transitionDelay: teamAnimation.isVisible ? `${index * 200}ms` : '0ms' 
+                    }`}
+                  style={{
+                    transitionDelay: teamAnimation.isVisible ? `${index * 200}ms` : '0ms'
                   }}
                 >
                   <div className="relative mb-8 mx-auto w-32 h-32 rounded-full overflow-hidden">
@@ -215,26 +207,87 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* Mission Section */}
+        {/* Vision & Mission Section */}
         <section className="py-24 px-4 bg-white/30 backdrop-blur-sm">
-          <div 
-            ref={missionAnimation.ref}
-            className={`max-w-5xl mx-auto text-center transition-all duration-1000 ${
-              missionAnimation.isVisible 
-                ? 'opacity-100 translate-y-0' 
-                : 'opacity-0 translate-y-10'
-            }`}
-          >
-            <h2 className="text-4xl md:text-5xl font-light text-gray-900 mb-12">
-              {siteConfig.mission.title}
-            </h2>
-            <div className="bg-blue-600 rounded-3xl p-16">
-              <p className="text-3xl md:text-4xl text-white leading-relaxed mb-8 font-light">
-                「{siteConfig.mission.statement}」
-              </p>
-              <p className="text-xl text-blue-100 font-light leading-relaxed">
-                {siteConfig.mission.description}
-              </p>
+          <div className="max-w-6xl mx-auto">
+            <div className="grid md:grid-cols-2 gap-12 mb-20">
+              {/* Vision */}
+              <div
+                ref={missionAnimation.ref}
+                className={`bg-gradient-to-br from-blue-600 to-blue-700 rounded-3xl p-12 text-white transition-all duration-1000 ${missionAnimation.isVisible
+                    ? 'opacity-100 translate-y-0'
+                    : 'opacity-0 translate-y-10'
+                  }`}
+              >
+                <h2 className="text-3xl md:text-4xl font-light mb-6">
+                  {siteConfig.vision.title}
+                </h2>
+                <p className="text-xl leading-relaxed font-light">
+                  {siteConfig.vision.statement}
+                </p>
+              </div>
+
+              {/* Mission */}
+              <div
+                className={`bg-gradient-to-br from-gray-800 to-gray-900 rounded-3xl p-12 text-white transition-all duration-1000 delay-200 ${missionAnimation.isVisible
+                    ? 'opacity-100 translate-y-0'
+                    : 'opacity-0 translate-y-10'
+                  }`}
+              >
+                <h2 className="text-3xl md:text-4xl font-light mb-6">
+                  {siteConfig.mission.title}
+                </h2>
+                <p className="text-xl leading-relaxed font-light">
+                  {siteConfig.mission.statement}
+                </p>
+              </div>
+            </div>
+
+            {/* Philosophy */}
+            <div className="mb-20">
+              <h2 className="text-4xl md:text-5xl font-light text-gray-900 mb-12 text-center">
+                哲学・バリュー
+              </h2>
+              <div className="grid md:grid-cols-3 gap-8">
+                {siteConfig.philosophy.map((item, index) => (
+                  <div
+                    key={index}
+                    className={`bg-white rounded-2xl p-8 shadow-lg transition-all duration-700 ${missionAnimation.isVisible
+                        ? 'opacity-100 translate-y-0'
+                        : 'opacity-0 translate-y-10'
+                      }`}
+                    style={{
+                      transitionDelay: missionAnimation.isVisible ? `${(index + 2) * 150}ms` : '0ms'
+                    }}
+                  >
+                    <h3 className="text-2xl font-normal text-gray-900 mb-4">
+                      {item.title}
+                    </h3>
+                    <p className="text-gray-600 font-light leading-relaxed">
+                      {item.description}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Corporate Message */}
+            <div
+              className={`bg-gray-50 rounded-3xl p-12 transition-all duration-1000 delay-500 ${missionAnimation.isVisible
+                  ? 'opacity-100 translate-y-0'
+                  : 'opacity-0 translate-y-10'
+                }`}
+            >
+              <h2 className="text-3xl md:text-4xl font-light text-gray-900 mb-8 text-center">
+                {siteConfig.corporateMessage.title}
+              </h2>
+              <div className="prose prose-lg max-w-none text-gray-700 font-light leading-relaxed">
+                {siteConfig.corporateMessage.content.split('\n\n').map((paragraph, index) => (
+                  <p key={index} className="mb-6 last:mb-0">
+                    {paragraph}
+                  </p>
+                ))}
+              </div>
             </div>
           </div>
         </section>

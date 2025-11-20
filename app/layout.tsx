@@ -8,7 +8,7 @@ const fontSans = GeistSans;
 const fontMono = GeistMono;
 
 export const metadata: Metadata = {
-  title: "TechCorp - 未来をつくるテクノロジー",
+  title: "Cogmiru Inc. - 未来をつくるテクノロジー",
   description: "革新的なソリューションで、お客様のビジネスを次のステージへ",
   generator: 'v0.dev'
 };
