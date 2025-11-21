@@ -20,10 +20,10 @@ export default function ContactPage() {
         {/* Hero Section */}
         <section className="pb-20 px-4">
           <div className="max-w-5xl mx-auto text-center">
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-light text-gray-900 mb-8 tracking-tight">
+            <h1 className="text-5xl md:text-6xl lg:text-7xl font-medium text-gray-900 mb-8 tracking-tight">
               お問い合わせ
             </h1>
-            <p className="text-xl md:text-2xl text-gray-600 font-light mx-auto leading-relaxed">
+            <p className="text-xl md:text-2xl text-gray-700 font-normal mx-auto leading-loose">
               プロジェクトのご相談から技術的なお悩みまで、お気軽にご連絡ください
             </p>
           </div>
@@ -31,14 +31,15 @@ export default function ContactPage() {
 
         <div className="max-w-4xl mx-auto px-4 pb-24">
           {/* Contact Form */}
-          <Card className="border-0 shadow-xl overflow-hidden bg-white/70 backdrop-blur-md">
-            <CardHeader className="p-8 sm:p-10 bg-gradient-to-br from-blue-50/50 to-white/50 backdrop-blur-sm border-b border-blue-100/50">
-              <CardTitle className="text-2xl sm:text-3xl font-light text-gray-900">お問い合わせフォーム</CardTitle>
-              <CardDescription className="text-gray-600 font-light text-base sm:text-lg mt-3">
-                以下のフォームにご記入いただき、送信してください。24時間以内にご返信いたします。
+          <Card className="border-0 shadow-lg overflow-hidden bg-white/80 backdrop-blur-lg">
+            <CardHeader className="p-8 sm:p-10 bg-gradient-to-br from-blue-50/70 to-white/70 backdrop-blur-sm border-b border-blue-200/60">
+              <CardTitle className="text-2xl sm:text-3xl font-medium text-gray-900">お問い合わせフォーム</CardTitle>
+              <CardDescription className="text-gray-700 font-normal text-base sm:text-lg mt-3">
+                以下のフォームにご記入いただき、24
+                時間以内にご返信いたします。
               </CardDescription>
             </CardHeader>
-            <CardContent className="p-0 bg-white/50 backdrop-blur-sm">
+            <CardContent className="p-0 bg-white/60 backdrop-blur-sm">
               {useEmbedForm && embedUrl ? (
                 // 埋め込みフォーム表示
                 <div className="w-full relative overflow-hidden bg-white/80">
@@ -67,10 +68,10 @@ export default function ContactPage() {
                     <div className="w-20 h-20 bg-blue-50 rounded-full flex items-center justify-center mx-auto">
                       <Mail className="h-10 w-10 text-blue-600" />
                     </div>
-                    <h3 className="text-2xl font-normal text-gray-900">
+                    <h3 className="text-2xl font-semibold text-gray-900">
                       フォームを設定してください
                     </h3>
-                    <p className="text-gray-600 font-light leading-relaxed">
+                    <p className="text-gray-700 font-normal leading-relaxed">
                       お問い合わせフォームの埋め込みURLを<br />
                       <code className="bg-gray-100 px-2 py-1 rounded text-sm">app/contact/page.tsx</code><br />
                       の<code className="bg-gray-100 px-2 py-1 rounded text-sm">embedUrl</code>に設定してください。

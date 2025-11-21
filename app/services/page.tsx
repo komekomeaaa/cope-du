@@ -18,7 +18,7 @@ export default function ServicesPage() {
 
       <div className="pt-32">
         {/* Hero Section */}
-        <section className="pb-20 px-4 bg-white/30 backdrop-blur-sm">
+        <section className="pb-20 px-4 bg-white/40 backdrop-blur-sm">
           <div
             ref={heroAnimation.ref}
             className={`max-w-5xl mx-auto text-center transition-all duration-1000 ${heroAnimation.isVisible
@@ -27,21 +27,21 @@ export default function ServicesPage() {
               }`}
           >
             <div className="inline-block mb-6">
-              <span className="text-sm font-medium text-blue-600 bg-blue-50 px-4 py-2 rounded-full">
+              <span className="text-sm font-semibold text-blue-700 bg-blue-100 px-4 py-2 rounded-lg">
                 製品紹介
               </span>
             </div>
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-light text-gray-900 mb-6 leading-tight">
+            <h1 className="text-5xl md:text-6xl lg:text-7xl font-medium text-gray-900 mb-6 leading-tight">
               革新的なソリューションで<br />ビジネスを変革
             </h1>
-            <p className="text-xl md:text-2xl text-gray-600 font-light leading-relaxed max-w-4xl mx-auto">
+            <p className="text-xl md:text-2xl text-gray-700 font-normal leading-loose max-w-4xl mx-auto">
               最先端の技術と洗練されたデザインが融合した製品群
             </p>
           </div>
         </section>
 
         {/* Products Grid */}
-        <section className="pb-24 px-4 bg-white/30 backdrop-blur-sm">
+        <section className="pb-24 px-4 bg-white/40 backdrop-blur-sm">
           <div ref={productsAnimation.ref} className="max-w-7xl mx-auto">
             <div className="grid md:grid-cols-3 gap-8">
               {saasProducts.map((product, index) => (
@@ -63,12 +63,12 @@ export default function ServicesPage() {
                   )}
 
                   <CardHeader className="p-8 text-center">
-                    <div className="text-6xl mb-6">{product.icon}</div>
-                    <CardTitle className="text-2xl font-normal text-gray-900 mb-2">
+                    <div className="text-5xl mb-6">{product.icon}</div>
+                    <CardTitle className="text-2xl font-semibold text-gray-900 mb-2">
                       {product.name}
                     </CardTitle>
-                    <p className="text-blue-600 font-medium mb-4">{product.tagline}</p>
-                    <CardDescription className="text-gray-600 font-light leading-relaxed whitespace-pre-line">
+                    <p className="text-blue-700 font-semibold mb-4">{product.tagline}</p>
+                    <CardDescription className="text-gray-700 font-normal leading-relaxed whitespace-pre-line">
                       {product.description}
                     </CardDescription>
                   </CardHeader>
@@ -94,15 +94,15 @@ export default function ServicesPage() {
           <div className="max-w-6xl mx-auto">
             <div
               ref={saasAnimation.ref}
-              className={`text-center mb-20 transition-all duration-1000 ${saasAnimation.isVisible
+              className={`text-center mb-16 transition-all duration-1000 ${saasAnimation.isVisible
                 ? 'opacity-100 translate-y-0'
                 : 'opacity-0 translate-y-10'
                 }`}
             >
-              <h2 className="text-4xl md:text-5xl font-light text-gray-900 mb-4">
+              <h2 className="text-4xl md:text-5xl font-medium text-gray-900 mb-4">
                 製品の特長
               </h2>
-              <p className="text-xl text-gray-600 font-light">
+              <p className="text-xl text-gray-700 font-normal">
                 優れた機能性と使いやすさを兼ね備えた製品群
               </p>
             </div>
@@ -120,8 +120,8 @@ export default function ServicesPage() {
                   }}
                 >
                   <div className="text-5xl mb-6">{feature.icon}</div>
-                  <h3 className="text-2xl font-normal text-gray-900 mb-4">{feature.title}</h3>
-                  <p className="text-gray-600 font-light leading-relaxed whitespace-pre-line">{feature.desc}</p>
+                  <h3 className="text-2xl font-semibold text-gray-900 mb-4">{feature.title}</h3>
+                  <p className="text-gray-700 font-normal leading-relaxed whitespace-pre-line">{feature.desc}</p>
                 </div>
               ))}
             </div>

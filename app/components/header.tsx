@@ -34,13 +34,13 @@ export function Header() {
   }
 
   return (
-    <header className={`fixed top-0 w-full z-50 transition-all duration-300 ${isScrolled ? 'bg-white/90 shadow-sm backdrop-blur-sm' : 'bg-white/60 backdrop-blur-sm'
+    <header className={`fixed top-0 w-full z-50 transition-all duration-400 ${isScrolled ? 'bg-white/95 shadow-md backdrop-blur-md' : 'bg-white/80 backdrop-blur-md'
       }`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-14 sm:h-16">
+        <div className="flex justify-between items-center h-16 sm:h-18">
           {/* Logo */}
           <Link href="/" className="flex items-center group min-w-0">
-            <span className="text-lg sm:text-xl font-normal text-gray-900 tracking-tight truncate">
+            <span className="text-xl sm:text-2xl font-medium text-gray-900 tracking-tight truncate">
               {siteConfig.company.name}
             </span>
           </Link>
@@ -51,23 +51,23 @@ export function Header() {
               <Link
                 key={item.name}
                 href={item.href}
-                className={`relative px-3 lg:px-4 py-2 text-sm lg:text-base rounded-lg transition-all ${isActive(item.href)
-                    ? 'text-gray-900 font-medium'
-                    : 'text-gray-700 hover:text-gray-900 hover:bg-gray-50'
+                className={`relative px-4 lg:px-5 py-2.5 text-sm lg:text-base font-medium rounded-lg transition-all duration-300 ${isActive(item.href)
+                  ? 'text-blue-700 bg-blue-50/80'
+                  : 'text-gray-700 hover:text-gray-900 hover:bg-gray-50/80'
                   }`}
               >
                 {item.name}
                 {isActive(item.href) && (
-                  <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-6 h-0.5 bg-blue-600 rounded-full"></span>
+                  <span className="absolute bottom-1 left-1/2 -translate-x-1/2 w-8 h-0.5 bg-blue-700 rounded-full"></span>
                 )}
               </Link>
             ))}
           </nav>
 
-          {/* Mobile menu button - increased touch target */}
+          {/* Mobile menu button */}
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="md:hidden p-3 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors -mr-2"
+            className="md:hidden p-3 text-gray-700 hover:bg-gray-100/80 rounded-lg transition-all duration-300 -mr-2"
             aria-label={isMenuOpen ? 'メニューを閉じる' : 'メニューを開く'}
             aria-expanded={isMenuOpen}
           >
@@ -75,32 +75,32 @@ export function Header() {
           </button>
         </div>
 
-        {/* Mobile Navigation - optimized for all mobile sizes */}
+        {/* Mobile Navigation */}
         <div
           className={`md:hidden overflow-hidden transition-all duration-300 ease-in-out ${isMenuOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
             }`}
         >
-          <div className="py-3 sm:py-4 border-t border-gray-100">
+          <div className="py-3 sm:py-4 border-t border-gray-200/80">
             <nav className="space-y-1" role="navigation" aria-label="モバイルナビゲーション">
               {navigation.map((item, index) => (
                 <Link
                   key={item.name}
                   href={item.href}
-                  className={`relative block px-4 py-3.5 text-base sm:text-lg rounded-lg transition-all duration-300 touch-manipulation ${isActive(item.href)
-                      ? 'text-gray-900 bg-gray-50 font-medium'
-                      : 'text-gray-700 hover:bg-gray-50 active:bg-gray-100'
+                  className={`relative block px-4 py-3.5 text-base sm:text-lg font-medium rounded-xl transition-all duration-300 touch-manipulation ${isActive(item.href)
+                    ? 'text-blue-700 bg-blue-50/80'
+                    : 'text-gray-700 hover:bg-gray-50/80 active:bg-gray-100/80'
                     } ${isMenuOpen
                       ? 'translate-y-0 opacity-100'
                       : '-translate-y-2 opacity-0'
                     }`}
                   style={{
                     transitionDelay: isMenuOpen ? `${index * 50}ms` : '0ms',
-                    minHeight: '44px' // Accessibility: minimum touch target size
+                    minHeight: '44px'
                   }}
                   onClick={() => setIsMenuOpen(false)}
                 >
                   {isActive(item.href) && (
-                    <span className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-8 bg-blue-600 rounded-r-full"></span>
+                    <span className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-8 bg-blue-700 rounded-r-full"></span>
                   )}
                   <span className={isActive(item.href) ? 'ml-2' : ''}>
                     {item.name}
