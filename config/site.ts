@@ -8,8 +8,8 @@ export const siteConfig = {
   // 会社情報
   company: {
     name: "Cogmiru Inc.",
-    tagline: "AIで定型業務を減らし、成果が出る業務設計へ",
-    description: "現場ヒアリングから導入・運用まで伴走し、業務時間の短縮と意思決定の高速化を支援します。",
+    tagline: "価値を回す、未来の歯車を創出",
+    description: "革新的なソリューションで、お客様のビジネスを次のステージへ",
     foundedYear: "2010",
   },
 
@@ -34,14 +34,6 @@ export const siteConfig = {
     twitter: "#",
     facebook: "#",
     linkedin: "#",
-  },
-
-  // お問い合わせフォーム設定
-  contactForm: {
-    // trueにすると埋め込みフォームを使用
-    useEmbedForm: true,
-    // Google FormsやTypeformのURLを設定
-    embedUrl: "https://weak-earthquake-528.notion.site/ebd/29dd359167038091bd9dc11fffa0053f?appearance=light",
   },
 
   // 統計情報
@@ -102,7 +94,7 @@ export const siteConfig = {
   // ビジョン
   vision: {
     title: "ビジョン",
-    statement: "人が、人にしかできない価値ある仕事に専念できる社会を創る。"
+    statement: "価値を回す、未来の歯車を創出"
   },
 
   // ミッション
@@ -115,15 +107,15 @@ export const siteConfig = {
   philosophy: [
     {
       title: "1.01の法則",
-      description: "小さな歯車の回転が、やがて大きな力を生むように。"
+      description: "小さな歯車の回転が、やがて大きな力を生むように。\n毎日の小さな改善が、未来の大きな成果につながる。"
     },
     {
       title: "永遠の歯車",
-      description: "Cogとして、社会に不可欠なインフラになる。"
+      description: "Cogとして、社会に不可欠なインフラになる。\n止まることなく回り続け、社会を支える存在であり続ける。"
     },
     {
       title: "頼れる野心家",
-      description: "着実な歯車（頼れる）と、未来を見る野心。"
+      description: "着実な歯車（頼れる）と、未来を見る野心。\n確実性と挑戦心の両立で、信頼と革新を実現する。"
     }
   ],
 

@@ -1,118 +1,287 @@
 'use client'
 
+import { useState } from "react"
+import { useForm } from "react-hook-form"
+import { zodResolver } from "@hookform/resolvers/zod"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Mail, Phone, MapPin, Clock } from 'lucide-react'
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { Textarea } from "@/components/ui/textarea"
+import { Mail, Phone, MapPin, Clock, Send } from "lucide-react"
 import { Header } from "../components/header"
 import { Footer } from "../components/footer"
-
 import { siteConfig } from "@/config/site"
+import { contactCategories, contactSchema, type ContactFormData } from "@/lib/contact/schema"
 
 export default function ContactPage() {
-  // 設定ファイルから読み込み
-  const embedUrl = siteConfig.contactForm.embedUrl
-  const useEmbedForm = siteConfig.contactForm.useEmbedForm
+  const [submitState, setSubmitState] = useState<{ type: "success" | "error"; message: string } | null>(null)
+  const form = useForm<ContactFormData>({
+    resolver: zodResolver(contactSchema),
+    defaultValues: {
+      company: "",
+      name: "",
+      email: "",
+      phone: "",
+      category: "サービス導入の相談",
+      budget: "",
+      message: "",
+      consent: false,
+      website: "",
+      startedAt: Date.now().toString(),
+    },
+  })
+
+  const onSubmit = form.handleSubmit(async (values) => {
+    setSubmitState(null)
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(values),
+      })
+
+      const data = await response.json()
+      if (!response.ok || !data.success) {
+        setSubmitState({
+          type: "error",
+          message: data.message || "送信に失敗しました。時間をおいて再度お試しください。",
+        })
+        return
+      }
+
+      setSubmitState({ type: "success", message: data.message })
+      form.reset({
+        company: "",
+        name: "",
+        email: "",
+        phone: "",
+        category: "サービス導入の相談",
+        budget: "",
+        message: "",
+        consent: false,
+        website: "",
+        startedAt: Date.now().toString(),
+      })
+    } catch {
+      setSubmitState({
+        type: "error",
+        message: "通信エラーが発生しました。時間をおいて再度お試しください。",
+      })
+    }
+  })
 
   return (
     <div className="min-h-screen">
       <Header />
-      
+
       <main id="main-content" className="pt-32 bg-white/30 backdrop-blur-sm">
-        {/* Hero Section */}
-        <section className="pb-20 px-4">
-          <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-5xl md:text-6xl font-light text-gray-900 mb-8">
-              お問い合わせ
-            </h1>
-            <p className="text-xl text-gray-600 font-light max-w-3xl mx-auto">
-              プロジェクトのご相談から技術的なお悩みまで、お気軽にご連絡ください
-            </p>
+        <section className="pb-16 px-4">
+          <div className="max-w-5xl mx-auto text-center">
+            <h1 className="text-5xl md:text-6xl font-light text-gray-900 mb-8 text-balance">お問い合わせ</h1>
           </div>
         </section>
 
         <div className="max-w-7xl mx-auto px-4 pb-24">
-          <div className="grid lg:grid-cols-3 gap-12">
-            {/* Contact Form */}
+          <div className="grid lg:grid-cols-3 gap-10">
             <div className="lg:col-span-2">
-              <Card className="border-0 shadow-lg overflow-hidden bg-white">
-                <CardHeader className="p-6 sm:p-8 bg-gradient-to-br from-blue-50 to-white">
-                  <CardTitle className="text-2xl sm:text-3xl font-light text-gray-900">お問い合わせフォーム</CardTitle>
+              <Card className="border-0 shadow-xl overflow-hidden bg-white">
+                <CardHeader className="p-6 sm:p-8 bg-gradient-to-br from-blue-50 via-white to-slate-50">
+                  <CardTitle className="text-2xl sm:text-3xl font-light text-gray-900">ご相談フォーム</CardTitle>
                   <CardDescription className="text-gray-600 font-light text-sm sm:text-base mt-2">
-                    以下のフォームにご記入いただき、送信してください。24時間以内にご返信いたします。
+                    入力後に送信いただくと、通常1営業日以内に担当者からご連絡します。
                   </CardDescription>
                 </CardHeader>
-                <CardContent className="p-0 bg-white">
-                  {useEmbedForm && embedUrl ? (
-                    // 埋め込みフォーム表示
-                    <div className="w-full relative overflow-hidden bg-white">
-                      <iframe
-                        src={embedUrl}
-                        title="お問い合わせフォーム"
-                        width="100%"
-                        height="700"
-                        frameBorder="0"
-                        allowFullScreen
-                        loading="lazy"
-                        className="w-full min-h-[700px] bg-white"
-                        style={{
-                          marginTop: '-60px',
-                          marginBottom: '-60px',
-                          colorScheme: 'light'
-                        }}
-                      >
-                        読み込んでいます...
-                      </iframe>
-                      {/* Notionコントロールバーを隠すオーバーレイ */}
-                      <div className="absolute top-0 left-0 right-0 h-16 bg-white pointer-events-none z-10"></div>
-                    </div>
-                  ) : (
-                    // デフォルトのメッセージ（URLを設定してください）
-                    <div className="p-12 text-center">
-                      <div className="max-w-md mx-auto space-y-6">
-                        <div className="w-20 h-20 bg-blue-50 rounded-full flex items-center justify-center mx-auto">
-                          <Mail className="h-10 w-10 text-blue-600" />
-                        </div>
-                        <h3 className="text-2xl font-normal text-gray-900">
-                          フォームを設定してください
-                        </h3>
-                        <p className="text-gray-600 font-light leading-relaxed">
-                          お問い合わせフォームの埋め込みURLを<br />
-                          <code className="bg-gray-100 px-2 py-1 rounded text-sm">app/contact/page.tsx</code><br />
-                          の<code className="bg-gray-100 px-2 py-1 rounded text-sm">embedUrl</code>に設定してください。
-                        </p>
-                        <div className="pt-4">
-                          <p className="text-sm text-gray-500 font-light">
-                            対応サービス：Google Forms, Typeform, HubSpot, Formspree など
-                          </p>
-                        </div>
+
+                <CardContent className="p-6 sm:p-8">
+                  <form onSubmit={onSubmit} className="space-y-6" noValidate>
+                    <div className="grid sm:grid-cols-2 gap-4">
+                      <div className="space-y-2">
+                        <Label htmlFor="company">会社名</Label>
+                        <Input
+                          id="company"
+                          type="text"
+                          autoComplete="organization"
+                          placeholder="例）株式会社コグミル"
+                          {...form.register("company")}
+                          aria-invalid={!!form.formState.errors.company}
+                        />
+                        {form.formState.errors.company && (
+                          <p className="text-sm text-red-600">{form.formState.errors.company.message}</p>
+                        )}
+                      </div>
+
+                      <div className="space-y-2">
+                        <Label htmlFor="name">お名前</Label>
+                        <Input
+                          id="name"
+                          type="text"
+                          autoComplete="name"
+                          placeholder="例）山田 太郎"
+                          {...form.register("name")}
+                          aria-invalid={!!form.formState.errors.name}
+                        />
+                        {form.formState.errors.name && (
+                          <p className="text-sm text-red-600">{form.formState.errors.name.message}</p>
+                        )}
                       </div>
                     </div>
-                  )}
+
+                    <div className="grid sm:grid-cols-2 gap-4">
+                      <div className="space-y-2">
+                        <Label htmlFor="email">メールアドレス</Label>
+                        <Input
+                          id="email"
+                          type="email"
+                          autoComplete="email"
+                          inputMode="email"
+                          spellCheck={false}
+                          placeholder="例）info@cogmiru.com"
+                          {...form.register("email")}
+                          aria-invalid={!!form.formState.errors.email}
+                        />
+                        {form.formState.errors.email && (
+                          <p className="text-sm text-red-600">{form.formState.errors.email.message}</p>
+                        )}
+                      </div>
+
+                      <div className="space-y-2">
+                        <Label htmlFor="phone">電話番号（任意）</Label>
+                        <Input
+                          id="phone"
+                          type="tel"
+                          autoComplete="tel"
+                          inputMode="tel"
+                          placeholder="例）03-1234-5678"
+                          {...form.register("phone")}
+                          aria-invalid={!!form.formState.errors.phone}
+                        />
+                        {form.formState.errors.phone && (
+                          <p className="text-sm text-red-600">{form.formState.errors.phone.message}</p>
+                        )}
+                      </div>
+                    </div>
+
+                    <div className="grid sm:grid-cols-2 gap-4">
+                      <div className="space-y-2">
+                        <Label htmlFor="category">お問い合わせ種別</Label>
+                        <select
+                          id="category"
+                          className="w-full h-10 rounded-md border border-gray-300 bg-white px-3 text-sm text-gray-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
+                          {...form.register("category")}
+                          aria-invalid={!!form.formState.errors.category}
+                        >
+                          {contactCategories.map((category) => (
+                            <option key={category} value={category}>
+                              {category}
+                            </option>
+                          ))}
+                        </select>
+                        {form.formState.errors.category && (
+                          <p className="text-sm text-red-600">{form.formState.errors.category.message}</p>
+                        )}
+                      </div>
+
+                      <div className="space-y-2">
+                        <Label htmlFor="budget">ご予算感（任意）</Label>
+                        <Input
+                          id="budget"
+                          type="text"
+                          autoComplete="off"
+                          {...form.register("budget")}
+                          aria-invalid={!!form.formState.errors.budget}
+                        />
+                        {form.formState.errors.budget && (
+                          <p className="text-sm text-red-600">{form.formState.errors.budget.message}</p>
+                        )}
+                      </div>
+                    </div>
+
+                    <div className="space-y-2">
+                      <Label htmlFor="message">お問い合わせ内容</Label>
+                      <Textarea
+                        id="message"
+                        autoComplete="off"
+                        rows={7}
+                        {...form.register("message")}
+                        aria-invalid={!!form.formState.errors.message}
+                      />
+                      {form.formState.errors.message && (
+                        <p className="text-sm text-red-600">{form.formState.errors.message.message}</p>
+                      )}
+                    </div>
+
+                    <div className="space-y-2">
+                      <label className="flex items-start gap-3 rounded-lg border border-gray-200 p-4 cursor-pointer">
+                        <input
+                          type="checkbox"
+                          className="mt-1 h-4 w-4"
+                          {...form.register("consent")}
+                          aria-invalid={!!form.formState.errors.consent}
+                        />
+                        <span className="text-sm text-gray-700 leading-relaxed">
+                          個人情報の取り扱いに同意します。送信前に
+                          <a href="/privacy" className="text-blue-600 hover:underline ml-1">
+                            プライバシーポリシー
+                          </a>
+                          をご確認ください。
+                        </span>
+                      </label>
+                      {form.formState.errors.consent && (
+                        <p className="text-sm text-red-600">{form.formState.errors.consent.message}</p>
+                      )}
+                    </div>
+
+                    <input type="text" tabIndex={-1} autoComplete="off" className="hidden" {...form.register("website")} />
+                    <input type="hidden" {...form.register("startedAt")} />
+
+                    <div aria-live="polite">
+                      {submitState && (
+                        <p
+                          className={`mb-4 rounded-md px-4 py-3 text-sm ${
+                            submitState.type === "success"
+                              ? "bg-green-50 text-green-700 border border-green-200"
+                              : "bg-red-50 text-red-700 border border-red-200"
+                          }`}
+                        >
+                          {submitState.message}
+                        </p>
+                      )}
+                    </div>
+
+                    <Button
+                      type="submit"
+                      disabled={form.formState.isSubmitting}
+                      className="w-full h-12 text-base bg-blue-600 hover:bg-blue-700"
+                    >
+                      <Send className="h-4 w-4 mr-2" aria-hidden="true" />
+                      {form.formState.isSubmitting ? "送信中…" : "送信"}
+                    </Button>
+                  </form>
                 </CardContent>
               </Card>
             </div>
 
-            {/* Contact Info */}
-            <div className="space-y-8">
-              {/* Contact Details */}
-              <Card className="border border-gray-200">
+            <div className="space-y-6">
+              <Card className="border border-gray-200 bg-white">
                 <CardHeader className="p-6">
                   <CardTitle className="text-xl font-medium text-gray-900">お問い合わせ先</CardTitle>
                 </CardHeader>
                 <CardContent className="p-6 pt-0 space-y-6">
                   <div className="flex items-start space-x-4">
                     <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
-                      <Phone className="h-6 w-6 text-blue-600" />
+                      <Phone className="h-6 w-6 text-blue-600" aria-hidden="true" />
                     </div>
                     <div>
                       <h3 className="font-medium text-gray-900 mb-1">電話</h3>
                       <p className="text-gray-700">{siteConfig.contact.phone}</p>
-                      <p className="text-sm text-gray-500">{siteConfig.contact.businessHours.weekday.split(': ')[1]}</p>
+                      <p className="text-sm text-gray-500">{siteConfig.contact.businessHours.weekday}</p>
                     </div>
                   </div>
 
                   <div className="flex items-start space-x-4">
                     <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
-                      <Mail className="h-6 w-6 text-blue-600" />
+                      <Mail className="h-6 w-6 text-blue-600" aria-hidden="true" />
                     </div>
                     <div>
                       <h3 className="font-medium text-gray-900 mb-1">メール</h3>
@@ -123,13 +292,16 @@ export default function ContactPage() {
 
                   <div className="flex items-start space-x-4">
                     <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
-                      <MapPin className="h-6 w-6 text-blue-600" />
+                      <MapPin className="h-6 w-6 text-blue-600" aria-hidden="true" />
                     </div>
                     <div>
                       <h3 className="font-medium text-gray-900 mb-1">住所</h3>
                       <p className="text-gray-700">
-                        {siteConfig.contact.address.postalCode}<br />
-                        {siteConfig.contact.address.prefecture}{siteConfig.contact.address.city}<br />
+                        {siteConfig.contact.address.postalCode}
+                        <br />
+                        {siteConfig.contact.address.prefecture}
+                        {siteConfig.contact.address.city}
+                        <br />
                         {siteConfig.contact.address.building}
                       </p>
                     </div>
@@ -137,12 +309,13 @@ export default function ContactPage() {
 
                   <div className="flex items-start space-x-4">
                     <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
-                      <Clock className="h-6 w-6 text-blue-600" />
+                      <Clock className="h-6 w-6 text-blue-600" aria-hidden="true" />
                     </div>
                     <div>
                       <h3 className="font-medium text-gray-900 mb-1">営業時間</h3>
                       <p className="text-gray-700">
-                        {siteConfig.contact.businessHours.weekday}<br />
+                        {siteConfig.contact.businessHours.weekday}
+                        <br />
                         {siteConfig.contact.businessHours.weekend}
                       </p>
                     </div>
