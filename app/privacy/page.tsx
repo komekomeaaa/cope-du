@@ -4,7 +4,7 @@ import { Footer } from "../components/footer"
 
 export const metadata: Metadata = {
   title: "プライバシーポリシー",
-  description: "Cogmiru Inc.の個人情報保護方針について説明します。",
+  description: "株式会社コグミルの個人情報保護方針について説明します。",
   alternates: { canonical: "/privacy" },
 }
 
@@ -17,7 +17,7 @@ export default function PrivacyPage() {
           <h1 className="text-4xl font-light text-gray-900 mb-8">プライバシーポリシー</h1>
           <div className="space-y-6 text-gray-700 leading-relaxed">
             <p>
-              Cogmiru Inc.（以下、「当社」）は、お客様の個人情報を適切に取り扱い、法令に基づいて安全に管理します。
+              株式会社コグミル（以下、「当社」）は、お客様の個人情報を適切に取り扱い、法令に基づいて安全に管理します。
             </p>
             <section>
               <h2 className="text-2xl text-gray-900 mb-2">1. 取得する情報</h2>

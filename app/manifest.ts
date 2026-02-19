@@ -2,9 +2,9 @@ import type { MetadataRoute } from "next"
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "Cogmiru Inc. コーポレートサイト",
-    short_name: "Cogmiru",
-    description: "AI・業務改善ソリューションを提供するCogmiru Inc.の公式サイト",
+    name: "株式会社コグミル コーポレートサイト",
+    short_name: "コグミル",
+    description: "AI・業務改善ソリューションを提供する株式会社コグミルの公式サイト",
     start_url: "/",
     display: "standalone",
     background_color: "#f5f7fa",

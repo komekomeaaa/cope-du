@@ -11,8 +11,8 @@ const fontMono = GeistMono
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://www.cogmiru.com"),
   title: {
-    default: "Cogmiru Inc. | AI・業務改善ソリューション",
-    template: "%s | Cogmiru Inc.",
+    default: "株式会社コグミル | AI・業務改善ソリューション",
+    template: "%s | 株式会社コグミル",
   },
   description:
     "AIと業務設計で、日々の定型業務を短縮。導入相談から運用定着まで伴走します。",
@@ -20,17 +20,17 @@ export const metadata: Metadata = {
     canonical: "/",
   },
   openGraph: {
-    title: "Cogmiru Inc. | AI・業務改善ソリューション",
+    title: "株式会社コグミル | AI・業務改善ソリューション",
     description:
       "AIと業務設計で、日々の定型業務を短縮。導入相談から運用定着まで伴走します。",
     type: "website",
     locale: "ja_JP",
     url: "/",
-    siteName: "Cogmiru Inc.",
+    siteName: "株式会社コグミル",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Cogmiru Inc. | AI・業務改善ソリューション",
+    title: "株式会社コグミル | AI・業務改善ソリューション",
     description:
       "AIと業務設計で、日々の定型業務を短縮。導入相談から運用定着まで伴走します。",
   },

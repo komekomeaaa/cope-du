@@ -4,7 +4,7 @@ import { Footer } from "../components/footer"
 
 export const metadata: Metadata = {
   title: "利用規約",
-  description: "Cogmiru Inc.サイト利用に関する規約です。",
+  description: "株式会社コグミルサイト利用に関する規約です。",
   alternates: { canonical: "/terms" },
 }
 

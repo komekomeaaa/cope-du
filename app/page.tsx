@@ -73,7 +73,7 @@ export default function HomePage() {
             >
               <Image
                 src="/modern-office-building.png"
-                alt="Cogmiru Inc. Office"
+                alt="株式会社コグミル オフィス"
                 fill
                 className="object-cover"
                 priority

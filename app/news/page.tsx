@@ -10,7 +10,7 @@ import { seedNews } from "@/lib/news"
 
 export const metadata: Metadata = {
   title: "ニュース",
-  description: "Cogmiruの最新ニュース・お知らせ・イベント情報を掲載しています。",
+  description: "株式会社コグミルの最新ニュース・お知らせ・イベント情報を掲載しています。",
   alternates: {
     canonical: "/news",
   },

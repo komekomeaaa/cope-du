@@ -7,7 +7,7 @@
 export const siteConfig = {
   // 会社情報
   company: {
-    name: "Cogmiru Inc.",
+    name: "株式会社コグミル",
     tagline: "価値を回す、未来の歯車を創出",
     description: "革新的なソリューションで、お客様のビジネスを次のステージへ",
     foundedYear: "2010",

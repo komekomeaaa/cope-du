@@ -104,7 +104,7 @@ export default function AboutPage() {
                 <p key={paragraph}>{paragraph}</p>
               ))}
             </div>
-            <p className="mt-10 text-sm tracking-[0.12em] uppercase text-slate-400">Cogmiru Inc.</p>
+            <p className="mt-10 text-sm tracking-[0.12em] text-slate-400">株式会社コグミル</p>
           </div>
         </section>
       </main>
