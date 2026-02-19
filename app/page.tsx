@@ -9,7 +9,7 @@ import { ArrowRight } from "lucide-react"
 import { useScrollAnimation } from "./hooks/useScrollAnimation"
 import { saasProducts, siteConfig } from "@/config/site"
 
-const highlights = saasProducts.slice(0, 3).map(product => ({
+const highlights = saasProducts.map(product => ({
   title: product.name,
   description: product.description,
   icon: product.icon,
@@ -101,7 +101,7 @@ export default function HomePage() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-1 max-w-xl mx-auto gap-8">
             {highlights.map((item, index) => (
               <Link key={index} href={item.link}>
                 <Card

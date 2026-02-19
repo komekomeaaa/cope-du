@@ -130,60 +130,17 @@ export const siteConfig = {
 export const saasProducts = [
   {
     id: 1,
-    name: "AI Analytics Pro",
-    tagline: "AIで経営を加速",
-    description: "機械学習とビッグデータ分析で、ビジネスの意思決定を革新",
+    name: "AIソリューション",
+    tagline: "業務改善を一気通貫で支援",
+    description: "現場課題の整理から設計・実装・運用まで伴走し、業務効率と意思決定速度を高めます",
     icon: "🤖",
     features: [
-      "リアルタイムデータ分析",
-      "予測分析とレポート",
-      "カスタマイズ可能なダッシュボード",
-      "API連携"
+      "業務ヒアリングと要件整理",
+      "AI活用フローの設計と実装",
+      "既存システムとの連携設計",
+      "運用定着までの改善サイクル支援"
     ],
-    pricing: {
-      starter: { name: "Starter", price: "¥9,800", period: "/月" },
-      professional: { name: "Professional", price: "¥29,800", period: "/月" },
-      enterprise: { name: "Enterprise", price: "お問い合わせ", period: "" }
-    },
     popular: true
-  },
-  {
-    id: 2,
-    name: "Cloud Workspace",
-    tagline: "チームの生産性を最大化",
-    description: "クラウドベースのコラボレーションツールで、どこでも仕事ができる",
-    icon: "☁️",
-    features: [
-      "リアルタイムコラボレーション",
-      "ファイル共有とバージョン管理",
-      "ビデオ会議機能",
-      "プロジェクト管理"
-    ],
-    pricing: {
-      starter: { name: "Starter", price: "¥4,980", period: "/月" },
-      professional: { name: "Professional", price: "¥14,800", period: "/月" },
-      enterprise: { name: "Enterprise", price: "お問い合わせ", period: "" }
-    },
-    popular: false
-  },
-  {
-    id: 3,
-    name: "Security Shield",
-    tagline: "ビジネスを守る",
-    description: "エンタープライズグレードのセキュリティで、データと資産を保護",
-    icon: "🛡️",
-    features: [
-      "24/7セキュリティ監視",
-      "脅威検知と対応",
-      "コンプライアンス対応",
-      "定期セキュリティレポート"
-    ],
-    pricing: {
-      starter: { name: "Starter", price: "¥19,800", period: "/月" },
-      professional: { name: "Professional", price: "¥49,800", period: "/月" },
-      enterprise: { name: "Enterprise", price: "お問い合わせ", period: "" }
-    },
-    popular: false
   }
 ]
 

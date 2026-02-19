@@ -29,14 +29,14 @@ export default function ServicesPage() {
           >
             <div className="inline-block mb-6">
               <span className="text-sm font-medium text-blue-600 bg-blue-50 px-4 py-2 rounded-full">
-                製品紹介
+                事業案内
               </span>
             </div>
             <h1 className="text-5xl md:text-6xl lg:text-7xl font-light text-gray-900 mb-6 leading-tight">
-              革新的なソリューションで<br />ビジネスを変革
+              AIソリューションで<br />業務を進化
             </h1>
             <p className="text-xl md:text-2xl text-gray-600 font-light leading-relaxed max-w-4xl mx-auto">
-              最先端の技術と洗練されたデザインが融合した製品群
+              いま提供している事業は、AIソリューションの1本に集中しています
             </p>
           </div>
         </section>
@@ -44,7 +44,7 @@ export default function ServicesPage() {
         {/* Products Grid */}
         <section className="pb-24 px-4 bg-white/30 backdrop-blur-sm">
           <div ref={productsAnimation.ref} className="max-w-7xl mx-auto">
-            <div className="grid md:grid-cols-3 gap-8">
+            <div className="grid md:grid-cols-1 max-w-2xl mx-auto gap-8">
               {saasProducts.map((product, index) => (
                 <Card 
                   key={product.id}
@@ -104,10 +104,10 @@ export default function ServicesPage() {
               }`}
             >
               <h2 className="text-4xl md:text-5xl font-light text-gray-900 mb-4">
-                製品の特長
+                AIソリューションの特長
               </h2>
               <p className="text-xl text-gray-600 font-light">
-                優れた機能性と使いやすさを兼ね備えた製品群
+                現場で使える運用設計と、継続改善を前提にした支援
               </p>
             </div>
             
