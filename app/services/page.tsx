@@ -16,12 +16,12 @@ export default function ServicesPage() {
     <div className="min-h-screen">
       <Header />
       
-      <div className="pt-32">
+      <main id="main-content" className="pt-32">
         {/* Hero Section */}
         <section className="pb-20 px-4 bg-white/30 backdrop-blur-sm">
           <div 
             ref={heroAnimation.ref}
-            className={`max-w-5xl mx-auto text-center transition-all duration-1000 ${
+            className={`max-w-5xl mx-auto text-center transition-[opacity,transform] duration-1000 ${
               heroAnimation.isVisible 
                 ? 'opacity-100 translate-y-0' 
                 : 'opacity-0 translate-y-10'
@@ -48,7 +48,7 @@ export default function ServicesPage() {
               {saasProducts.map((product, index) => (
                 <Card 
                   key={product.id}
-                  className={`group relative bg-white border-0 shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden ${
+                  className={`group relative bg-white border-0 shadow-lg hover:shadow-2xl transition-[opacity,transform,box-shadow] duration-500 overflow-hidden ${
                     product.popular ? 'ring-2 ring-blue-600' : ''
                   } ${
                     productsAnimation.isVisible 
@@ -97,7 +97,7 @@ export default function ServicesPage() {
           <div className="max-w-6xl mx-auto">
             <div 
               ref={saasAnimation.ref}
-              className={`text-center mb-20 transition-all duration-1000 ${
+              className={`text-center mb-20 transition-[opacity,transform] duration-1000 ${
                 saasAnimation.isVisible 
                   ? 'opacity-100 translate-y-0' 
                   : 'opacity-0 translate-y-10'
@@ -115,7 +115,7 @@ export default function ServicesPage() {
               {saasFeatures.map((feature, index) => (
                 <div 
                   key={index} 
-                  className={`text-center transition-all duration-700 ${
+                  className={`text-center transition-[opacity,transform] duration-700 ${
                     saasAnimation.isVisible 
                       ? 'opacity-100 translate-y-0' 
                       : 'opacity-0 translate-y-10'
@@ -132,7 +132,49 @@ export default function ServicesPage() {
             </div>
           </div>
         </section>
-      </div>
+
+        <section className="pb-24 px-4 bg-gray-50">
+          <div className="max-w-5xl mx-auto">
+            <h2 className="text-3xl md:text-4xl font-light text-gray-900 mb-8 text-center text-balance">
+              導入前によくある質問
+            </h2>
+            <div className="grid md:grid-cols-2 gap-6">
+              <Card className="border border-gray-200 shadow-sm bg-white">
+                <CardContent className="p-6 space-y-3">
+                  <h3 className="text-xl text-gray-900">導入にどれくらい時間がかかる？</h3>
+                  <p className="text-gray-600 font-light">
+                    初期ヒアリング後、最短2週間でPoCを開始。既存業務に合わせて段階導入できます。
+                  </p>
+                </CardContent>
+              </Card>
+              <Card className="border border-gray-200 shadow-sm bg-white">
+                <CardContent className="p-6 space-y-3">
+                  <h3 className="text-xl text-gray-900">費用対効果はどう判断する？</h3>
+                  <p className="text-gray-600 font-light">
+                    工数削減時間・ミス削減率・回収期間を共通指標で可視化し、導入前後で比較します。
+                  </p>
+                </CardContent>
+              </Card>
+              <Card className="border border-gray-200 shadow-sm bg-white">
+                <CardContent className="p-6 space-y-3">
+                  <h3 className="text-xl text-gray-900">既存システムとの連携は可能？</h3>
+                  <p className="text-gray-600 font-light">
+                    API連携を前提に、既存のSaaS・基幹系への接続方針を設計段階で整理します。
+                  </p>
+                </CardContent>
+              </Card>
+              <Card className="border border-gray-200 shadow-sm bg-white">
+                <CardContent className="p-6 space-y-3">
+                  <h3 className="text-xl text-gray-900">セキュリティ要件は満たせる？</h3>
+                  <p className="text-gray-600 font-light">
+                    権限設計・ログ監査・データ保護ポリシーを事前に定義し、運用体制まで含めて提案します。
+                  </p>
+                </CardContent>
+              </Card>
+            </div>
+          </div>
+        </section>
+      </main>
 
       <Footer />
     </div>

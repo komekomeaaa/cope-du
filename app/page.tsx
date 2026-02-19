@@ -26,23 +26,24 @@ export default function HomePage() {
     <div className="min-h-screen">
       <Header />
 
+      <main id="main-content">
       {/* Hero Section - Google Style */}
       <section className="relative pt-32 pb-20 px-4 overflow-hidden bg-white/30">
         <div className="max-w-7xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div
               ref={heroAnimation.ref}
-              className={`space-y-8 transition-all duration-1000 ${heroAnimation.isVisible
+              className={`space-y-8 transition-[opacity,transform] duration-1000 ${heroAnimation.isVisible
                   ? 'opacity-100 translate-y-0'
                   : 'opacity-0 translate-y-10'
                 }`}
             >
               <div className="inline-block">
                 <span className="text-sm font-medium text-blue-600 bg-blue-50 px-4 py-2 rounded-full">
-                  最新のテクノロジーニュース
+                  500件超の業務改善プロジェクト
                 </span>
               </div>
-              <h1 className="text-5xl md:text-6xl lg:text-7xl font-light text-gray-900 leading-tight">
+              <h1 className="text-5xl md:text-6xl lg:text-7xl font-light text-gray-900 leading-tight text-balance">
                 {siteConfig.company.tagline}
               </h1>
               <p className="text-xl md:text-2xl text-gray-600 font-light leading-relaxed">
@@ -53,19 +54,19 @@ export default function HomePage() {
                   href="/contact"
                   className="inline-flex items-center justify-center px-8 py-4 text-base font-medium text-white bg-blue-600 rounded-full hover:bg-blue-700 transition-colors"
                 >
-                  お問い合わせ
+                  30分の無料相談を予約
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Link>
                 <Link
                   href="/services"
                   className="inline-flex items-center justify-center px-8 py-4 text-base font-medium text-gray-700 bg-gray-100 rounded-full hover:bg-gray-200 transition-colors"
                 >
-                  サービス詳細
+                  導入メニューを見る
                 </Link>
               </div>
             </div>
             <div
-              className={`relative aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl transition-all duration-1000 delay-300 ${heroAnimation.isVisible
+              className={`relative aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl transition-[opacity,transform] duration-1000 delay-300 ${heroAnimation.isVisible
                   ? 'opacity-100 translate-x-0'
                   : 'opacity-0 translate-x-10'
                 }`}
@@ -87,7 +88,7 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto">
           <div
             ref={featuresAnimation.ref}
-            className={`text-center mb-16 transition-all duration-1000 ${featuresAnimation.isVisible
+            className={`text-center mb-16 transition-[opacity,transform] duration-1000 ${featuresAnimation.isVisible
                 ? 'opacity-100 translate-y-0'
                 : 'opacity-0 translate-y-10'
               }`}
@@ -104,7 +105,7 @@ export default function HomePage() {
             {highlights.map((item, index) => (
               <Link key={index} href={item.link}>
                 <Card
-                  className={`group border-0 shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden bg-white h-full ${featuresAnimation.isVisible
+                  className={`group border-0 shadow-lg hover:shadow-2xl transition-[opacity,transform,box-shadow] duration-500 overflow-hidden bg-white h-full ${featuresAnimation.isVisible
                       ? 'opacity-100 translate-y-0'
                       : 'opacity-0 translate-y-10'
                     }`}
@@ -120,7 +121,7 @@ export default function HomePage() {
                     <p className="text-gray-600 font-light leading-relaxed mb-6">
                       {item.description}
                     </p>
-                    <div className="inline-flex items-center text-blue-600 font-medium group-hover:gap-2 transition-all">
+                    <div className="inline-flex items-center text-blue-600 font-medium group-hover:gap-2 transition-[gap]">
                       詳細を見る
                       <ArrowRight className="ml-1 h-4 w-4 group-hover:translate-x-1 transition-transform" />
                     </div>
@@ -142,7 +143,7 @@ export default function HomePage() {
             {siteConfig.stats.map((stat, index) => (
               <div
                 key={index}
-                className={`transition-all duration-700 ${statsAnimation.isVisible
+                className={`transition-[opacity,transform] duration-700 ${statsAnimation.isVisible
                     ? 'opacity-100 translate-y-0'
                     : 'opacity-0 translate-y-10'
                   }`}
@@ -162,7 +163,7 @@ export default function HomePage() {
       <section className="py-24 px-4 bg-blue-600">
         <div
           ref={ctaAnimation.ref}
-          className={`max-w-4xl mx-auto text-center transition-all duration-1000 ${ctaAnimation.isVisible
+          className={`max-w-4xl mx-auto text-center transition-[opacity,transform] duration-1000 ${ctaAnimation.isVisible
               ? 'opacity-100 translate-y-0'
               : 'opacity-0 translate-y-10'
             }`}
@@ -177,11 +178,12 @@ export default function HomePage() {
             href="/contact"
             className="inline-flex items-center justify-center px-8 py-4 text-base font-medium text-blue-600 bg-white rounded-full hover:bg-gray-100 transition-colors"
           >
-            お問い合わせ
+            無料相談を申し込む
             <ArrowRight className="ml-2 h-5 w-5" />
           </Link>
         </div>
       </section>
+      </main>
 
       <Footer />
     </div>

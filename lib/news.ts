@@ -1,0 +1,88 @@
+export interface NewsItem {
+  id: number
+  title: string
+  excerpt: string
+  content: string
+  date: string
+  category: string
+  author: string
+  featured: boolean
+  status: "published" | "draft"
+  image?: string
+}
+
+export const seedNews: NewsItem[] = [
+  {
+    id: 1,
+    title: "新サービス「AI Solutions Pro」をリリースしました",
+    excerpt:
+      "最新のAI技術を活用した業務効率化ソリューションの提供を開始いたします。企業の生産性向上と競争力強化を支援します。",
+    content: `
+      <p>この度、弊社では最新のAI技術を活用した業務効率化ソリューション「AI Solutions Pro」の提供を開始いたしました。</p>
+
+      <h3>サービスの特徴</h3>
+      <ul>
+        <li>機械学習による業務プロセスの自動化</li>
+        <li>リアルタイムデータ分析とレポート生成</li>
+        <li>直感的なユーザーインターフェース</li>
+        <li>既存システムとの簡単な連携</li>
+      </ul>
+
+      <p>「AI Solutions Pro」は、企業の生産性向上と競争力強化を支援する包括的なソリューションです。導入により、従来の業務時間を最大60%削減することが可能になります。</p>
+    `,
+    date: "2026-02-03",
+    category: "プレスリリース",
+    author: "広報部",
+    featured: true,
+    status: "published",
+    image: "/ai-technology-office.png",
+  },
+  {
+    id: 2,
+    title: "東京本社オフィス移転のお知らせ",
+    excerpt:
+      "2026年3月より、東京本社を新宿区の新オフィスに移転いたします。より良い環境でサービス提供を継続いたします。",
+    content: `
+      <p>平素より格別のご高配を賜り、厚く御礼申し上げます。</p>
+      <p>この度、弊社では事業拡大に伴い、東京本社を下記住所に移転することとなりましたのでお知らせいたします。</p>
+
+      <h3>新住所</h3>
+      <p>〒160-0023<br />東京都新宿区西新宿1-1-1 新宿ビル15F</p>
+
+      <h3>移転日</h3>
+      <p>2026年3月1日（日）</p>
+
+      <p>新オフィスでは、より良い環境でお客様にサービスを提供できるよう努めてまいります。</p>
+    `,
+    date: "2026-01-27",
+    category: "お知らせ",
+    author: "総務部",
+    featured: false,
+    status: "published",
+    image: "/modern-office-building.png",
+  },
+  {
+    id: 3,
+    title: "採用向け技術セミナー開催レポート",
+    excerpt:
+      "エンジニア採用イベントで、生成AIを活用した業務改善の実践事例を紹介しました。当日のハイライトをお届けします。",
+    content: `
+      <p>先日開催した採用向け技術セミナーでは、生成AIを活用した業務改善の取り組みを紹介しました。</p>
+
+      <h3>当日の主なテーマ</h3>
+      <ul>
+        <li>社内業務へのAI導入プロセス</li>
+        <li>導入前後の業務時間比較</li>
+        <li>運用定着に向けた設計ポイント</li>
+      </ul>
+
+      <p>今後もイベントを通じて、実務で使える知見を継続的に発信してまいります。</p>
+    `,
+    date: "2026-01-12",
+    category: "イベント",
+    author: "採用広報",
+    featured: false,
+    status: "published",
+    image: "/technology-seminar.png",
+  },
+]

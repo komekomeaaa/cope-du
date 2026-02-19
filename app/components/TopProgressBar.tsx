@@ -48,7 +48,7 @@ export function TopProgressBar() {
       aria-label="ページ読み込み中"
     >
       <div
-        className="h-[3px] bg-blue-600 transition-all duration-300 ease-out"
+        className="h-[3px] bg-blue-600 transition-[width,box-shadow] duration-300 ease-out"
         style={{
           width: `${progress}%`,
           boxShadow: progress < 100 ? '0 0 10px rgba(37, 99, 235, 0.5)' : 'none',
@@ -57,4 +57,3 @@ export function TopProgressBar() {
     </div>
   )
 }
-

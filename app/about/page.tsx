@@ -27,13 +27,13 @@ export default function AboutPage() {
     <div className="min-h-screen">
       <Header />
 
-      <div className="pt-32">
+      <main id="main-content" className="pt-32">
         {/* Hero Section */}
         <section className="pb-20 px-4 bg-white/30 backdrop-blur-sm">
           <div className="max-w-6xl mx-auto">
             <div
               ref={heroAnimation.ref}
-              className={`text-center mb-20 transition-all duration-1000 ${heroAnimation.isVisible
+                className={`text-center mb-20 transition-[opacity,transform] duration-1000 ${heroAnimation.isVisible
                   ? 'opacity-100 translate-y-0'
                   : 'opacity-0 translate-y-10'
                 }`}
@@ -48,7 +48,7 @@ export default function AboutPage() {
 
             <div ref={contentAnimation.ref} className="grid md:grid-cols-2 gap-20 items-center mb-20">
               <div
-                className={`relative aspect-[4/3] rounded-3xl overflow-hidden shadow-xl transition-all duration-1000 ${contentAnimation.isVisible
+                className={`relative aspect-[4/3] rounded-3xl overflow-hidden shadow-xl transition-[opacity,transform] duration-1000 ${contentAnimation.isVisible
                     ? 'opacity-100 translate-x-0'
                     : 'opacity-0 -translate-x-10'
                   }`}
@@ -61,7 +61,7 @@ export default function AboutPage() {
                 />
               </div>
               <div
-                className={`transition-all duration-1000 delay-300 ${contentAnimation.isVisible
+                className={`transition-[opacity,transform] duration-1000 delay-300 ${contentAnimation.isVisible
                     ? 'opacity-100 translate-x-0'
                     : 'opacity-0 translate-x-10'
                   }`}
@@ -98,7 +98,7 @@ export default function AboutPage() {
               {stats.map((stat, index) => (
                 <div
                   key={index}
-                  className={`space-y-4 transition-all duration-700 ${statsAnimation.isVisible
+                  className={`space-y-4 transition-[opacity,transform] duration-700 ${statsAnimation.isVisible
                       ? 'opacity-100 translate-y-0'
                       : 'opacity-0 translate-y-10'
                     }`}
@@ -124,7 +124,7 @@ export default function AboutPage() {
           <div className="max-w-6xl mx-auto">
             <div
               ref={valuesAnimation.ref}
-              className={`text-center mb-20 transition-all duration-1000 ${valuesAnimation.isVisible
+                className={`text-center mb-20 transition-[opacity,transform] duration-1000 ${valuesAnimation.isVisible
                   ? 'opacity-100 translate-y-0'
                   : 'opacity-0 translate-y-10'
                 }`}
@@ -139,7 +139,7 @@ export default function AboutPage() {
               {siteConfig.values.map((value, index) => (
                 <div
                   key={index}
-                  className={`space-y-4 transition-all duration-700 ${valuesAnimation.isVisible
+                  className={`space-y-4 transition-[opacity,transform] duration-700 ${valuesAnimation.isVisible
                       ? 'opacity-100 translate-y-0'
                       : 'opacity-0 translate-y-10'
                     }`}
@@ -165,7 +165,7 @@ export default function AboutPage() {
           <div className="max-w-6xl mx-auto">
             <div
               ref={teamAnimation.ref}
-              className={`text-center mb-20 transition-all duration-1000 ${teamAnimation.isVisible
+                className={`text-center mb-20 transition-[opacity,transform] duration-1000 ${teamAnimation.isVisible
                   ? 'opacity-100 translate-y-0'
                   : 'opacity-0 translate-y-10'
                 }`}
@@ -180,7 +180,7 @@ export default function AboutPage() {
               {siteConfig.team.map((member, index) => (
                 <div
                   key={index}
-                  className={`bg-white rounded-3xl p-10 text-center shadow-md hover:shadow-xl transition-all duration-700 ${teamAnimation.isVisible
+                  className={`bg-white rounded-3xl p-10 text-center shadow-md hover:shadow-xl transition-[opacity,transform,box-shadow] duration-700 ${teamAnimation.isVisible
                       ? 'opacity-100 translate-y-0'
                       : 'opacity-0 translate-y-10'
                     }`}
@@ -214,7 +214,7 @@ export default function AboutPage() {
               {/* Vision */}
               <div
                 ref={missionAnimation.ref}
-                className={`bg-gradient-to-br from-blue-600 to-blue-700 rounded-3xl p-12 text-white transition-all duration-1000 ${missionAnimation.isVisible
+                className={`bg-gradient-to-br from-blue-600 to-blue-700 rounded-3xl p-12 text-white transition-[opacity,transform] duration-1000 ${missionAnimation.isVisible
                     ? 'opacity-100 translate-y-0'
                     : 'opacity-0 translate-y-10'
                   }`}
@@ -229,7 +229,7 @@ export default function AboutPage() {
 
               {/* Mission */}
               <div
-                className={`bg-gradient-to-br from-gray-800 to-gray-900 rounded-3xl p-12 text-white transition-all duration-1000 delay-200 ${missionAnimation.isVisible
+                className={`bg-gradient-to-br from-gray-800 to-gray-900 rounded-3xl p-12 text-white transition-[opacity,transform] duration-1000 delay-200 ${missionAnimation.isVisible
                     ? 'opacity-100 translate-y-0'
                     : 'opacity-0 translate-y-10'
                   }`}
@@ -252,7 +252,7 @@ export default function AboutPage() {
                 {siteConfig.philosophy.map((item, index) => (
                   <div
                     key={index}
-                    className={`bg-white rounded-2xl p-8 shadow-lg transition-all duration-700 ${missionAnimation.isVisible
+                    className={`bg-white rounded-2xl p-8 shadow-lg transition-[opacity,transform] duration-700 ${missionAnimation.isVisible
                         ? 'opacity-100 translate-y-0'
                         : 'opacity-0 translate-y-10'
                       }`}
@@ -273,7 +273,7 @@ export default function AboutPage() {
 
             {/* Corporate Message */}
             <div
-              className={`bg-gray-50 rounded-3xl p-12 transition-all duration-1000 delay-500 ${missionAnimation.isVisible
+              className={`bg-gray-50 rounded-3xl p-12 transition-[opacity,transform] duration-1000 delay-500 ${missionAnimation.isVisible
                   ? 'opacity-100 translate-y-0'
                   : 'opacity-0 translate-y-10'
                 }`}
@@ -291,7 +291,7 @@ export default function AboutPage() {
             </div>
           </div>
         </section>
-      </div>
+      </main>
 
       <Footer />
     </div>

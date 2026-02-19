@@ -67,9 +67,11 @@ export function ImageUpload({ value, onChange, label = "画像" }: ImageUploadPr
           <img 
             src={value} 
             alt="プレビュー" 
+            width={800}
+            height={400}
             className="w-full h-48 object-cover rounded-lg border border-gray-200"
           />
-          <div className="absolute inset-0 bg-black/0 group-hover:bg-black/60 transition-all rounded-lg flex items-center justify-center">
+          <div className="absolute inset-0 bg-black/0 group-hover:bg-black/60 transition-[background-color] rounded-lg flex items-center justify-center">
             <Button
               type="button"
               variant="destructive"
@@ -84,7 +86,7 @@ export function ImageUpload({ value, onChange, label = "画像" }: ImageUploadPr
         </div>
       ) : (
         <div
-          className={`border-2 border-dashed rounded-lg p-8 text-center transition-all ${
+          className={`border-2 border-dashed rounded-lg p-8 text-center transition-[border-color,background-color] ${
             isDragging 
               ? 'border-gray-400 bg-gray-50' 
               : 'border-gray-300 hover:border-gray-400 bg-white'

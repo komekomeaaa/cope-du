@@ -34,18 +34,6 @@ export default function AdminNewsPage() {
     image: ''
   })
 
-  // noindex メタタグを追加
-  useEffect(() => {
-    const metaRobots = document.createElement('meta')
-    metaRobots.name = 'robots'
-    metaRobots.content = 'noindex, nofollow'
-    document.head.appendChild(metaRobots)
-
-    return () => {
-      document.head.removeChild(metaRobots)
-    }
-  }, [])
-
   useEffect(() => {
     // 認証チェック（クライアントサイドのみ）
     if (typeof window !== 'undefined') {
@@ -169,20 +157,20 @@ export default function AdminNewsPage() {
 
   if (!isAuthenticated) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <main id="main-content" className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900 mx-auto mb-4"></div>
           <p className="text-gray-600">読み込み中...</p>
         </div>
-      </div>
+      </main>
     )
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <main id="main-content" className="min-h-screen bg-gray-50">
       {/* Toast Notification */}
       {toast && (
-        <div className="fixed top-6 right-6 z-50 animate-in slide-in-from-top-4">
+        <div className="fixed top-6 right-6 z-50 animate-in slide-in-from-top-4" aria-live="polite">
           <div className={`px-6 py-4 rounded-lg shadow-lg border ${
             toast.type === 'success' 
               ? 'bg-white text-gray-900 border-gray-200' 
@@ -280,14 +268,16 @@ export default function AdminNewsPage() {
                       タイトル
                       <span className="text-red-500 ml-1">*</span>
                     </Label>
-                    <Input
-                      id="title"
-                      value={formData.title}
-                      onChange={(e) => setFormData({...formData, title: e.target.value})}
-                      placeholder="ニュースのタイトルを入力"
-                      required
-                      className="h-11"
-                    />
+                      <Input
+                        id="title"
+                        name="title"
+                        value={formData.title}
+                        onChange={(e) => setFormData({...formData, title: e.target.value})}
+                        placeholder="ニュースのタイトルを入力"
+                        autoComplete="off"
+                        required
+                        className="h-11"
+                      />
                   </div>
 
                   {/* 概要 */}
@@ -298,9 +288,11 @@ export default function AdminNewsPage() {
                     </Label>
                     <textarea
                       id="excerpt"
+                      name="excerpt"
                       value={formData.excerpt}
                       onChange={(e) => setFormData({...formData, excerpt: e.target.value})}
                       placeholder="ニュースの概要を入力（一覧ページに表示されます）"
+                      autoComplete="off"
                       rows={3}
                       required
                       className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent resize-none"
@@ -347,10 +339,12 @@ export default function AdminNewsPage() {
                       </Label>
                       <Input
                         id="author"
+                        name="author"
                         value={formData.author}
                         onChange={(e) => setFormData({...formData, author: e.target.value})}
                         className="h-11"
                         placeholder="広報部"
+                        autoComplete="organization-title"
                       />
                     </div>
                   </div>
@@ -455,7 +449,7 @@ export default function AdminNewsPage() {
                     news.map((item) => (
                       <div
                         key={item.id}
-                        className={`group relative p-4 border rounded-lg transition-all ${
+                        className={`group relative p-4 border rounded-lg transition-[border-color,background-color,box-shadow] ${
                           editingId === item.id 
                             ? 'border-gray-900 bg-gray-50 shadow-sm' 
                             : 'border-gray-200 bg-white hover:border-gray-300 hover:shadow-sm'
@@ -467,6 +461,9 @@ export default function AdminNewsPage() {
                             <img 
                               src={item.image} 
                               alt={item.title}
+                              width={640}
+                              height={320}
+                              loading="lazy"
                               className="w-full h-32 object-cover"
                             />
                           </div>
@@ -543,6 +540,6 @@ export default function AdminNewsPage() {
           </div>
         </div>
       </div>
-    </div>
+    </main>
   )
 }

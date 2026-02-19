@@ -16,7 +16,7 @@ export default function ContactPage() {
     <div className="min-h-screen">
       <Header />
       
-      <div className="pt-32 bg-white/30 backdrop-blur-sm">
+      <main id="main-content" className="pt-32 bg-white/30 backdrop-blur-sm">
         {/* Hero Section */}
         <section className="pb-20 px-4">
           <div className="max-w-4xl mx-auto text-center">
@@ -46,10 +46,12 @@ export default function ContactPage() {
                     <div className="w-full relative overflow-hidden bg-white">
                       <iframe
                         src={embedUrl}
+                        title="お問い合わせフォーム"
                         width="100%"
                         height="700"
                         frameBorder="0"
                         allowFullScreen
+                        loading="lazy"
                         className="w-full min-h-[700px] bg-white"
                         style={{
                           marginTop: '-60px',
@@ -150,7 +152,7 @@ export default function ContactPage() {
             </div>
           </div>
         </div>
-      </div>
+      </main>
 
       <Footer />
     </div>

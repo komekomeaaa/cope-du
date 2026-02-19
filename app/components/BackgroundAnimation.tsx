@@ -6,6 +6,9 @@ export function BackgroundAnimation() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
 
   useEffect(() => {
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    if (prefersReducedMotion) return
+
     const canvas = canvasRef.current
     if (!canvas) return
 
@@ -45,6 +48,8 @@ export function BackgroundAnimation() {
     }
 
     // アニメーションループ
+    let animationFrameId = 0
+
     const animate = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height)
 
@@ -89,12 +94,13 @@ export function BackgroundAnimation() {
         }
       })
 
-      requestAnimationFrame(animate)
+      animationFrameId = requestAnimationFrame(animate)
     }
 
     animate()
 
     return () => {
+      cancelAnimationFrame(animationFrameId)
       window.removeEventListener('resize', resizeCanvas)
     }
   }, [])
@@ -107,4 +113,3 @@ export function BackgroundAnimation() {
     />
   )
 }
-

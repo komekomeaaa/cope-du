@@ -15,18 +15,6 @@ export default function AdminLoginPage() {
   const [error, setError] = useState('')
   const [isLoading, setIsLoading] = useState(false)
 
-  // noindex メタタグを追加
-  useEffect(() => {
-    const metaRobots = document.createElement('meta')
-    metaRobots.name = 'robots'
-    metaRobots.content = 'noindex, nofollow'
-    document.head.appendChild(metaRobots)
-
-    return () => {
-      document.head.removeChild(metaRobots)
-    }
-  }, [])
-
   useEffect(() => {
     // 既にログイン済みの場合は管理画面へ（クライアントサイドのみ）
     if (typeof window !== 'undefined') {
@@ -71,7 +59,7 @@ export default function AdminLoginPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
+    <main id="main-content" className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
       <Card className="w-full max-w-md border-0 shadow-xl">
         <CardHeader className="text-center pb-8 pt-12">
           <div className="mx-auto w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-4">
@@ -95,11 +83,14 @@ export default function AdminLoginPage() {
               </Label>
               <Input
                 id="username"
+                name="username"
                 type="text"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 placeholder="管理者ユーザー名を入力"
                 className="border-gray-300 focus:border-blue-600"
+                autoComplete="username"
+                spellCheck={false}
                 required
               />
             </div>
@@ -110,11 +101,13 @@ export default function AdminLoginPage() {
               </Label>
               <Input
                 id="password"
+                name="password"
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="管理者パスワードを入力"
                 className="border-gray-300 focus:border-blue-600"
+                autoComplete="current-password"
                 required
               />
             </div>
@@ -133,7 +126,6 @@ export default function AdminLoginPage() {
           </form>
         </CardContent>
       </Card>
-    </div>
+    </main>
   )
 }
-

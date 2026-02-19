@@ -8,8 +8,8 @@ export const siteConfig = {
   // 会社情報
   company: {
     name: "Cogmiru Inc.",
-    tagline: "未来をつくるテクノロジー",
-    description: "革新的なソリューションで、お客様のビジネスを次のステージへ",
+    tagline: "AIで定型業務を減らし、成果が出る業務設計へ",
+    description: "現場ヒアリングから導入・運用まで伴走し、業務時間の短縮と意思決定の高速化を支援します。",
     foundedYear: "2010",
   },
 
@@ -228,4 +228,3 @@ export const saasFeatures = [
     desc: "インターネット環境があれば、場所や端末を問わず利用可能"
   }
 ]
-

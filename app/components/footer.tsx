@@ -23,8 +23,8 @@ export function Footer() {
     {
       title: 'リソース',
       links: [
-        { name: 'ブログ', href: '#' },
-        { name: 'プライバシー', href: '#' },
+        { name: 'ブログ', href: '/news' },
+        { name: 'プライバシー', href: '/privacy' },
       ]
     }
   ]
@@ -79,13 +79,13 @@ export function Footer() {
             </p>
             <div className="flex items-center gap-4 sm:gap-6 flex-wrap justify-center">
               <Link 
-                href="#" 
+                href="/privacy" 
                 className="text-xs sm:text-sm text-gray-600 hover:text-gray-900 transition-colors font-light touch-manipulation py-1"
               >
                 プライバシーポリシー
               </Link>
               <Link 
-                href="#" 
+                href="/terms" 
                 className="text-xs sm:text-sm text-gray-600 hover:text-gray-900 transition-colors font-light touch-manipulation py-1"
               >
                 利用規約
