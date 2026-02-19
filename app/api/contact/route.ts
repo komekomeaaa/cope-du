@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server"
 import { contactSchema } from "@/lib/contact/schema"
 
+export const runtime = "edge"
+
 export async function POST(request: Request) {
   try {
     const json = await request.json()

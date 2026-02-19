@@ -12,6 +12,8 @@ import { seedNews } from "@/lib/news"
 
 type Params = { id: string }
 
+export const dynamicParams = false
+
 export function generateStaticParams() {
   return seedNews.map((item) => ({ id: item.id.toString() }))
 }
