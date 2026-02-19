@@ -37,7 +37,7 @@ export const metadata: Metadata = {
 }
 
 export const viewport: Viewport = {
-  themeColor: "#f5f7fa",
+  themeColor: "#f8f9fb",
 }
 
 export default function RootLayout({
@@ -51,7 +51,6 @@ export default function RootLayout({
     name: siteConfig.company.name,
     url: process.env.NEXT_PUBLIC_SITE_URL || "https://www.cogmiru.com",
     email: siteConfig.contact.email,
-    telephone: siteConfig.contact.phone,
     address: {
       "@type": "PostalAddress",
       streetAddress: siteConfig.contact.address.building,

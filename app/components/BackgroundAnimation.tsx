@@ -58,13 +58,13 @@ export function BackgroundAnimation() {
         // パーティクルを描画
         ctx.beginPath()
         ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2)
-        ctx.fillStyle = `rgba(37, 99, 235, ${particle.opacity * 0.6})`
+        ctx.fillStyle = `rgba(30, 41, 59, ${particle.opacity * 0.4})`
         ctx.fill()
-        
+
         // 発光効果
         ctx.beginPath()
         ctx.arc(particle.x, particle.y, particle.size * 2, 0, Math.PI * 2)
-        ctx.fillStyle = `rgba(37, 99, 235, ${particle.opacity * 0.15})`
+        ctx.fillStyle = `rgba(30, 41, 59, ${particle.opacity * 0.08})`
         ctx.fill()
 
         // パーティクルを移動
@@ -87,7 +87,7 @@ export function BackgroundAnimation() {
             ctx.beginPath()
             ctx.moveTo(particle.x, particle.y)
             ctx.lineTo(particles[j].x, particles[j].y)
-            ctx.strokeStyle = `rgba(37, 99, 235, ${0.3 * (1 - distance / 200)})`
+            ctx.strokeStyle = `rgba(30, 41, 59, ${0.15 * (1 - distance / 200)})`
             ctx.lineWidth = 1
             ctx.stroke()
           }

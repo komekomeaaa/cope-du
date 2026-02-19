@@ -47,22 +47,22 @@ export const siteConfig = {
   // 会社の価値観
   values: [
     {
-      icon: "💡",
+      icon: "Lightbulb",
       title: "革新性",
       description: "常に最新技術を追求し、革新的なソリューションを提供します"
     },
     {
-      icon: "❤️",
+      icon: "Heart",
       title: "顧客第一",
       description: "お客様の成功が私たちの成功。真のパートナーシップを築きます"
     },
     {
-      icon: "⚡",
+      icon: "Zap",
       title: "スピード",
       description: "迅速な対応と効率的な開発で、市場投入時間を短縮します"
     },
     {
-      icon: "🌐",
+      icon: "Globe",
       title: "グローバル",
       description: "世界基準の品質とサービスを、日本のお客様に提供します"
     }
@@ -133,7 +133,7 @@ export const saasProducts = [
     name: "AIソリューション",
     tagline: "業務改善を一気通貫で支援",
     description: "現場課題の整理から設計・実装・運用まで伴走し、業務効率と意思決定速度を高めます",
-    icon: "🤖",
+    icon: "Bot",
     features: [
       "業務ヒアリングと要件整理",
       "AI活用フローの設計と実装",
@@ -147,32 +147,32 @@ export const saasProducts = [
 // SaaSの特徴
 export const saasFeatures = [
   {
-    icon: "💰",
+    icon: "CircleDollarSign",
     title: "低コストで導入",
     desc: "初期費用を抑え、月額制で利用可能。予算に合わせた柔軟な料金プラン"
   },
   {
-    icon: "🚀",
+    icon: "Rocket",
     title: "迅速な導入",
     desc: "クラウドベースで即座に利用開始。複雑なインストール作業は不要"
   },
   {
-    icon: "🔄",
+    icon: "RefreshCw",
     title: "自動アップデート",
     desc: "常に最新機能を利用可能。メンテナンスや更新作業は不要"
   },
   {
-    icon: "📈",
+    icon: "TrendingUp",
     title: "スケーラブル",
     desc: "ビジネスの成長に合わせて柔軟に拡張。リソースの増減も簡単"
   },
   {
-    icon: "🔒",
+    icon: "ShieldCheck",
     title: "セキュリティ",
     desc: "エンタープライズグレードのセキュリティとデータ保護を標準装備"
   },
   {
-    icon: "🌐",
+    icon: "Globe",
     title: "どこからでもアクセス",
     desc: "インターネット環境があれば、場所や端末を問わず利用可能"
   }

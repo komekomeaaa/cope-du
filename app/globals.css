@@ -120,7 +120,7 @@
   }
   
   html {
-    background: linear-gradient(135deg, #f5f7fa 0%, #e8eef5 100%);
+    background: linear-gradient(135deg, #f8f9fb 0%, #f0f2f5 100%);
     /* Responsive font size - improved readability across devices */
     font-size: 16px;
   }
@@ -179,12 +179,24 @@
   
   /* Focus visible for keyboard navigation */
   *:focus-visible {
-    outline: 2px solid rgb(59, 130, 246);
+    outline: 2px solid rgb(51, 65, 85);
     outline-offset: 2px;
   }
-  
+
   /* Remove focus outline for mouse users */
   *:focus:not(:focus-visible) {
     outline: none;
+  }
+
+  /* Touch action for interactive elements */
+  button,
+  a,
+  [role="button"] {
+    touch-action: manipulation;
+  }
+
+  /* Tabular nums for numeric displays */
+  .tabular-nums {
+    font-variant-numeric: tabular-nums;
   }
 }

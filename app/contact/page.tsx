@@ -8,10 +8,9 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
-import { Mail, Phone, MapPin, Clock, Send } from "lucide-react"
+import { Send } from "lucide-react"
 import { Header } from "../components/header"
 import { Footer } from "../components/footer"
-import { siteConfig } from "@/config/site"
 import { contactCategories, contactSchema, type ContactFormData } from "@/lib/contact/schema"
 
 export default function ContactPage() {
@@ -75,20 +74,18 @@ export default function ContactPage() {
     <div className="min-h-screen">
       <Header />
 
-      <main id="main-content" className="pt-32 bg-white/30 backdrop-blur-sm">
-        <section className="pb-16 px-4">
+      <main id="main-content" className="bg-white/30">
+        <section className="pt-12 pb-16 px-4">
           <div className="max-w-5xl mx-auto text-center">
-            <h1 className="text-5xl md:text-6xl font-light text-gray-900 mb-8 text-balance">お問い合わせ</h1>
+            <h1 className="text-5xl md:text-6xl font-light text-slate-900 mb-8 text-balance">お問い合わせ</h1>
           </div>
         </section>
 
-        <div className="max-w-7xl mx-auto px-4 pb-24">
-          <div className="grid lg:grid-cols-3 gap-10">
-            <div className="lg:col-span-2">
+        <div className="max-w-3xl mx-auto px-4 pb-24">
               <Card className="border-0 shadow-xl overflow-hidden bg-white">
-                <CardHeader className="p-6 sm:p-8 bg-gradient-to-br from-blue-50 via-white to-slate-50">
-                  <CardTitle className="text-2xl sm:text-3xl font-light text-gray-900">ご相談フォーム</CardTitle>
-                  <CardDescription className="text-gray-600 font-light text-sm sm:text-base mt-2">
+                <CardHeader className="p-6 sm:p-8 bg-gradient-to-br from-slate-50 via-white to-slate-50">
+                  <CardTitle className="text-2xl sm:text-3xl font-light text-slate-900">ご相談フォーム</CardTitle>
+                  <CardDescription className="text-slate-600 text-sm sm:text-base mt-2">
                     入力後に送信いただくと、通常1営業日以内に担当者からご連絡します。
                   </CardDescription>
                 </CardHeader>
@@ -167,7 +164,7 @@ export default function ContactPage() {
                         <Label htmlFor="category">お問い合わせ種別</Label>
                         <select
                           id="category"
-                          className="w-full h-10 rounded-md border border-gray-300 bg-white px-3 text-sm text-gray-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
+                          className="w-full h-10 rounded-md border border-slate-300 bg-white px-3 text-sm text-slate-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-500"
                           {...form.register("category")}
                           aria-invalid={!!form.formState.errors.category}
                         >
@@ -212,16 +209,16 @@ export default function ContactPage() {
                     </div>
 
                     <div className="space-y-2">
-                      <label className="flex items-start gap-3 rounded-lg border border-gray-200 p-4 cursor-pointer">
+                      <label className="flex items-start gap-3 rounded-lg border border-slate-200 p-4 cursor-pointer">
                         <input
                           type="checkbox"
                           className="mt-1 h-4 w-4"
                           {...form.register("consent")}
                           aria-invalid={!!form.formState.errors.consent}
                         />
-                        <span className="text-sm text-gray-700 leading-relaxed">
+                        <span className="text-sm text-slate-700 leading-relaxed">
                           個人情報の取り扱いに同意します。送信前に
-                          <a href="/privacy" className="text-blue-600 hover:underline ml-1">
+                          <a href="/privacy" className="text-slate-900 underline hover:no-underline ml-1">
                             プライバシーポリシー
                           </a>
                           をご確認ください。
@@ -252,78 +249,14 @@ export default function ContactPage() {
                     <Button
                       type="submit"
                       disabled={form.formState.isSubmitting}
-                      className="w-full h-12 text-base bg-blue-600 hover:bg-blue-700"
+                      className="w-full h-12 text-base bg-slate-800 hover:bg-slate-700"
                     >
                       <Send className="h-4 w-4 mr-2" aria-hidden="true" />
-                      {form.formState.isSubmitting ? "送信中…" : "送信"}
+                      {form.formState.isSubmitting ? "送信中…" : "送信する"}
                     </Button>
                   </form>
                 </CardContent>
               </Card>
-            </div>
-
-            <div className="space-y-6">
-              <Card className="border border-gray-200 bg-white">
-                <CardHeader className="p-6">
-                  <CardTitle className="text-xl font-medium text-gray-900">お問い合わせ先</CardTitle>
-                </CardHeader>
-                <CardContent className="p-6 pt-0 space-y-6">
-                  <div className="flex items-start space-x-4">
-                    <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
-                      <Phone className="h-6 w-6 text-blue-600" aria-hidden="true" />
-                    </div>
-                    <div>
-                      <h3 className="font-medium text-gray-900 mb-1">電話</h3>
-                      <p className="text-gray-700">{siteConfig.contact.phone}</p>
-                      <p className="text-sm text-gray-500">{siteConfig.contact.businessHours.weekday}</p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start space-x-4">
-                    <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
-                      <Mail className="h-6 w-6 text-blue-600" aria-hidden="true" />
-                    </div>
-                    <div>
-                      <h3 className="font-medium text-gray-900 mb-1">メール</h3>
-                      <p className="text-gray-700">{siteConfig.contact.email}</p>
-                      <p className="text-sm text-gray-500">24時間受付</p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start space-x-4">
-                    <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
-                      <MapPin className="h-6 w-6 text-blue-600" aria-hidden="true" />
-                    </div>
-                    <div>
-                      <h3 className="font-medium text-gray-900 mb-1">住所</h3>
-                      <p className="text-gray-700">
-                        {siteConfig.contact.address.postalCode}
-                        <br />
-                        {siteConfig.contact.address.prefecture}
-                        {siteConfig.contact.address.city}
-                        <br />
-                        {siteConfig.contact.address.building}
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start space-x-4">
-                    <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
-                      <Clock className="h-6 w-6 text-blue-600" aria-hidden="true" />
-                    </div>
-                    <div>
-                      <h3 className="font-medium text-gray-900 mb-1">営業時間</h3>
-                      <p className="text-gray-700">
-                        {siteConfig.contact.businessHours.weekday}
-                        <br />
-                        {siteConfig.contact.businessHours.weekend}
-                      </p>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
-          </div>
         </div>
       </main>
 

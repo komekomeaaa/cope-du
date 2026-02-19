@@ -30,28 +30,27 @@ export function Footer() {
   ]
 
   return (
-    <footer className="bg-white/60 border-t border-gray-100 backdrop-blur-sm">
+    <footer className="bg-slate-900 text-slate-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Main Footer Content */}
         <div className="py-12 sm:py-16">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10 lg:gap-8">
-            {/* Brand - Full width on mobile, col-span on larger screens */}
+            {/* Brand */}
             <div className="sm:col-span-2 lg:col-span-1">
               <Link href="/" className="inline-block mb-4 sm:mb-6">
-                <span className="text-lg sm:text-xl font-normal text-gray-900">
+                <span className="text-lg sm:text-xl font-medium text-white">
                   {siteConfig.company.name}
                 </span>
               </Link>
-              <p className="text-sm sm:text-base text-gray-600 font-light leading-relaxed max-w-xs">
-                革新的なソリューションで、
-                ビジネスの未来を創造
+              <p className="text-sm sm:text-base text-slate-400 leading-relaxed max-w-xs">
+                {siteConfig.company.description}
               </p>
             </div>
 
-            {/* Footer Links - optimized for all screen sizes */}
+            {/* Footer Links */}
             {footerSections.map((section) => (
               <div key={section.title} className="min-w-0">
-                <h3 className="text-sm sm:text-base font-medium text-gray-900 mb-3 sm:mb-4">
+                <h3 className="text-sm sm:text-base font-medium text-white mb-3 sm:mb-4">
                   {section.title}
                 </h3>
                 <ul className="space-y-2 sm:space-y-3">
@@ -59,7 +58,7 @@ export function Footer() {
                     <li key={link.name}>
                       <Link
                         href={link.href}
-                        className="text-sm sm:text-base text-gray-600 hover:text-gray-900 transition-colors font-light inline-block py-1 touch-manipulation"
+                        className="text-sm sm:text-base text-slate-400 hover:text-white transition-colors inline-block py-1"
                       >
                         {link.name}
                       </Link>
@@ -71,22 +70,40 @@ export function Footer() {
           </div>
         </div>
 
-        {/* Bottom Bar - responsive layout */}
-        <div className="border-t border-gray-100 py-5 sm:py-6">
+        {/* Company Info */}
+        <div className="border-t border-slate-800 py-6">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 text-xs sm:text-sm text-slate-500">
+            <div>
+              <p className="text-slate-400 font-medium mb-1">所在地</p>
+              <p>{siteConfig.contact.address.postalCode} {siteConfig.contact.address.prefecture}{siteConfig.contact.address.city}</p>
+            </div>
+            <div>
+              <p className="text-slate-400 font-medium mb-1">設立</p>
+              <p>{siteConfig.company.foundedYear}年</p>
+            </div>
+            <div>
+              <p className="text-slate-400 font-medium mb-1">メール</p>
+              <p>{siteConfig.contact.email}</p>
+            </div>
+          </div>
+        </div>
+
+        {/* Bottom Bar */}
+        <div className="border-t border-slate-800 py-5 sm:py-6">
           <div className="flex flex-col sm:flex-row justify-between items-center gap-3 sm:gap-4">
-            <p className="text-xs sm:text-sm text-gray-600 font-light text-center sm:text-left">
+            <p className="text-xs sm:text-sm text-slate-500 text-center sm:text-left">
               &copy; {new Date().getFullYear()} {siteConfig.company.name}. All rights reserved.
             </p>
             <div className="flex items-center gap-4 sm:gap-6 flex-wrap justify-center">
-              <Link 
-                href="/privacy" 
-                className="text-xs sm:text-sm text-gray-600 hover:text-gray-900 transition-colors font-light touch-manipulation py-1"
+              <Link
+                href="/privacy"
+                className="text-xs sm:text-sm text-slate-500 hover:text-white transition-colors py-1"
               >
                 プライバシーポリシー
               </Link>
-              <Link 
-                href="/terms" 
-                className="text-xs sm:text-sm text-gray-600 hover:text-gray-900 transition-colors font-light touch-manipulation py-1"
+              <Link
+                href="/terms"
+                className="text-xs sm:text-sm text-slate-500 hover:text-white transition-colors py-1"
               >
                 利用規約
               </Link>
