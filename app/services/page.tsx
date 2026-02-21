@@ -3,6 +3,7 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Check, Bot, CircleDollarSign, Rocket, RefreshCw, TrendingUp, ShieldCheck, Globe } from 'lucide-react'
 import type { LucideIcon } from "lucide-react"
+import Link from "next/link"
 import { Header } from "../components/header"
 import { Footer } from "../components/footer"
 import { useScrollAnimation } from "../hooks/useScrollAnimation"
@@ -16,6 +17,11 @@ export default function ServicesPage() {
   const heroAnimation = useScrollAnimation()
   const productsAnimation = useScrollAnimation()
   const saasAnimation = useScrollAnimation()
+  const prioritizedProducts = [...saasProducts].sort((a, b) => {
+    if (a.href === '/ai-consulting') return -1
+    if (b.href === '/ai-consulting') return 1
+    return 0
+  })
 
   return (
     <div className="min-h-screen">
@@ -38,10 +44,10 @@ export default function ServicesPage() {
               </span>
             </div>
             <h1 className="text-5xl md:text-6xl font-light text-slate-900 mb-6 leading-tight text-balance">
-              AIソリューションで<br />業務を進化
+              AIソリューション&コンサルティングで<br />業務を進化
             </h1>
             <p className="text-xl md:text-2xl text-slate-600 leading-relaxed max-w-4xl mx-auto">
-              いま提供している事業は、AIソリューションの1本に集中しています
+              課題整理から導入、定着化まで。事業フェーズに合わせて最適な支援を提供します。
             </p>
           </div>
         </section>
@@ -49,8 +55,8 @@ export default function ServicesPage() {
         {/* Products Grid */}
         <section className="pb-24 px-4 bg-white/30">
           <div ref={productsAnimation.ref} className="max-w-7xl mx-auto">
-            <div className="grid md:grid-cols-1 max-w-2xl mx-auto gap-8">
-              {saasProducts.map((product, index) => {
+            <div className="grid md:grid-cols-2 max-w-5xl mx-auto gap-8">
+              {prioritizedProducts.map((product, index) => {
                 const IconComponent = iconMap[product.icon]
                 return (
                   <Card
@@ -74,7 +80,7 @@ export default function ServicesPage() {
 
                     <CardHeader className="p-8 text-center">
                       <div className="w-16 h-16 mx-auto mb-6 bg-slate-100 rounded-xl flex items-center justify-center">
-                        {IconComponent && <IconComponent className="h-8 w-8 text-slate-700" />}
+                        {IconComponent && <IconComponent aria-hidden="true" className="h-8 w-8 text-slate-700" />}
                       </div>
                       <CardTitle className="text-2xl font-normal text-slate-900 mb-2">
                         {product.name}
@@ -89,10 +95,18 @@ export default function ServicesPage() {
                       <div className="space-y-3">
                         {product.features.map((feature, idx) => (
                           <div key={idx} className="flex items-center gap-2 text-sm text-slate-700">
-                            <Check className="h-4 w-4 text-slate-700 flex-shrink-0" />
+                            <Check aria-hidden="true" className="h-4 w-4 text-slate-700 flex-shrink-0" />
                             <span>{feature}</span>
                           </div>
                         ))}
+                      </div>
+                      <div className="mt-8 text-center">
+                        <Link
+                          href={product.href ?? '/services'}
+                          className="inline-flex items-center justify-center px-4 py-2 rounded-md bg-slate-800 text-white hover:bg-slate-700 transition-colors"
+                        >
+                          詳細を見る
+                        </Link>
                       </div>
                     </CardContent>
                   </Card>
@@ -137,7 +151,7 @@ export default function ServicesPage() {
                     }}
                   >
                     <div className="w-14 h-14 mx-auto mb-6 bg-slate-100 rounded-xl flex items-center justify-center">
-                      {IconComponent && <IconComponent className="h-7 w-7 text-slate-700" />}
+                      {IconComponent && <IconComponent aria-hidden="true" className="h-7 w-7 text-slate-700" />}
                     </div>
                     <h3 className="text-2xl font-normal text-slate-900 mb-4">{feature.title}</h3>
                     <p className="text-slate-600 leading-relaxed">{feature.desc}</p>

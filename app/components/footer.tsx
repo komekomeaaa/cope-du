@@ -7,7 +7,7 @@ export function Footer() {
       title: '事業案内',
       links: [
         { name: 'システム開発', href: '/services' },
-        { name: 'AI ソリューション', href: '/services' },
+        { name: 'AI コンサルティング', href: '/ai-consulting' },
         { name: 'クラウド基盤', href: '/services' },
         { name: 'データ分析', href: '/services' },
       ]

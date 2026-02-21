@@ -179,7 +179,7 @@
   
   /* Focus visible for keyboard navigation */
   *:focus-visible {
-    outline: 2px solid rgb(51, 65, 85);
+    outline: 2px solid var(--ring);
     outline-offset: 2px;
   }
 

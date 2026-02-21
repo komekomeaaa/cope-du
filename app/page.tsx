@@ -14,11 +14,17 @@ const iconMap: Record<string, LucideIcon> = {
   Bot, CircleDollarSign, Rocket, RefreshCw, TrendingUp, ShieldCheck, Globe, Lightbulb, Heart, Zap,
 }
 
-const highlights = saasProducts.map(product => ({
+const prioritizedProducts = [...saasProducts].sort((a, b) => {
+  if (a.href === '/ai-consulting') return -1
+  if (b.href === '/ai-consulting') return 1
+  return 0
+})
+
+const highlights = prioritizedProducts.map(product => ({
   title: product.name,
   description: product.description,
   icon: product.icon,
-  link: "/services"
+  link: product.href ?? "/services"
 }))
 
 export default function HomePage() {
@@ -60,7 +66,7 @@ export default function HomePage() {
                   className="inline-flex items-center justify-center px-6 py-3 text-base font-medium text-white bg-slate-800 rounded-lg hover:bg-slate-700 transition-colors"
                 >
                   30分の無料相談を予約
-                  <ArrowRight className="ml-2 h-5 w-5" />
+                  <ArrowRight aria-hidden="true" className="ml-2 h-5 w-5" />
                 </Link>
                 <Link
                   href="/services"
@@ -122,7 +128,7 @@ export default function HomePage() {
                   >
                     <CardContent className="p-10 text-center">
                       <div className="w-16 h-16 mx-auto mb-6 bg-slate-100 rounded-xl flex items-center justify-center">
-                        {IconComponent && <IconComponent className="h-8 w-8 text-slate-700" />}
+                        {IconComponent && <IconComponent aria-hidden="true" className="h-8 w-8 text-slate-700" />}
                       </div>
                       <h3 className="text-2xl font-medium text-slate-900 mb-4">
                         {item.title}
@@ -132,7 +138,7 @@ export default function HomePage() {
                       </p>
                       <div className="inline-flex items-center text-slate-700 font-medium group-hover:gap-2 transition-[gap]">
                         詳細を見る
-                        <ArrowRight className="ml-1 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                        <ArrowRight aria-hidden="true" className="ml-1 h-4 w-4 group-hover:translate-x-1 transition-transform" />
                       </div>
                     </CardContent>
                   </Card>
@@ -189,7 +195,7 @@ export default function HomePage() {
             className="inline-flex items-center justify-center px-6 py-3 text-base font-medium text-slate-900 bg-white rounded-lg hover:bg-slate-100 transition-colors"
           >
             無料相談を申し込む
-            <ArrowRight className="ml-2 h-5 w-5" />
+            <ArrowRight aria-hidden="true" className="ml-2 h-5 w-5" />
           </Link>
         </div>
       </section>

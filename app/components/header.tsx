@@ -20,9 +20,9 @@ export function Header() {
   }, [])
 
   const navigation = [
-    { name: '企業情報', href: '/about' },
     { name: '事業案内', href: '/services' },
     { name: 'ニュース', href: '/news' },
+    { name: '企業情報', href: '/about' },
     { name: 'お問い合わせ', href: '/contact' },
   ]
 
@@ -35,9 +35,8 @@ export function Header() {
 
   return (
     <>
-      <header className={`sticky top-0 w-full z-50 transition-[background-color,box-shadow] duration-300 ${
-        isScrolled ? 'bg-white shadow-sm' : 'bg-white'
-      }`}>
+      <header className={`sticky top-0 w-full z-50 transition-[background-color,box-shadow] duration-300 ${isScrolled ? 'bg-white shadow-sm' : 'bg-white'
+        }`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-14 sm:h-16">
             {/* Logo */}
@@ -53,11 +52,10 @@ export function Header() {
                 <Link
                   key={item.name}
                   href={item.href}
-                  className={`relative px-3 lg:px-4 py-2 text-sm lg:text-base rounded-lg transition-[color,background-color] ${
-                    isActive(item.href)
+                  className={`relative px-3 lg:px-4 py-2 text-sm lg:text-base rounded-lg transition-[color,background-color] ${isActive(item.href)
                       ? 'text-slate-900 font-medium'
                       : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
-                  }`}
+                    }`}
                 >
                   {item.name}
                   {isActive(item.href) && (
@@ -80,9 +78,8 @@ export function Header() {
 
           {/* Mobile Navigation */}
           <div
-            className={`md:hidden overflow-hidden transition-[max-height,opacity] duration-300 ease-in-out ${
-              isMenuOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
-            }`}
+            className={`md:hidden overflow-hidden transition-[max-height,opacity] duration-300 ease-in-out ${isMenuOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+              }`}
           >
             <div className="py-3 sm:py-4 border-t border-slate-100">
               <nav className="space-y-1" role="navigation" aria-label="モバイルナビゲーション">
@@ -90,15 +87,13 @@ export function Header() {
                   <Link
                     key={item.name}
                     href={item.href}
-                    className={`relative block px-4 py-3.5 text-base sm:text-lg rounded-lg transition-[opacity,transform,background-color,color] duration-300 ${
-                      isActive(item.href)
+                    className={`relative block px-4 py-3.5 text-base sm:text-lg rounded-lg transition-[opacity,transform,background-color,color] duration-300 ${isActive(item.href)
                         ? 'text-slate-900 bg-slate-50 font-medium'
                         : 'text-slate-700 hover:bg-slate-50 active:bg-slate-100'
-                    } ${
-                      isMenuOpen
+                      } ${isMenuOpen
                         ? 'translate-y-0 opacity-100'
                         : '-translate-y-2 opacity-0'
-                    }`}
+                      }`}
                     style={{
                       transitionDelay: isMenuOpen ? `${index * 50}ms` : '0ms',
                       minHeight: '44px'

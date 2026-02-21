@@ -133,6 +133,7 @@ export const saasProducts = [
     name: "AIソリューション",
     tagline: "業務改善を一気通貫で支援",
     description: "現場課題の整理から設計・実装・運用まで伴走し、業務効率と意思決定速度を高めます",
+    href: "/services",
     icon: "Bot",
     features: [
       "業務ヒアリングと要件整理",
@@ -141,6 +142,21 @@ export const saasProducts = [
       "運用定着までの改善サイクル支援"
     ],
     popular: true
+  },
+  {
+    id: 2,
+    name: "AIコンサルティング",
+    tagline: "戦略設計から定着化まで伴走",
+    description: "部門ごとの業務フローを分析し、最適なAI活用戦略・PoC・社内展開まで実務視点で支援します",
+    href: "/ai-consulting",
+    icon: "TrendingUp",
+    features: [
+      "業務棚卸しと課題の優先順位付け",
+      "ROIを踏まえたAI導入戦略策定",
+      "PoC設計と効果検証の実行支援",
+      "定着化に向けた教育・運用設計"
+    ],
+    popular: false
   }
 ]
 
