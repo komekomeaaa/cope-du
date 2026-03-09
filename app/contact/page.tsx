@@ -74,18 +74,18 @@ export default function ContactPage() {
     <div className="min-h-screen">
       <Header />
 
-      <main id="main-content" className="bg-white/30">
+      <main id="main-content">
         <section className="pt-12 pb-16 px-4">
           <div className="max-w-5xl mx-auto text-center">
-            <h1 className="text-5xl md:text-6xl font-light text-slate-900 mb-8 text-balance">お問い合わせ</h1>
+            <h1 className="text-5xl md:text-6xl font-light text-slate-900 mb-8 text-balance font-[family-name:var(--font-display)]">お問い合わせ</h1>
           </div>
         </section>
 
         <div className="max-w-3xl mx-auto px-4 pb-24">
-              <Card className="border-0 shadow-xl overflow-hidden bg-white">
-                <CardHeader className="p-6 sm:p-8 bg-gradient-to-br from-slate-50 via-white to-slate-50">
-                  <CardTitle className="text-2xl sm:text-3xl font-light text-slate-900">ご相談フォーム</CardTitle>
-                  <CardDescription className="text-slate-600 text-sm sm:text-base mt-2">
+              <Card className="bg-white border border-slate-200/60 shadow-xl overflow-hidden">
+                <CardHeader className="p-6 sm:p-8 bg-slate-50">
+                  <CardTitle className="text-2xl sm:text-3xl font-light text-slate-900 font-[family-name:var(--font-display)]">ご相談フォーム</CardTitle>
+                  <CardDescription className="text-slate-500 text-sm sm:text-base mt-2">
                     入力後に送信いただくと、通常1営業日以内に担当者からご連絡します。
                   </CardDescription>
                 </CardHeader>
@@ -94,12 +94,13 @@ export default function ContactPage() {
                   <form onSubmit={onSubmit} className="space-y-6" noValidate>
                     <div className="grid sm:grid-cols-2 gap-4">
                       <div className="space-y-2">
-                        <Label htmlFor="company">会社名</Label>
+                        <Label htmlFor="company" className="text-slate-700">会社名</Label>
                         <Input
                           id="company"
                           type="text"
                           autoComplete="organization"
                           placeholder="例）株式会社コグミル"
+                          className="bg-white border-slate-300 text-slate-900 placeholder:text-slate-400 focus-visible:ring-cyan-500"
                           {...form.register("company")}
                           aria-invalid={!!form.formState.errors.company}
                         />
@@ -109,12 +110,13 @@ export default function ContactPage() {
                       </div>
 
                       <div className="space-y-2">
-                        <Label htmlFor="name">お名前</Label>
+                        <Label htmlFor="name" className="text-slate-700">お名前</Label>
                         <Input
                           id="name"
                           type="text"
                           autoComplete="name"
                           placeholder="例）山田 太郎"
+                          className="bg-white border-slate-300 text-slate-900 placeholder:text-slate-400 focus-visible:ring-cyan-500"
                           {...form.register("name")}
                           aria-invalid={!!form.formState.errors.name}
                         />
@@ -126,7 +128,7 @@ export default function ContactPage() {
 
                     <div className="grid sm:grid-cols-2 gap-4">
                       <div className="space-y-2">
-                        <Label htmlFor="email">メールアドレス</Label>
+                        <Label htmlFor="email" className="text-slate-700">メールアドレス</Label>
                         <Input
                           id="email"
                           type="email"
@@ -134,6 +136,7 @@ export default function ContactPage() {
                           inputMode="email"
                           spellCheck={false}
                           placeholder="例）info@cogmiru.com"
+                          className="bg-white border-slate-300 text-slate-900 placeholder:text-slate-400 focus-visible:ring-cyan-500"
                           {...form.register("email")}
                           aria-invalid={!!form.formState.errors.email}
                         />
@@ -143,13 +146,14 @@ export default function ContactPage() {
                       </div>
 
                       <div className="space-y-2">
-                        <Label htmlFor="phone">電話番号（任意）</Label>
+                        <Label htmlFor="phone" className="text-slate-700">電話番号（任意）</Label>
                         <Input
                           id="phone"
                           type="tel"
                           autoComplete="tel"
                           inputMode="tel"
                           placeholder="例）03-1234-5678"
+                          className="bg-white border-slate-300 text-slate-900 placeholder:text-slate-400 focus-visible:ring-cyan-500"
                           {...form.register("phone")}
                           aria-invalid={!!form.formState.errors.phone}
                         />
@@ -161,15 +165,15 @@ export default function ContactPage() {
 
                     <div className="grid sm:grid-cols-2 gap-4">
                       <div className="space-y-2">
-                        <Label htmlFor="category">お問い合わせ種別</Label>
+                        <Label htmlFor="category" className="text-slate-700">お問い合わせ種別</Label>
                         <select
                           id="category"
-                          className="w-full h-10 rounded-md border border-slate-300 bg-white px-3 text-sm text-slate-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-500"
+                          className="w-full h-10 rounded-md border border-slate-300 bg-white px-3 text-sm text-slate-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-500"
                           {...form.register("category")}
                           aria-invalid={!!form.formState.errors.category}
                         >
                           {contactCategories.map((category) => (
-                            <option key={category} value={category}>
+                            <option key={category} value={category} className="bg-white text-slate-900">
                               {category}
                             </option>
                           ))}
@@ -180,11 +184,12 @@ export default function ContactPage() {
                       </div>
 
                       <div className="space-y-2">
-                        <Label htmlFor="budget">ご予算感（任意）</Label>
+                        <Label htmlFor="budget" className="text-slate-700">ご予算感（任意）</Label>
                         <Input
                           id="budget"
                           type="text"
                           autoComplete="off"
+                          className="bg-white border-slate-300 text-slate-900 placeholder:text-slate-400 focus-visible:ring-cyan-500"
                           {...form.register("budget")}
                           aria-invalid={!!form.formState.errors.budget}
                         />
@@ -195,11 +200,12 @@ export default function ContactPage() {
                     </div>
 
                     <div className="space-y-2">
-                      <Label htmlFor="message">お問い合わせ内容</Label>
+                      <Label htmlFor="message" className="text-slate-700">お問い合わせ内容</Label>
                       <Textarea
                         id="message"
                         autoComplete="off"
                         rows={7}
+                        className="bg-white border-slate-300 text-slate-900 placeholder:text-slate-400 focus-visible:ring-cyan-500"
                         {...form.register("message")}
                         aria-invalid={!!form.formState.errors.message}
                       />
@@ -212,13 +218,13 @@ export default function ContactPage() {
                       <label className="flex items-start gap-3 rounded-lg border border-slate-200 p-4 cursor-pointer">
                         <input
                           type="checkbox"
-                          className="mt-1 h-4 w-4"
+                          className="mt-1 h-4 w-4 accent-cyan-600"
                           {...form.register("consent")}
                           aria-invalid={!!form.formState.errors.consent}
                         />
-                        <span className="text-sm text-slate-700 leading-relaxed">
+                        <span className="text-sm text-slate-600 leading-relaxed">
                           個人情報の取り扱いに同意します。送信前に
-                          <a href="/privacy" className="text-slate-900 underline hover:no-underline ml-1">
+                          <a href="/privacy" className="text-cyan-600 underline hover:no-underline ml-1">
                             プライバシーポリシー
                           </a>
                           をご確認ください。
@@ -237,7 +243,7 @@ export default function ContactPage() {
                         <p
                           className={`mb-4 rounded-md px-4 py-3 text-sm ${
                             submitState.type === "success"
-                              ? "bg-green-50 text-green-700 border border-green-200"
+                              ? "bg-emerald-50 text-emerald-700 border border-emerald-200"
                               : "bg-red-50 text-red-700 border border-red-200"
                           }`}
                         >
@@ -249,7 +255,7 @@ export default function ContactPage() {
                     <Button
                       type="submit"
                       disabled={form.formState.isSubmitting}
-                      className="w-full h-12 text-base bg-slate-800 hover:bg-slate-700"
+                      className="w-full h-12 text-base bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white shadow-lg shadow-cyan-600/20"
                     >
                       <Send className="h-4 w-4 mr-2" aria-hidden="true" />
                       {form.formState.isSubmitting ? "送信中…" : "送信する"}

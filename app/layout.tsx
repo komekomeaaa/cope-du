@@ -1,12 +1,22 @@
 import type { Metadata, Viewport } from "next"
 import "./globals.css"
-import { GeistSans } from "geist/font/sans"
-import { GeistMono } from "geist/font/mono"
+import { Sora, DM_Sans } from "next/font/google"
 import { ClientLayout } from "./components/ClientLayout"
 import { siteConfig } from "@/config/site"
 
-const fontSans = GeistSans
-const fontMono = GeistMono
+const fontDisplay = Sora({
+  subsets: ["latin"],
+  variable: "--font-display",
+  weight: ["300", "400", "500", "600", "700"],
+  display: "swap",
+})
+
+const fontBody = DM_Sans({
+  subsets: ["latin"],
+  variable: "--font-body",
+  weight: ["300", "400", "500", "600"],
+  display: "swap",
+})
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://www.cogmiru.com"),
@@ -37,7 +47,7 @@ export const metadata: Metadata = {
 }
 
 export const viewport: Viewport = {
-  themeColor: "#f8f9fb",
+  themeColor: "#f8fafc",
 }
 
 export default function RootLayout({
@@ -63,7 +73,7 @@ export default function RootLayout({
 
   return (
     <html lang="ja" suppressHydrationWarning>
-      <body className={`${fontSans.variable} ${fontMono.variable} antialiased relative`}>
+      <body className={`${fontDisplay.variable} ${fontBody.variable} font-[family-name:var(--font-body)] antialiased relative`}>
         <a
           href="#main-content"
           className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[110] focus:rounded-md focus:bg-white focus:px-4 focus:py-2 focus:text-gray-900 focus:shadow"

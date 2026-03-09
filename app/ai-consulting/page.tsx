@@ -67,32 +67,32 @@ export default function AIConsultingPage() {
       <Header />
 
       <main id="main-content">
-        <section className="pt-12 pb-20 px-4 bg-white/30">
+        <section className="pt-12 pb-20 px-4">
           <div className="max-w-6xl mx-auto text-center">
             <div className="inline-block mb-6">
-              <span className="text-sm font-medium text-slate-700 bg-slate-100 px-4 py-2 rounded-md">
+              <span className="text-sm font-medium text-cyan-700 bg-cyan-50 border border-cyan-200 px-4 py-2 rounded-md">
                 AIコンサルティング
               </span>
             </div>
-            <h1 className="text-5xl md:text-6xl font-light text-slate-900 mb-6 leading-tight text-balance">
+            <h1 className="text-5xl md:text-6xl font-light text-slate-900 mb-6 leading-tight text-balance font-[family-name:var(--font-display)]">
               AI活用を、
               <br className="hidden md:block" />
               現場で回る仕組みにする
             </h1>
-            <p className="text-xl md:text-2xl text-slate-600 leading-relaxed max-w-4xl mx-auto">
+            <p className="text-xl md:text-2xl text-slate-500 leading-relaxed max-w-4xl mx-auto">
               課題の整理から戦略設計、PoC、本格導入まで。机上の提案で終わらない伴走型のコンサルティングを提供します。
             </p>
             <div className="mt-10 flex flex-col sm:flex-row justify-center gap-4">
               <Link
                 href="/contact"
-                className="inline-flex items-center justify-center px-6 py-3 text-base font-medium text-white bg-slate-800 rounded-lg hover:bg-slate-700 transition-colors"
+                className="inline-flex items-center justify-center px-6 py-3 text-base font-medium text-white bg-gradient-to-r from-cyan-600 to-blue-600 rounded-lg hover:from-cyan-500 hover:to-blue-500 transition-all shadow-lg shadow-cyan-600/20"
               >
                 無料相談を予約する
                 <ArrowRight aria-hidden="true" className="ml-2 h-5 w-5" />
               </Link>
               <Link
                 href="/services"
-                className="inline-flex items-center justify-center px-6 py-3 text-base font-medium text-slate-700 bg-slate-100 rounded-lg hover:bg-slate-200 transition-colors"
+                className="inline-flex items-center justify-center px-6 py-3 text-base font-medium text-slate-700 bg-slate-100 border border-slate-200 rounded-lg hover:bg-slate-200 transition-all"
               >
                 事業案内へ戻る
               </Link>
@@ -100,23 +100,23 @@ export default function AIConsultingPage() {
           </div>
         </section>
 
-        <section className="pb-24 px-4 bg-white/30">
+        <section className="pb-24 px-4">
           <div className="max-w-7xl mx-auto">
             <div className="text-center mb-14">
-              <h2 className="text-4xl md:text-5xl font-normal text-slate-900 mb-4 text-balance">
+              <h2 className="text-4xl md:text-5xl font-normal text-slate-900 mb-4 text-balance font-[family-name:var(--font-display)]">
                 コンサルティングの提供価値
               </h2>
-              <p className="text-xl text-slate-600">成果につながる3つの支援領域</p>
+              <p className="text-xl text-slate-500">成果につながる3つの支援領域</p>
             </div>
             <div className="grid md:grid-cols-3 gap-8">
               {valueProps.map((item) => (
-                <Card key={item.title} className="border border-slate-200 shadow-sm bg-white h-full">
+                <Card key={item.title} className="bg-white border border-slate-200/60 shadow-sm h-full">
                   <CardContent className="p-8">
-                    <div className="w-12 h-12 rounded-lg bg-slate-100 flex items-center justify-center mb-6">
-                      <item.Icon aria-hidden="true" className="h-6 w-6 text-slate-700" />
+                    <div className="w-12 h-12 rounded-lg bg-cyan-50 flex items-center justify-center mb-6">
+                      <item.Icon aria-hidden="true" className="h-6 w-6 text-cyan-600" />
                     </div>
-                    <h3 className="text-2xl font-normal text-slate-900 mb-3 text-balance">{item.title}</h3>
-                    <p className="text-slate-600 leading-relaxed">{item.description}</p>
+                    <h3 className="text-2xl font-normal text-slate-900 mb-3 text-balance font-[family-name:var(--font-display)]">{item.title}</h3>
+                    <p className="text-slate-500 leading-relaxed">{item.description}</p>
                   </CardContent>
                 </Card>
               ))}
@@ -124,18 +124,18 @@ export default function AIConsultingPage() {
           </div>
         </section>
 
-        <section className="py-20 px-4 bg-slate-50">
+        <section className="py-20 px-4">
           <div className="max-w-7xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-normal text-slate-900 mb-10 text-center text-balance">
+            <h2 className="text-3xl md:text-4xl font-normal text-slate-900 mb-10 text-center text-balance font-[family-name:var(--font-display)]">
               導入・定着までの進め方
             </h2>
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {processSteps.map((step) => (
-                <Card key={step.step} className="border border-slate-200 shadow-sm bg-white h-full">
+                <Card key={step.step} className="bg-white border border-slate-200/60 shadow-sm h-full">
                   <CardContent className="p-6">
-                    <p className="text-sm font-medium text-slate-500 mb-3">STEP {step.step}</p>
+                    <p className="text-sm font-medium text-cyan-600 mb-3">STEP {step.step}</p>
                     <h3 className="text-xl text-slate-900 mb-3 text-balance">{step.title}</h3>
-                    <p className="text-slate-600 leading-relaxed">{step.description}</p>
+                    <p className="text-slate-500 leading-relaxed">{step.description}</p>
                   </CardContent>
                 </Card>
               ))}
@@ -143,16 +143,16 @@ export default function AIConsultingPage() {
           </div>
         </section>
 
-        <section className="py-20 px-4 bg-white/30">
+        <section className="py-20 px-4">
           <div className="max-w-5xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-normal text-slate-900 mb-8 text-center text-balance">
+            <h2 className="text-3xl md:text-4xl font-normal text-slate-900 mb-8 text-center text-balance font-[family-name:var(--font-display)]">
               期待できる成果
             </h2>
-            <Card className="border border-slate-200 shadow-sm bg-white">
+            <Card className="bg-white border border-slate-200/60 shadow-sm">
               <CardContent className="p-8 grid sm:grid-cols-2 gap-5">
                 {outcomes.map((outcome) => (
-                  <div key={outcome} className="flex items-start gap-3 text-slate-700">
-                    <CheckCircle2 aria-hidden="true" className="h-5 w-5 text-slate-700 mt-0.5 shrink-0" />
+                  <div key={outcome} className="flex items-start gap-3 text-slate-600">
+                    <CheckCircle2 aria-hidden="true" className="h-5 w-5 text-cyan-600 mt-0.5 shrink-0" />
                     <p>{outcome}</p>
                   </div>
                 ))}
@@ -161,21 +161,23 @@ export default function AIConsultingPage() {
           </div>
         </section>
 
-        <section className="py-20 px-4 bg-slate-900">
-          <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-4xl md:text-5xl font-light text-white mb-6 text-balance">
-              次の一手を一緒に設計する
-            </h2>
-            <p className="text-xl text-slate-300 mb-8">
-              まずは現状の業務課題を整理し、どこから始めるべきかを明確にします。
-            </p>
-            <Link
-              href="/contact"
-              className="inline-flex items-center justify-center px-6 py-3 text-base font-medium text-slate-900 bg-white rounded-lg hover:bg-slate-100 transition-colors"
-            >
-              無料相談・資料請求はこちら
-              <ArrowRight aria-hidden="true" className="ml-2 h-5 w-5" />
-            </Link>
+        <section className="py-20 px-4">
+          <div className="max-w-5xl mx-auto rounded-2xl bg-slate-900 p-12 md:p-16">
+            <div className="max-w-4xl mx-auto text-center">
+              <h2 className="text-4xl md:text-5xl font-light text-white mb-6 text-balance font-[family-name:var(--font-display)]">
+                次の一手を一緒に設計する
+              </h2>
+              <p className="text-xl text-slate-400 mb-8">
+                まずは現状の業務課題を整理し、どこから始めるべきかを明確にします。
+              </p>
+              <Link
+                href="/contact"
+                className="inline-flex items-center justify-center px-6 py-3 text-base font-medium text-white bg-gradient-to-r from-cyan-500 to-blue-500 rounded-lg hover:from-cyan-400 hover:to-blue-400 transition-all shadow-lg shadow-cyan-500/20"
+              >
+                無料相談・資料請求はこちら
+                <ArrowRight aria-hidden="true" className="ml-2 h-5 w-5" />
+              </Link>
+            </div>
           </div>
         </section>
       </main>

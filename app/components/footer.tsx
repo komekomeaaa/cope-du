@@ -38,7 +38,7 @@ export function Footer() {
             {/* Brand */}
             <div className="sm:col-span-2 lg:col-span-1">
               <Link href="/" className="inline-block mb-4 sm:mb-6">
-                <span className="text-lg sm:text-xl font-medium text-white">
+                <span className="text-lg sm:text-xl font-medium text-white font-[family-name:var(--font-display)]">
                   {siteConfig.company.name}
                 </span>
               </Link>
@@ -50,7 +50,7 @@ export function Footer() {
             {/* Footer Links */}
             {footerSections.map((section) => (
               <div key={section.title} className="min-w-0">
-                <h3 className="text-sm sm:text-base font-medium text-white mb-3 sm:mb-4">
+                <h3 className="text-sm sm:text-base font-medium text-slate-300 mb-3 sm:mb-4">
                   {section.title}
                 </h3>
                 <ul className="space-y-2 sm:space-y-3">
@@ -58,7 +58,7 @@ export function Footer() {
                     <li key={link.name}>
                       <Link
                         href={link.href}
-                        className="text-sm sm:text-base text-slate-400 hover:text-white transition-colors inline-block py-1"
+                        className="text-sm sm:text-base text-slate-400 hover:text-cyan-400 transition-colors inline-block py-1"
                       >
                         {link.name}
                       </Link>
@@ -71,7 +71,7 @@ export function Footer() {
         </div>
 
         {/* Company Info */}
-        <div className="border-t border-slate-800 py-6">
+        <div className="border-t border-slate-700/30 py-6">
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 text-xs sm:text-sm text-slate-500">
             <div>
               <p className="text-slate-400 font-medium mb-1">所在地</p>
@@ -89,7 +89,7 @@ export function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="border-t border-slate-800 py-5 sm:py-6">
+        <div className="border-t border-slate-700/30 py-5 sm:py-6">
           <div className="flex flex-col sm:flex-row justify-between items-center gap-3 sm:gap-4">
             <p className="text-xs sm:text-sm text-slate-500 text-center sm:text-left">
               &copy; {new Date().getFullYear()} {siteConfig.company.name}. All rights reserved.
@@ -97,13 +97,13 @@ export function Footer() {
             <div className="flex items-center gap-4 sm:gap-6 flex-wrap justify-center">
               <Link
                 href="/privacy"
-                className="text-xs sm:text-sm text-slate-500 hover:text-white transition-colors py-1"
+                className="text-xs sm:text-sm text-slate-500 hover:text-cyan-400 transition-colors py-1"
               >
                 プライバシーポリシー
               </Link>
               <Link
                 href="/terms"
-                className="text-xs sm:text-sm text-slate-500 hover:text-white transition-colors py-1"
+                className="text-xs sm:text-sm text-slate-500 hover:text-cyan-400 transition-colors py-1"
               >
                 利用規約
               </Link>

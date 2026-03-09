@@ -34,7 +34,7 @@ export function BackgroundAnimation() {
     }> = []
 
     const particleCount = 80
-    
+
     // パーティクル生成
     for (let i = 0; i < particleCount; i++) {
       particles.push({
@@ -58,13 +58,13 @@ export function BackgroundAnimation() {
         // パーティクルを描画
         ctx.beginPath()
         ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2)
-        ctx.fillStyle = `rgba(30, 41, 59, ${particle.opacity * 0.4})`
+        ctx.fillStyle = `rgba(8, 145, 178, ${particle.opacity * 0.5})`
         ctx.fill()
 
         // 発光効果
         ctx.beginPath()
         ctx.arc(particle.x, particle.y, particle.size * 2, 0, Math.PI * 2)
-        ctx.fillStyle = `rgba(30, 41, 59, ${particle.opacity * 0.08})`
+        ctx.fillStyle = `rgba(8, 145, 178, ${particle.opacity * 0.12})`
         ctx.fill()
 
         // パーティクルを移動
@@ -87,7 +87,7 @@ export function BackgroundAnimation() {
             ctx.beginPath()
             ctx.moveTo(particle.x, particle.y)
             ctx.lineTo(particles[j].x, particles[j].y)
-            ctx.strokeStyle = `rgba(30, 41, 59, ${0.15 * (1 - distance / 200)})`
+            ctx.strokeStyle = `rgba(8, 145, 178, ${0.18 * (1 - distance / 200)})`
             ctx.lineWidth = 1
             ctx.stroke()
           }
@@ -109,7 +109,7 @@ export function BackgroundAnimation() {
     <canvas
       ref={canvasRef}
       className="fixed inset-0 pointer-events-none z-0"
-      style={{ opacity: 0.6 }}
+      style={{ opacity: 0.5 }}
     />
   )
 }
